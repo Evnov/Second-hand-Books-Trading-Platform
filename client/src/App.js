@@ -1,32 +1,25 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles'
-import Footer from './layout/footer'
-import NavBar from './layout/navbar'
-import Routes from './routes'
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#E4E4E4'
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    marginTop: '5rem',
-  }
-}))
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import { withRouter } from 'react-router';
+import Home from './Pages/Home';
+import Navbar from './Layouts/Navbar';
+// import Footer from './Layouts/Footer';
 
 function App() {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
-      <NavBar />
-      <div className={classes.content}>
-        <Routes />
-      </div>
-      <Footer />
+    <div className="App">
+        <Router basename={process.env.PUBLIC_URL}>
+          <Navbar/>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            {/* <Route exact path="/account" component={Account} /> */}
+          </Switch>
+          {/* <Footer/> */}
+        </Router>
     </div>
   );
 }
