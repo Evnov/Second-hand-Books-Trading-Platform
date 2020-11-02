@@ -1,8 +1,75 @@
-@import '../../default.scss';
+@import '../../Assets/default.scss';
 
 .navbar{
     background-color: $uciBlue;
+    position: absolute;
+    top: 0px;
+    height: 60px;
+    width: 100%;
+    .logo{
+        float: left;
+        color: white;
+        font-size: 36pt;
+        padding: 0 32px 0 32px;
+    }
     .navItem{
-        
+        float: left;
+        color: white;
+        text-decoration: none;
+        line-height: 60px;
+        height: 60px;
+        padding: 0 10px;
+        opacity: 0.8;
+        &:hover{
+            cursor: pointer;
+            opacity: 1;
+        }
+    }
+    .iconWrapper{
+        float: right;
+        margin: 16px 16px 0 0;
+        opacity: 0.8;
+        &:hover{
+            cursor: pointer;
+            opacity: 1;
+        }
+    }
+    .faIcon{
+        width: 25px;
+        height: 25px;
+    }
+    .searchBox{
+        position: absolute;
+        right: 0;
+        margin: 12px 200px 0 0;
+        width: 40%;
+        min-width: 200px;
+        max-width: 600px;
+        height: 60px;
+        .searchInput{
+            float: left;
+            width: 80%;
+            height: 30px;
+            line-height: 30px;
+            padding: 3px 15px;
+            border-bottom-left-radius: 15px;
+            border-top-left-radius: 15px;
+            opacity: 0.9;
+            &:hover, &:focus{
+                opacity: 1;
+            }
+
+        }
+        .searchIconWrapper{
+            float: left;
+            margin-top: 0px;
+            padding: 4px 15px 3px 9px;
+            background-color: #e07a5f;
+            border-bottom-right-radius: 15px;
+            border-top-right-radius: 15px;
+            &:hover{
+                cursor: pointer;
+            }
+        }
     }
 }

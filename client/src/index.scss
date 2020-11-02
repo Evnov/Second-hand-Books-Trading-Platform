@@ -1,3 +1,19 @@
 body{
     margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: rgba(0,0,0,0.87);
+    background-color: #fafafa;
+}
+a {
+    color: inherit; /* blue colors for links too */
+    text-decoration: inherit; /* no underline */
+}
+input{
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    font-size: 14pt;
+    &:focus{
+        outline: none;
+    }
 }

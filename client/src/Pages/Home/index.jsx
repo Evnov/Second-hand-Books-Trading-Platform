@@ -5,24 +5,25 @@ export default class Home extends Component{
 
   render(){
 
-    const catalog = ['Business & Finance', 'Communication & Journalism', 'Computer Science', 'Education', 'Engineering', 'Humanities', 'Law',
-  'Medicine & Health', 'Science & Mathematics', 'Social Sciences'];
+    const catalog = ['Business', 'Communication & Journalism', 'Computer Science', 'Education', 'Engineering', 'Humanities', 'Law',
+  'Medicine', 'Science', 'Social'];
 
     return(
       <div className={styles.home}>
-        <div className={styles.searchBox}>
-          <input className={styles.searchInput}/>
+
+        <div className={styles.carousel}>
+Banner
         </div>
-        <div className={styles.carousel}></div>
 
         <div className={styles.homeModule}>
           <div className={styles.moduleTitle}>Books on sale</div>
-          <div className={styles.bookList}></div>
+          <div className={styles.viewAll}>View All</div>
         </div>
 
         <div className={styles.homeModule}>
           <div className={styles.moduleTitle}>Books rentals</div>
           <div className={styles.bookList}></div>
+          <div className={styles.viewAll}>View All</div>
         </div>
 
         <div className={styles.homeModule}>

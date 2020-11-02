@@ -1,0 +1,50 @@
+.home{
+    margin: 60px 10% 0 10%;
+    padding: 40px 0;
+    height: 100vh;
+    .carousel{
+        position: relative;
+        width: 100%;
+        height: 300px;
+        background-color: #ddd;
+        .test{
+            background-color: cadetblue;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .homeModule{
+        margin-top: 40px;
+        padding: 40px;
+        background-color: white;
+        .moduleTitle{
+            font-size: 28pt;
+        }
+        .test{
+            background-color: cadetblue;
+            width: 100px;
+            height: 140px;
+            margin: 20px;
+        }
+        .cardList{
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 3%;
+            .card{
+                font-size: 20pt;
+                font-weight: bold;
+                width: 200px;
+                height: 140px;
+                line-height: 140px;
+                color: white;
+                background-color: #e07a5f;
+                margin: 20px;
+                padding: 20px;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
