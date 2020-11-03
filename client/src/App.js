@@ -7,6 +7,7 @@ import {
 import { withRouter } from 'react-router';
 import Home from './Pages/Home';
 import Navbar from './Layouts/Navbar';
+import SearchResult from './Pages/Search';
 // import Footer from './Layouts/Footer';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Navbar/>
           <Switch>
             <Route path="/" exact component={Home} />
+            <Route path="/search" exact component={SearchResult} />
             {/* <Route exact path="/account" component={Account} /> */}
           </Switch>
           {/* <Footer/> */}
