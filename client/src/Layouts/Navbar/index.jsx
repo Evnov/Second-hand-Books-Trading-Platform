@@ -24,29 +24,21 @@ class Navbar extends Component {
         console.log(json);
         this.setState({ items });
       })
+      .then(() => {
+        this.props.history.push({
+          pathname: "/search",
+          items: this.state.items,
+          query: this.state.query,
+        });
+        document.getElementById("input").value="";
+      })
       .catch((err) => {
-        alert("Error!", err);
+        alert("Error:", err);
       });
   }
 
   handleSearchClick = () => {
     this.search();
-    var input = document.getElementById("input");
-
-    setTimeout(() => {
-      this.props.history.push({
-        pathname: "/search",
-        items: this.state.items,
-        query: this.state.query,
-      });
-      input.value = "";
-    }, 1000);
-    // if (this.state.items) {
-    //   this.props.history.push({
-    //     pathname: "/search",
-    //     items: this.state.items,
-    //   });
-    // }
   };
 
   render() {
