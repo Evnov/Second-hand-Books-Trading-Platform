@@ -15,7 +15,7 @@ class SearchResult extends Component {
             return (
               <div className={styles.bookDiv} key={index}>
                 <header className={styles.bookTitle}>{title}</header>
-                <footer className={styles.bookIndex}>{index + 1}</footer>
+                <footer className={styles.bookIndex}>Price: ${index + 1}</footer>
               </div>
             );
           })}
