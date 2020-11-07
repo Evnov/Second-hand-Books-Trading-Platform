@@ -2,6 +2,12 @@ package com.bookmall.pojo;
 
 import java.util.Date;
 
+/**
+ * @author ella
+ * @version 1.0
+ * @description: TODO
+ * @date 11/5/20
+ */
 public class Category {
     private Integer id;
 
