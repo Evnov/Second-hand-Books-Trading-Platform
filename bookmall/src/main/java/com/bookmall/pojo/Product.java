@@ -3,6 +3,12 @@ package com.bookmall.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * @author ella
+ * @version 1.0
+ * @description: TODO
+ * @date 11/5/20
+ */
 public class Product {
     private Integer id;
 
