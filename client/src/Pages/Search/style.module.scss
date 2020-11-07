@@ -6,32 +6,73 @@
   height: 100vh;
 
   .books {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    & :hover {
-      cursor: pointer;
-    }
+    margin: 0 auto;
     .bookDiv {
-      position: relative;
-      width: 250px;
-      height: 300px;
+      display: flex;
+      width: 80%;
+      height: 250px;
       background-color: white;
-      box-shadow: 5px 5px #ddd;
+      box-shadow: 5px 5px 6px #ddd;
       border-radius: 10px;
       color: black;
-      margin: 20px;
-      text-align: center;
+      margin: 20px auto;
+      padding: 20px;
+      text-align: left;
       padding: 10px;
-      .bookIndex {
-        width: 250px;
-        position: absolute;
-        bottom: 0;
-        margin-bottom: 10px;
+      .bookImg {
+        width: 150px;
+        height: 200px;
+        margin: auto 20px;
+        background-image: url("./book.jpg");
+        background-size: 100% 100%;
+        border-radius: 5px;
       }
-      .bookTitle {
-        font-size: 18px;
-        font-weight: bold;
+      .bookInfo {
+        flex-grow: 1;
+        margin: 20px;
+        position: relative;
+        .bookTitle {
+          font-size: 22px;
+          font-weight: bold;
+          margin: 10px 0;
+        }
+        .bookAuthor {
+          font-size: 15px;
+          margin: 10px 0;
+          font-weight: bolder;
+        }
+        .bookSection {
+          font-size: 15px;
+          margin: 10px 0;
+        }
+        .bookPrice {
+          font-size: 22px;
+          width: 250px;
+          font-weight: bold;
+          color: rgb(219, 39, 39);
+          margin: 10px 0;
+        }
+      }
+      .bookBtn {
+        padding: 20px;
+        align-self: flex-end;
+        .btn {
+          display: block;
+          margin: 10px 0;
+          width: 200px;
+          height: 40px;
+          border-radius: 10px;
+          border: 3px solid $uciBlue;
+          background-color: white;
+          color: $uciBlue;
+          font-family: "Montserrat", sans-serif;
+          font-size: 16px;
+        }
+        .btn:hover {
+          background-color: $uciBlue;
+          color: white;
+          cursor: pointer;
+        }
       }
     }
   }
