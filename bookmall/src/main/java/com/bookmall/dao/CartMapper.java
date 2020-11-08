@@ -2,6 +2,12 @@ package com.bookmall.dao;
 
 import com.bookmall.pojo.Cart;
 
+/**
+ * @author ella
+ * @version 1.0
+ * @description: TODO
+ * @date 11/5/20
+ */
 public interface CartMapper {
     int deleteByPrimaryKey(Integer id);
 
