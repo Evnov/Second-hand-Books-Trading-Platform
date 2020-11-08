@@ -20,7 +20,7 @@ class Navbar extends Component {
     fetch(`${API_URL}${this.state.query}`)
       .then((response) => response.json())
       .then((json) => {
-        let { items } = json;
+        let { items } = json === null ? [] : json;
         console.log(json);
         this.setState({ items });
       })

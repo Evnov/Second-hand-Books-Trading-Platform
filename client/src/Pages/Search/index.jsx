@@ -22,7 +22,7 @@ class SearchResult extends Component {
                     <div className={styles.bookInfo}>
                       <header className={styles.bookTitle}>{title}</header>
                       <section className={styles.bookAuthor}>
-                        {authors[0] === null ? "" : authors[0]}
+                        {authors === undefined ? "" : authors[0]}
                       </section>
                       <section className={styles.bookPrice}>
                         ${Math.floor(Math.random() * (1000 - 100) + 100) / 100}
