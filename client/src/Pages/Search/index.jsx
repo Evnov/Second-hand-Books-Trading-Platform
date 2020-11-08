@@ -3,18 +3,19 @@ import styles from "./style.module.scss";
 
 class SearchResult extends Component {
   render() {
+    const { items, query, } = this.props.location;
     return (
       <div className={styles.search}>
-        {this.props.location.items.length === 0 ? (
-          <h3>0 searching results for "{this.props.location.query}":</h3>
+        {items.length === 0 ? (
+          <h3>0 searching results for "{query}":</h3>
         ) : (
           <div>
             <h3>
-              {this.props.location.items.length} searching results for "
-              {this.props.location.query}":
+              {items.length} searching results for "
+              {query}":
             </h3>
             <div className={styles.books}>
-              {this.props.location.items.map((item, index) => {
+              {items.map((item, index) => {
                 let { title, authors, publishedDate } = item.volumeInfo;
                 return (
                   <div className={styles.bookDiv} key={index}>
