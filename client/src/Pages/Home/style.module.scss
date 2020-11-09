@@ -7,24 +7,31 @@
         width: 100%;
         height: 300px;
         background-color: #ddd;
-        .test{
+        div{
             background-color: cadetblue;
             width: 100%;
             height: 100%;
         }
+        .banner{
+            width: 100%;
+            height: 300px;
+        }
     }
     .homeModule{
-        margin-top: 40px;
+        margin: 40px 0;
         padding: 40px;
         background-color: white;
+        overflow: hidden;
         .moduleTitle{
             font-size: 28pt;
+            margin-bottom: 20px;
         }
-        .test{
-            background-color: cadetblue;
-            width: 100px;
-            height: 140px;
-            margin: 20px;
+        .viewAll{
+            float: right;
+            margin-top: 20px;
+            &:hover{
+                cursor: pointer;
+            }
         }
         .cardList{
             display: flex;
@@ -46,5 +53,26 @@
                 }
             }
         }
+    }
+}
+.book{
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: start;
+    min-height: 200px;
+    .fakeCover{
+        width: 100px;
+        height: 120px;
+        background-color: aliceblue;
+        margin-bottom: 10px;
+    }
+    .title{
+        height: 40px;
+        overflow: hidden;
+        
+        margin-bottom: 5px;
+    }
+    .price{
+        font-weight: bold;
     }
 }
