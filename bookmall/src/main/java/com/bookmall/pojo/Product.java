@@ -137,4 +137,19 @@ public class Product {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    public void print() {
+        System.out.println("ID: " + this.id);
+        System.out.println("categoryId: " + this.categoryId);
+        System.out.println("title: " + this.title);
+        System.out.println("subtitle: " + this.subtitle);
+        System.out.println("bookImage: " + this.bookImage);
+        System.out.println("descr: " + this.descr);
+        System.out.println("price: " + this.price);
+        System.out.println("stock: " + this.stock);
+        System.out.println("status: " + this.status);
+        System.out.println("createTime: " + this.createTime);
+        System.out.println("updateTime: " + this.updateTime);
+        System.out.print("\n");
+    }
 }

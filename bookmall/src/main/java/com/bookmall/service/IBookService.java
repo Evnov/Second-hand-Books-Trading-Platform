@@ -18,4 +18,6 @@ public interface IBookService {
     ServerResponse addOrUpdateBook(Product product);
 
     ServerResponse<String> setSaleStatus(Integer productId, Integer status);
+
+    String searchByTitle(String title);
 }

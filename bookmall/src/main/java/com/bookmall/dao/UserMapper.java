@@ -3,6 +3,7 @@ package com.bookmall.dao;
 import com.bookmall.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 /**
  * @author ella
@@ -10,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
  * @description: TODO
  * @date 11/5/20
  */
+@Component
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 

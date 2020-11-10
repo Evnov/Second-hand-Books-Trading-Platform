@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import com.alibaba.fastjson.JSON;
 
 import java.util.List;
 
@@ -60,16 +61,21 @@ public class BookServiceImpl implements IBookService {
     }
 
     public ServerResponse<String> setSaleStatus(Integer productId, Integer status) {
-        if(productId == null || status == null){
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        if (productId == null || status == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
         Product product = new Product();
         product.setId(productId);
         product.setStatus(status);
         int rowCount = productMapper.updateByPrimaryKeySelective(product);
-        if(rowCount > 0){
+        if (rowCount > 0) {
             return ServerResponse.createBySuccess("Updated book sale status!");
         }
         return ServerResponse.createByErrorMessage("Cannot update book sale status!");
+    }
+
+    public String searchByTitle(String title) {
+        List<Product> products = productMapper.selectByTitle(title);
+        return JSON.toJSONString(products);
     }
 }

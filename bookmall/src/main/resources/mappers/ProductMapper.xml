@@ -26,6 +26,12 @@
     from mmall_product
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByTitle" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from mmall_product
+    where MATCH (title) AGAINST (#{title,jdbcType=VARCHAR} IN BOOLEAN MODE)
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from mmall_product
     where id = #{id,jdbcType=INTEGER}

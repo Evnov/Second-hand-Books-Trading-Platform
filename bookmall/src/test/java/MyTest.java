@@ -1,13 +1,19 @@
 import com.bookmall.common.ServerResponse;
 import com.bookmall.pojo.Product;
 import com.bookmall.service.IBookService;
+import com.bookmall.dao.ProductMapper;
 import com.bookmall.service.IUserService;
+import com.bookmall.service.impl.BookServiceImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import java.util.List;
 
 import java.util.List;
 
@@ -17,6 +23,8 @@ import java.util.List;
  * @description: TODO
  * @date 11/7/20
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
 public class MyTest {
 
     @Autowired
@@ -40,10 +48,4 @@ public class MyTest {
         System.out.println(test2);
 
     }
-
-    @After
-    public void after() {
-        System.out.println("after");
-    }
-
 }
