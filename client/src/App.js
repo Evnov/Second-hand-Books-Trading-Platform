@@ -4,10 +4,12 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { withRouter } from 'react-router';
+// import { withRouter } from 'react-router';
 import Home from './Pages/Home';
 import Navbar from './Layouts/Navbar';
 import SearchResult from './Pages/Search';
+import Login from './Pages/Login'
+import Signup from './Pages/Signup'
 // import Footer from './Layouts/Footer';
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/search" exact component={SearchResult} />
+            <Route path="/login" exact component={Login} />
+            <Route path="/signup" exact component={Signup} />
             {/* <Route exact path="/account" component={Account} /> */}
           </Switch>
           {/* <Footer/> */}

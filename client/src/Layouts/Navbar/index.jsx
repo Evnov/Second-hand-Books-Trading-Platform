@@ -30,7 +30,7 @@ class Navbar extends Component {
           items: this.state.items,
           query: this.state.query,
         });
-        document.getElementById("input").value="";
+        document.getElementById("input").value = "";
       })
       .catch((err) => {
         alert("Error:", err);
@@ -55,7 +55,9 @@ class Navbar extends Component {
           <Link to="/rental">Rental</Link>
         </div>
         <div className={styles.iconWrapper}>
-          <FaRegUser color="white" className={styles.faIcon} />
+          <Link to="login">
+            <FaRegUser color="white" className={styles.faIcon} />
+          </Link>
         </div>
         <div className={styles.iconWrapper}>
           <FaRegStar color="white" className={styles.faIcon} />
