@@ -6,7 +6,7 @@ class SearchResult extends Component {
     const { items, query, } = this.props.location;
     return (
       <div className={styles.search}>
-        {items.length === 0 ? (
+        {items === undefined ? (
           <h3>0 searching results for "{query}":</h3>
         ) : (
           <div>

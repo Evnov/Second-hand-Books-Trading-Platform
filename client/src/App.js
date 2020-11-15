@@ -10,6 +10,10 @@ import Navbar from './Layouts/Navbar';
 import SearchResult from './Pages/Search';
 import Login from './Pages/Login'
 import Signup from './Pages/Signup'
+import Sale from './Pages/Sale'
+import Rental from './Pages/Rental'
+import Watchlist from './Pages/Watchlist'
+import Message from './Pages/Message'
 // import Footer from './Layouts/Footer';
 
 function App() {
@@ -22,6 +26,10 @@ function App() {
             <Route path="/search" exact component={SearchResult} />
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
+            <Route path="/sale" exact component={Sale} />
+            <Route path="/rental" exact component={Rental} />
+            <Route path="/watchlist" exact component={Watchlist} />
+            <Route path="/message" exact component={Message} />
             {/* <Route exact path="/account" component={Account} /> */}
           </Switch>
           {/* <Footer/> */}
