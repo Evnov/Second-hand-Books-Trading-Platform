@@ -28,29 +28,15 @@ export default function Sale() {
       {display === "list" ? (
         <div className={styles.list}>
           {books.map((item) => {
-            let { id, title, authors, publishedDate } = item;
-            return (
-              <BookList
-                id={id}
-                title={title}
-                authors={authors}
-                publishedDate={publishedDate}
-              />
-            );
+            // let { id, title, authors, publishedDate, started, price } = item;
+            return <BookList item={item} />;
           })}
         </div>
       ) : (
         <div className={styles.container}>
           {books.map((item) => {
-            let { id, title, authors, publishedDate } = item;
-            return (
-              <BookGallery
-                id={id}
-                title={title}
-                authors={authors}
-                publishedDate={publishedDate}
-              />
-            );
+            // let { id, title, authors, publishedDate } = item;
+            return <BookGallery item={item} />;
           })}
         </div>
       )}
