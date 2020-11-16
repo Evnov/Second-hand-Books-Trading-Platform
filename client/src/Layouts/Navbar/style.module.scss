@@ -2,7 +2,8 @@
 
 .navbar{
     background-color: $uciBlue;
-    position: absolute;
+    position: sticky;
+    z-index: 100;
     top: 0px;
     height: 60px;
     width: 100%;

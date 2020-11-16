@@ -6,8 +6,12 @@ import books from "./MockBookList";
 
 export default function Sale() {
   const [display, setDisplay] = useState("list");
+  let saleBooks = books.filter(item => {
+      return item.for === "sale";
+  })
   return (
     <div className={styles.salePage}>
+        <h1>Books On Sale</h1>
       <div className={styles.bar}>
         <form>
           <label>Display as </label>
@@ -27,14 +31,14 @@ export default function Sale() {
       </div>
       {display === "list" ? (
         <div className={styles.list}>
-          {books.map((item) => {
+          {saleBooks.map((item) => {
             // let { id, title, authors, publishedDate, started, price } = item;
             return <BookList item={item} />;
           })}
         </div>
       ) : (
         <div className={styles.container}>
-          {books.map((item) => {
+          {saleBooks.map((item) => {
             // let { id, title, authors, publishedDate } = item;
             return <BookGallery item={item} />;
           })}

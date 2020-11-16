@@ -9,6 +9,7 @@ export default function WatchList() {
   });
   return (
     <div className={styles.watchlistPage}>
+      <h1>WatchList</h1>
       <div className={styles.list}>
         {startBooks.map((item) => {
           // let { id, title, authors, publishedDate, started, price } = item;
