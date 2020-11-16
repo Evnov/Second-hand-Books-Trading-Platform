@@ -20,4 +20,17 @@ public interface IBookService {
     ServerResponse<String> setSaleStatus(Integer productId, Integer status);
 
     String searchByTitle(String title);
+
+    String selectBySubtitle(String subtitle);
+
+    String selectByDesc(String desc);
+
+    String selectByPrice(double low, double high);
+
+    String selectByStatus(Integer status);
+
+    String selectByBookCondition(double book_condition);
+
+    String selectByAttributes(String title, String subtitle, double low, double high, Integer status,
+                              double book_condition);
 }

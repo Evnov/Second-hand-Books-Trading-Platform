@@ -26,6 +26,19 @@ public interface ProductMapper {
 
     List<Product> selectByTitle(String title);
 
+    List<Product> selectBySubtitle(String subtitle);
+
+    List<Product> selectByDesc(String desc);
+
+    List<Product> selectByPrice(double low, double high);
+
+    List<Product> selectByStatus(Integer status);
+
+    List<Product> selectByBookCondition(double book_condition);
+
+    List<Product> selectByAttributes(String title, String subtitle, double low, double high, Integer status,
+                                     double book_condition);
+
     int updateByPrimaryKeySelective(Product record);
 
     int updateByPrimaryKey(Product record);

@@ -78,4 +78,41 @@ public class BookServiceImpl implements IBookService {
         List<Product> products = productMapper.selectByTitle(title);
         return JSON.toJSONString(products);
     }
+
+    @Override
+    public String selectBySubtitle(String subtitle) {
+        List<Product> products = productMapper.selectBySubtitle(subtitle);
+        return JSON.toJSONString(products);
+    }
+
+    @Override
+    public String selectByDesc(String desc) {
+        List<Product> products = productMapper.selectByDesc(desc);
+        return JSON.toJSONString(products);
+    }
+
+    @Override
+    public String selectByPrice(double low, double high) {
+        List<Product> products = productMapper.selectByPrice(low, high);
+        return JSON.toJSONString(products);
+    }
+
+    @Override
+    public String selectByStatus(Integer status) {
+        List<Product> products = productMapper.selectByStatus(status);
+        return JSON.toJSONString(products);
+    }
+
+    @Override
+    public String selectByBookCondition(double book_condition) {
+        List<Product> products = productMapper.selectByBookCondition(book_condition);
+        return JSON.toJSONString(products);
+    }
+
+    @Override
+    public String selectByAttributes(String title, String subtitle, double low, double high, Integer status,
+                                     double book_condition) {
+        List<Product> products = productMapper.selectByAttributes(title, subtitle, low, high, status, book_condition);
+        return JSON.toJSONString(products);
+    }
 }
