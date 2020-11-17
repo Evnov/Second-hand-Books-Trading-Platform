@@ -40,8 +40,8 @@ export default class Home extends Component {
         <div className={styles.homeModule}>
           <div className={styles.moduleTitle}>Books on sale</div>
           <Slider slidesPerRow={4} prevArrow={<div/>} nextArrow={<FaChevronRight color='#666'/>}>
-            {fakebooks.map((book)=>
-              <div className={styles.book}>
+            {fakebooks.map((book, index)=>
+              <div className={styles.book} key={index}>
                 <div className={styles.fakeCover} />
                   <div className={styles.title}>{book.title}</div>
                   <div className={styles.price}>${book.price}</div>
@@ -54,8 +54,8 @@ export default class Home extends Component {
         <div className={styles.homeModule}>
           <div className={styles.moduleTitle}>Books rentals</div>
           <Slider slidesPerRow={4} prevArrow={<div/>} nextArrow={<FaChevronRight color='#666'/>}>
-            {fakebooks.map((book)=>
-              <div className={styles.book}>
+            {fakebooks.map((book, index)=>
+              <div className={styles.book} key={index}>
                 <div className={styles.fakeCover} />
                   <div className={styles.title}>{book.title}</div>
                   <div className={styles.price}>${book.price}</div>

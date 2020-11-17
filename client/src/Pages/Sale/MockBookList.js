@@ -10,6 +10,7 @@ const books = [
         department: "Art",
         for: "sale",
         image: "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/action-thriller-book-cover-design-template-3675ae3e3ac7ee095fc793ab61b812cc_screen.jpg?ts=1588152105",
+        description: "",
     },
     {
         id:2,
@@ -22,6 +23,7 @@ const books = [
         department: "Art",
         for: "sale",
         image: "https://www.creativindie.com/wp-content/uploads/2013/10/Enchantment-Book-Cover-Best-Seller1.jpg",
+        description: "",
     },
     {
         id:3,
@@ -34,6 +36,7 @@ const books = [
         department: "Communication",
         for: "sale",
         image: "https://www.themaddesigntist.com/wp-content/uploads/2018/04/business_bookcover-1.png",
+        description: "",
     },
     {
         id:4,
@@ -46,6 +49,7 @@ const books = [
         department: "Business",
         for: "rent",
         image: "https://cdn.cp.adobe.io/content/2/rendition/0ce69ff9-b2a7-4e2e-9cbe-43e1fd2575c3/artwork/f32f3a60-95b2-4bfd-b415-d8e52a9f6999/version/0/format/jpg/dimension/width/size/300",
+        description: "",
     },
     {
         id:5,
@@ -58,6 +62,7 @@ const books = [
         department: "Business",
         for: "sale",
         image: "https://www.creativindie.com/wp-content/uploads/2013/10/Enchantment-Book-Cover-Best-Seller1.jpg",
+        description: "",
     },
     {
         id:6,
@@ -70,6 +75,7 @@ const books = [
         department: "Business",
         for: "rent",
         image: "https://www.creativindie.com/wp-content/uploads/2013/10/Enchantment-Book-Cover-Best-Seller1.jpg",
+        description: "",
     },
     {
         id:7,
@@ -82,6 +88,7 @@ const books = [
         department: "Business",
         for: "sale",
         image: "https://www.creativindie.com/wp-content/uploads/2013/10/Enchantment-Book-Cover-Best-Seller1.jpg",
+        description: "",
     },
     {
         id:8,
@@ -94,6 +101,7 @@ const books = [
         department: "Business",
         for: "rent",
         image: "https://www.creativindie.com/wp-content/uploads/2013/10/Enchantment-Book-Cover-Best-Seller1.jpg",
+        description: "",
     },
 ];
 

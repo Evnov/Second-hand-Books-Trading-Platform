@@ -22,7 +22,7 @@ export default function Signup() {
     <div className={styles.signup}>
       <form onSubmit={validateForm}>
         <h1>SIGN UP</h1>
-        <label for="email">
+        <label htmlFor="email">
           Email <span className={styles.note}>(please use @uci.edu)</span>
         </label>
         <input
@@ -33,13 +33,13 @@ export default function Signup() {
           required
           onChange={(e) => setEmail(e.target.value)}
         />
-        <label for="firstName">FirstName</label>
+        <label htmlFor="firstName">FirstName</label>
         <input name="firstName" id="firstName" type="text" required />
-        <label for="lastName">LastName</label>
+        <label htmlFor="lastName">LastName</label>
         <input name="lastName" id="lastName" type="text" required />
-        <label for="phone">Phone number</label>
+        <label htmlFor="phone">Phone number</label>
         <input name="phone" id="phone" type="number" required />
-        <label for="password">
+        <label htmlFor="password">
           Password <span className={styles.note}>(at least 6 characters)</span>
         </label>
         <input
@@ -51,7 +51,7 @@ export default function Signup() {
           required
           onChange={(e) => setPassword(e.target.value)}
         />
-        <label for="confirmPassword">Confirm Password</label>
+        <label htmlFor="confirmPassword">Confirm Password</label>
         <input
           name="confirmPassword"
           id="confirmPassword"
@@ -63,7 +63,7 @@ export default function Signup() {
         />
         <input type="submit" value="Submit" data-test="submit" />
         <Link to="/login">
-          <p class={styles.link}>Already have an account? Log in</p>
+          <p className={styles.link}>Already have an account? Log in</p>
         </Link>
       </form>
     </div>

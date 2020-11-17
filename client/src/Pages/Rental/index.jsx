@@ -31,16 +31,16 @@ export default function Rental() {
       </div>
       {display === "list" ? (
         <div className={styles.list}>
-          {saleBooks.map((item) => {
+          {saleBooks.map((item, index) => {
             // let { id, title, authors, publishedDate, started, price } = item;
-            return <BookList item={item} />;
+            return <BookList item={item} key={index} />;
           })}
         </div>
       ) : (
         <div className={styles.container}>
-          {saleBooks.map((item) => {
+          {saleBooks.map((item, index) => {
             // let { id, title, authors, publishedDate } = item;
-            return <BookGallery item={item} />;
+            return <BookGallery item={item} key={index} />;
           })}
         </div>
       )}
