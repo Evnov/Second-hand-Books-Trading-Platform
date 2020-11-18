@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./style.module.scss";
 import { useHistory } from "react-router-dom";
-import Account from "./Account"
+import Account from "./Account";
+import Loading from "../../Component/onLoading";
 // import axios from "axios";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState();
+  const [onFetching, setOnFetching] = useState(false);
   const history = useHistory();
 
   const loggedInUser = localStorage.getItem("user");
@@ -31,6 +33,7 @@ export default function Login() {
   const handelSubmit = async (e) => {
     e.preventDefault();
     const user = { email, password };
+    setOnFetching(true);
     fetch("https://cgf4kyi62h.execute-api.us-west-2.amazonaws.com/test/user", {
       method: "POST",
       headers: {
@@ -40,6 +43,7 @@ export default function Login() {
     })
       .then((response) => response.json())
       .then((data) => {
+        setOnFetching(false);
         let statusCode = data.statusCode;
         if (statusCode === 200) {
           let userinfo = JSON.parse(data.body);
@@ -76,46 +80,51 @@ export default function Login() {
     //
     // }
   };
+  if (onFetching) {
+    return <Loading onLoading={onFetching} />;
+  } else {
+    if (user) {
+      return (
+        <div className={styles.loginPage}>
+          <div>
+            <h1 className={styles.greet}>Hello, {user.name}</h1>
+            <button className={styles.logoutBtn} onClick={handleLogout}>
+              Log out
+            </button>
+            <Account user />
+          </div>
+        </div>
+      );
+    }
 
-  if (user) {
     return (
       <div className={styles.loginPage}>
-        <div>
-          <h1 className={styles.greet}>Hello, {user.name}</h1>
-          <button className={styles.logoutBtn} onClick={handleLogout}>Log out</button>
-          <Account user />
-        </div>
+        <form onSubmit={handelSubmit}>
+          <h1>LOG IN</h1>
+          <label htmlFor="email">
+            Email <span className={styles.note}>(please use @uci.edu)</span>
+          </label>
+          <input
+            name="email"
+            id="emial"
+            type="email"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <label htmlFor="password">Password</label>
+          <input
+            name="password"
+            id="password"
+            type="password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input type="submit" value="Log in" data-test="submit" />
+          <Link to="/signup">
+            <p className={styles.link}>Create an account</p>
+          </Link>
+        </form>
       </div>
     );
   }
-
-  return (
-    <div className={styles.loginPage}>
-      <form onSubmit={handelSubmit}>
-        <h1>LOG IN</h1>
-        <label htmlFor="email">
-          Email <span className={styles.note}>(please use @uci.edu)</span>
-        </label>
-        <input
-          name="email"
-          id="emial"
-          type="email"
-          required
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          name="password"
-          id="password"
-          type="password"
-          required
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input type="submit" value="Log in" data-test="submit" />
-        <Link to="/signup">
-          <p className={styles.link}>Create an account</p>
-        </Link>
-      </form>
-    </div>
-  );
 }

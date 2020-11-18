@@ -24,7 +24,7 @@ function App() {
           <Navbar/>
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/search" exact component={SearchResult} />
+            <Route path="/search/:query" exact component={SearchResult} />
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
             <Route path="/sale" exact component={Sale} />
