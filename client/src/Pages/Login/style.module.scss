@@ -64,4 +64,21 @@
   .link:hover {
     text-decoration: underline;
   }
+  .greet{
+    display: inline;
+  }
+  .logoutBtn{
+    float: right;
+    margin: 0 10px;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid $uciBlue;
+    background-color: none;
+    color: $uciBlue;
+    font-size: 18px;
+    &:hover{
+      cursor: pointer;
+    }
+  }
 }

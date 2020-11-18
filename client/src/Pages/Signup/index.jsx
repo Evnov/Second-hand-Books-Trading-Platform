@@ -7,20 +7,69 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    phone: "",
+  });
+
   const history = useHistory();
 
-  function validateForm() {
-    if (password.length > 6 && password === confirmPassword) {
-      alert("singup success!");
-      history.push("/");
+  function emailValidator() {
+    let regex = /[\w\d]+(@uci\.edu)$/;
+    if (regex.test(email)) {
+      return true;
     } else {
-      alert("fail to sign up");
+      alert("please use @uci.edu!");
+      return false;
+    }
+  }
+
+  function passwordValidator() {
+    if (password.length > 6 && password === confirmPassword) {
+      return true;
+    } else {
+      alert("please check your password!");
+      return false;
+    }
+  }
+
+  function handleSubmit() {
+    if (emailValidator() && passwordValidator()) {
+      let userInfo = user;
+      userInfo.email = email;
+      userInfo.password = password;
+      fetch(
+        "https://cgf4kyi62h.execute-api.us-west-2.amazonaws.com/test/user",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          let statusCode = data.statusCode;
+          if (statusCode === 200) {
+            let response = JSON.parse(data.body);
+            console.log("Success:", response);
+            history.push("/login");
+          } else {
+            throw new Error(statusCode);
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert(error);
+        });
     }
   }
 
   return (
     <div className={styles.signup}>
-      <form onSubmit={validateForm}>
+      <form onSubmit={handleSubmit}>
         <h1>SIGN UP</h1>
         <label htmlFor="email">
           Email <span className={styles.note}>(please use @uci.edu)</span>
@@ -29,16 +78,34 @@ export default function Signup() {
           name="email"
           id="emial"
           type="email"
-          pattern="[\w\d]+(@uci\.edu)$"
+          // pattern="[\w\d]+(@uci\.edu)$"
           required
           onChange={(e) => setEmail(e.target.value)}
         />
         <label htmlFor="firstName">FirstName</label>
-        <input name="firstName" id="firstName" type="text" required />
+        <input
+          name="firstName"
+          id="firstName"
+          type="text"
+          required
+          onChange={(e) => setUser({ firstName: e.target.value })}
+        />
         <label htmlFor="lastName">LastName</label>
-        <input name="lastName" id="lastName" type="text" required />
+        <input
+          name="lastName"
+          id="lastName"
+          type="text"
+          required
+          onChange={(e) => setUser({ lastName: e.target.value })}
+        />
         <label htmlFor="phone">Phone number</label>
-        <input name="phone" id="phone" type="number" required />
+        <input
+          name="phone"
+          id="phone"
+          type="number"
+          required
+          onChange={(e) => setUser({ phone: e.target.value })}
+        />
         <label htmlFor="password">
           Password <span className={styles.note}>(at least 6 characters)</span>
         </label>

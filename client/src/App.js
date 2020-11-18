@@ -14,6 +14,7 @@ import Sale from './Pages/Sale'
 import Rental from './Pages/Rental'
 import Watchlist from './Pages/Watchlist'
 import Message from './Pages/Message'
+import BookDetail from './Pages/BookDetail'
 // import Footer from './Layouts/Footer';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             <Route path="/rental" exact component={Rental} />
             <Route path="/watchlist" exact component={Watchlist} />
             <Route path="/message" exact component={Message} />
+            <Route path="/bookdetail/:bookID" exact component={BookDetail} />
             {/* <Route exact path="/account" component={Account} /> */}
           </Switch>
           {/* <Footer/> */}

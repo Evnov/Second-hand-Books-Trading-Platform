@@ -1,6 +1,6 @@
 @import "../../Assets/default.scss";
 
-.watchlistPage {
+.bookdetailPage {
   margin: 10px 10% 0 10%;
   padding: 40px 0;
   height: 100vh;
@@ -9,7 +9,7 @@
     text-align: center;
   }
   .link {
-    text-decoration: underline;
     color: $uciBlue;
+    text-decoration: underline;
   }
 }

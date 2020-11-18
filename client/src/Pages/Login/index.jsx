@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./style.module.scss";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+import Account from "./Account"
+// import axios from "axios";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -30,21 +31,45 @@ export default function Login() {
   const handelSubmit = async (e) => {
     e.preventDefault();
     const user = { email, password };
-    const response = await axios.post(
-      "https://cgf4kyi62h.execute-api.us-west-2.amazonaws.com/test/user",
-      user
-    );
-    if (response.data.statusCode === 200) {
-      setUser(JSON.parse(response.data.body));
-      console.log(JSON.parse(response.data.body));
-      localStorage.setItem(
-        "user",
-        JSON.stringify(JSON.parse(response.data.body))
-      );
-      history.push("/");
-    } else {
-      alert("wrong email address or password");
-    }
+    fetch("https://cgf4kyi62h.execute-api.us-west-2.amazonaws.com/test/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        let statusCode = data.statusCode;
+        if (statusCode === 200) {
+          let userinfo = JSON.parse(data.body);
+          console.log("Success:", userinfo);
+          setUser(userinfo);
+          localStorage.setItem("user", JSON.stringify(userinfo));
+          history.push("/");
+        } else {
+          throw new Error(statusCode);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    // const response = await axios.post(
+    //   "https://cgf4kyi62h.execute-api.us-west-2.amazonaws.com/test/user",
+    //   user
+    // );
+    // if (response.data.statusCode === 200) {
+    //   setUser(JSON.parse(response.data.body));
+    //   console.log(JSON.parse(response.data.body));
+    //   localStorage.setItem(
+    //     "user",
+    //     JSON.stringify(JSON.parse(response.data.body))
+    //   );
+    //   history.push("/");
+    // } else {
+    //   alert("wrong email address or password");
+    // }
 
     // if (email.length > 0 && password.length > 0) {
     //   alert("Log In Successfully!");
@@ -56,8 +81,9 @@ export default function Login() {
     return (
       <div className={styles.loginPage}>
         <div>
-          {user.name} is Logged in
-          <button onClick={handleLogout}>Log out</button>
+          <h1 className={styles.greet}>Hello, {user.name}</h1>
+          <button className={styles.logoutBtn} onClick={handleLogout}>Log out</button>
+          <Account user />
         </div>
       </div>
     );
