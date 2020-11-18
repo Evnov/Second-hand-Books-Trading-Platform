@@ -43,7 +43,6 @@ export default function BookList(props) {
         {/* <button className={styles.btn}>Add to Cart</button> */}
         {inWatchList ? (
           <button className={styles.btn} onClick={handleClick}>
-            {" "}
             Remove from WatchList
           </button>
         ) : (
