@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
 
 export default function BookList(props) {
   const [inWatchList, setInWatchList] = useState(props.item.started);
+  const [user, setUser] = useState()
+
+  const loggedInUser = localStorage.getItem("user");
+  useEffect(() => {
+    if (loggedInUser) {
+      console.log(JSON.parse(loggedInUser));
+      const foundUser = JSON.parse(loggedInUser);
+      setUser(foundUser);
+    }
+  }, [loggedInUser]);
 
   function handleClick() {
     setInWatchList(!inWatchList);

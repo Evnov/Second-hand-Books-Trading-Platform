@@ -13,13 +13,13 @@ class Navbar extends Component {
     this.state = {
       query: "",
       items: [],
-      onFetching: false,
+      // onFetching: false,
     };
   }
 
   search() {
     const API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
-    this.setState({ onFetching: true });
+    // this.setState({ onFetching: true });
     fetch(`${API_URL}${this.state.query}`)
       .then((response) => response.json())
       .then((json) => {
@@ -28,7 +28,7 @@ class Navbar extends Component {
         this.setState({ items });
       })
       .then(() => {
-        this.setState({ onFetching: false });
+        // this.setState({ onFetching: false });
         this.props.history.push({
           pathname: "/search/" + this.state.query,
           items: this.state.items,

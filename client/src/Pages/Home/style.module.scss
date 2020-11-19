@@ -1,7 +1,7 @@
 .home{
     margin: 10px 10% 0 10%;
     padding: 40px 0;
-    height: 100vh;
+    min-height: 100vh;
     .carousel{
         position: relative;
         width: 100%;
@@ -76,3 +76,6 @@
         font-weight: bold;
     }
 }
+.gap {
+    height: 200px;
+  }

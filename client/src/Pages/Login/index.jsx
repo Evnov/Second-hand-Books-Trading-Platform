@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./style.module.scss";
 import { useHistory } from "react-router-dom";
-import Account from "./Account";
+import Profile from "../Profile";
 import Loading from "../../Component/onLoading";
 // import axios from "axios";
 
@@ -91,8 +91,9 @@ export default function Login() {
             <button className={styles.logoutBtn} onClick={handleLogout}>
               Log out
             </button>
-            <Account user />
+            <Profile user />
           </div>
+          <div className={styles.gap}></div>
         </div>
       );
     }

@@ -1,0 +1,23 @@
+@import "../../Assets/default.scss";
+
+.navbar {
+  width: 20rem;
+  margin-top: 5rem;
+  button {
+    display: block;
+    width: 12rem;
+    height: 50px;
+    border: 2px solid ;
+    border-radius: 5px;
+    margin: 10px auto;
+    font-family: "Montserrat", sans-serif;
+    font-size: 18px;
+    // color: $uciBlue;
+    background-color: #fafafa;
+    &:hover {
+      cursor: pointer;
+      border: 4px solid ;
+      font-weight: bold;
+    }
+  }
+}

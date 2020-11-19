@@ -73,6 +73,7 @@ export default class Home extends Component {
             ))}
           </div>
         </div>
+        <div className={styles.gap}></div>
       </div>
     );
   }

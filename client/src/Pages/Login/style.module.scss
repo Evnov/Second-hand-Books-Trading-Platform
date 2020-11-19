@@ -3,7 +3,7 @@
 .loginPage {
   margin: 10px 10% 0 10%;
   padding: 40px 0;
-  height: 100vh;
+  min-height: 100vh;
   form {
     margin: auto;
     padding: 20px 10px;
@@ -64,21 +64,25 @@
   .link:hover {
     text-decoration: underline;
   }
-  .greet{
+  .greet {
     display: inline;
   }
-  .logoutBtn{
+  .logoutBtn {
     float: right;
     margin: 0 10px;
     width: 100px;
     height: 30px;
     border-radius: 5px;
     border: 1px solid $uciBlue;
+    background-color: #fafafa;
     background-color: none;
     color: $uciBlue;
     font-size: 18px;
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
+  }
+  .gap {
+    height: 200px;
   }
 }

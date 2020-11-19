@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import { useParams, Link } from "react-router-dom";
-import books from "../Sale/MockBookList";
+import books from "../../Component/MockBookList";
 
 export default function BookDetail() {
   const { bookID } = useParams();
   const [user, setUser] = useState();
   const [inWatchList, setInWatchList] = useState(false);
 
-  const loggedInUser = localStorage.getItem("user");
-
   const book = books.filter((item) => item.id == bookID)[0];
   console.log(book);
 
+  const loggedInUser = localStorage.getItem("user");
   useEffect(() => {
     if (loggedInUser) {
       console.log(JSON.parse(loggedInUser));

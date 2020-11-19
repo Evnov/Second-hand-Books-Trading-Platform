@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./style.module.scss";
 import BookGallery from "../../Layouts/BookGallery";
 import BookList from "../../Layouts/BookList";
-import books from "../Sale/MockBookList";
+import books from "../../Component/MockBookList";
 
 export default function Rental() {
   const [display, setDisplay] = useState("list");
@@ -44,6 +44,7 @@ export default function Rental() {
           })}
         </div>
       )}
+      <div className={styles.gap}></div>
     </div>
   );
 }
