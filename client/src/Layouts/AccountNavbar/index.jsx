@@ -14,7 +14,7 @@ function AccountNavbar() {
       <Link>
         <button> Your Booklist </button>
       </Link>
-      <Link>
+      <Link to="/message">
         <button> Your Message </button>
       </Link>
     </div>
