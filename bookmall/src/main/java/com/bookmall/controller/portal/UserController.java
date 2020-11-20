@@ -27,16 +27,16 @@ public class UserController {
     private IUserService iUserService;
     /**
      * user login
-     * @param username
+     * @param email
      * @param password
      * @param session
      * @return
      */
     @RequestMapping(value = "login.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<User> login(String username, String password, HttpSession session) {
+    public ServerResponse<User> login(String email, String password, HttpSession session) {
         //service ---> mybatis ----> dao
-        ServerResponse<User> response = iUserService.login(username, password);
+        ServerResponse<User> response = iUserService.login(email, password);
         if(response.isSuccess()){
             session.setAttribute(Const.CURRENT_USER, response.getData());
         }

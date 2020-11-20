@@ -2,6 +2,8 @@ package com.bookmall.dao;
 
 import com.bookmall.pojo.Product;
 
+import java.util.List;
+
 /**
  * @author ella
  * @version 1.0
@@ -20,4 +22,6 @@ public interface ProductMapper {
     int updateByPrimaryKeySelective(Product record);
 
     int updateByPrimaryKey(Product record);
+
+    List<Product> getAllBooks();
 }

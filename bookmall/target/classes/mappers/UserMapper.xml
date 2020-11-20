@@ -163,7 +163,7 @@
     select
     <include refid="Base_Column_List" />
     from mmall_user
-    where username = #{username}
+    where email = #{email}
     and password = #{password}
   </select>
   <select id="selectQuestionByUsername" resultType="string" parameterType="string">
