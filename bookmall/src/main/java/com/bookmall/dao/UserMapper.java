@@ -28,7 +28,7 @@ public interface UserMapper {
 
     int checkUserEmail(String email);
 
-    User selectLogin(@Param("username")String username, @Param("password")String password);
+    User selectLogin(@Param("email")String email, @Param("password")String password);
 
     String selectQuestionByUsername(String username);
 

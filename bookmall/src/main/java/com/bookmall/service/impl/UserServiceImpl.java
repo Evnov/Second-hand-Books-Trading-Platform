@@ -29,15 +29,15 @@ public class UserServiceImpl implements IUserService {
     private UserMapper userMapper;
 
     @Override
-    public ServerResponse<User> login(String username, String password) {
-        int resultCount = userMapper.checkUsername(username);
+    public ServerResponse<User> login(String email, String password) {
+        int resultCount = userMapper.checkUserEmail(email);
         if (resultCount == 0) {
             return ServerResponse.createByErrorMessage("User doesn't exist!");
         }
 
         //todo MD5
         //String md5Password = MD5Util.MD5EncodeUtf8(password);
-        User user = userMapper.selectLogin(username, password);
+        User user = userMapper.selectLogin(email, password);
         if (user == null) {
             return ServerResponse.createByErrorMessage("Wrong Password!");
         }
