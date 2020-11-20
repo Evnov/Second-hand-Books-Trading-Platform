@@ -1,23 +1,34 @@
 @import "../../Assets/default.scss";
 
-.navbar {
-  width: 20rem;
-  margin-top: 5rem;
-  button {
-    display: block;
-    width: 12rem;
-    height: 50px;
-    border: 2px solid ;
-    border-radius: 5px;
-    margin: 10px auto;
-    font-family: "Montserrat", sans-serif;
-    font-size: 18px;
-    // color: $uciBlue;
-    background-color: #fafafa;
-    &:hover {
-      cursor: pointer;
-      border: 3px solid ;
-      font-weight: bolder;
-    }
+.sidebar{
+  font-family: "Montserrat", sans-serif;
+  width: 250px;
+  margin-right: 50px;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  height: 300px;
+  background-color: #fff;
+  border: solid 1px #e1e4e8;
+  border-radius: 10px;
+  .menuitem{
+      width: calc(100%-20px);
+      background-color: #fff;
+      height: 50px;
+      line-height: 50px;
+      border-bottom: solid 1px #e1e4e8;
+      font-size: 18pt;
+      padding-left: 20px;
+      user-select: none;
+      &:hover{
+          background-color: #f9f9f9;
+          cursor: pointer;
+      }
+      &:first-child{
+          padding-top: 20px;
+      }
+  }
+  .selected{
+      color: steelblue;
   }
 }

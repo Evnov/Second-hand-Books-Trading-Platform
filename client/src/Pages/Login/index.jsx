@@ -1,8 +1,6 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import styles from "./style.module.scss";
 import { useHistory } from "react-router-dom";
-import Profile from "../Profile";
 import Loading from "../../Component/onLoading";
 import { AuthContext } from "../../App";
 // import axios from "axios";
@@ -20,12 +18,6 @@ export default function Login() {
   const [onFetching, setOnFetching] = useState(false);
   const {state, dispatch} = useContext(AuthContext);
   const history = useHistory();
-
-  const handleLogout = () => {
-    setEmail("");
-    setPassword("");
-    dispatch({type:'LOGOUT'});
-  };
 
   function emailValidator() {
     let regex = /[\w\d]+(@uci\.edu)$/;
@@ -162,7 +154,7 @@ export default function Login() {
             required
             onChange={(e) => setEmail(e.target.value)}
           />
-          {onlogin?'':<div>
+          {!onlogin&&<div>
           <label htmlFor="firstName">FirstName</label>
             <input
               name="firstName"
@@ -196,7 +188,7 @@ export default function Login() {
             required
             onChange={(e) => setPassword(e.target.value)}
           />
-          {onlogin?'':<div>
+          {!onlogin&&<div>
             <label htmlFor="confirmPassword">Confirm Password</label>
             <input
               name="confirmPassword"

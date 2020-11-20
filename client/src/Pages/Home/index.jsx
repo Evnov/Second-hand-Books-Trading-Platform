@@ -30,16 +30,16 @@ export default class Home extends Component {
     return (
       <div className={styles.home}>
         <div className={styles.carousel}>
-        <Slider arrows={false} autoplay={true}>
+        {/* <Slider arrows={false} autoplay={true}> */}
             <img className={styles.banner} src={b1} />
-            <img className={styles.banner} src={b2} />
-            <img className={styles.banner} src={b3} />
-        </Slider>
+            {/* <img className={styles.banner} src={b2} />
+            <img className={styles.banner} src={b3} /> */}
+        {/* </Slider> */}
         </div>
 
         <div className={styles.homeModule}>
           <div className={styles.moduleTitle}>Books on sale</div>
-          <Slider slidesPerRow={4} prevArrow={<div/>} nextArrow={<FaChevronRight color='#666'/>}>
+          {/* <Slider slidesPerRow={4} prevArrow={<div/>} nextArrow={<FaChevronRight color='#666'/>}>
             {fakebooks.map((book, index)=>
               <div className={styles.book} key={index}>
                 <div className={styles.fakeCover} />
@@ -47,13 +47,13 @@ export default class Home extends Component {
                   <div className={styles.price}>${book.price}</div>
               </div>
             )}
-          </Slider>
+          </Slider> */}
           <div className={styles.viewAll}>View All</div>
         </div>
 
         <div className={styles.homeModule}>
           <div className={styles.moduleTitle}>Books rentals</div>
-          <Slider slidesPerRow={4} prevArrow={<div/>} nextArrow={<FaChevronRight color='#666'/>}>
+          {/* <Slider slidesPerRow={4} prevArrow={<div/>} nextArrow={<FaChevronRight color='#666'/>}>
             {fakebooks.map((book, index)=>
               <div className={styles.book} key={index}>
                 <div className={styles.fakeCover} />
@@ -61,7 +61,7 @@ export default class Home extends Component {
                   <div className={styles.price}>${book.price}</div>
               </div>
             )}
-          </Slider>
+          </Slider> */}
           <div className={styles.viewAll}>View All</div>
         </div>
 

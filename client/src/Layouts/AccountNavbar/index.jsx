@@ -1,22 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 import styles from "./style.module.scss";
 
 function AccountNavbar() {
+  const addr = window.location.href.split("/").pop();
+  const index = ['profile','watchlist',''].indexOf(addr);
   return (
-    <div className={styles.navbar}>
-      <Link to="/login">
-        <button> Your Profile </button>
-      </Link>
-      <Link to="/watchlist">
-        <button> Your Watchlist </button>
-      </Link>
-      <Link>
-        <button> Your Booklist </button>
-      </Link>
-      <Link to="/message">
-        <button> Your Message </button>
-      </Link>
+    <div className={styles.sidebar}>
+      <Link to="/profile"><div className={styles.menuitem+` ${index===0?styles.selected:''}`}>Profile</div></Link>
+      <Link to="/watchlist"><div className={styles.menuitem+` ${index===1?styles.selected:''}`}>Watchlist</div></Link>
+      <Link><div className={styles.menuitem+` ${index===2?styles.selected:''}`}>Bookshelf</div></Link>
     </div>
   );
 }

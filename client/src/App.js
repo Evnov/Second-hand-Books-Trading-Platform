@@ -11,7 +11,7 @@ import Rental from "./Pages/Rental";
 import Watchlist from "./Pages/Watchlist";
 import Message from "./Pages/Message";
 import BookDetail from "./Pages/BookDetail";
-// import Profile from "./Pages/Profile"
+import Profile from "./Pages/Profile"
 
 export const AuthContext = React.createContext();
 
@@ -20,9 +20,16 @@ const iniState = { user: null };
 function reducer(state, action) {
   switch(action.type){
     case 'LOGIN':
+      localStorage.setItem("user", JSON.stringify(action.data));
       return { user: action.data };
     case 'LOGOUT':
+      localStorage.clear();
       return { user: null };
+    case 'UPDATE':
+      return { user: action.data };
+    case 'CHECK_CACHE':
+      const usernow = JSON.parse(localStorage.getItem("user"));
+      return { user: usernow };
     default:
       return iniState;
   }
@@ -44,7 +51,7 @@ function App() {
           <Route path="/watchlist" exact component={Watchlist} />
           <Route path="/message" exact component={Message} />
           <Route path="/bookdetail/:bookID" exact component={BookDetail} />
-          {/* <Route path="/profile" exact component={Profile} /> */}
+          <Route path="/profile" exact component={Profile} />
         </Switch>
         <Footer />
       </Router>

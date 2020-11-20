@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styles from "./style.module.scss";
 import { FaRegStar, FaRegUser, FaRegBell } from "react-icons/fa";
@@ -11,8 +11,13 @@ export default function Navbar(props) {
   const [query, setQuery] = useState();
   const [items, setItems] = useState();
   const history = useHistory();
-  const {state} = useContext(AuthContext);
+  const { state, dispatch } = useContext(AuthContext);
   console.log(state.user);
+  useEffect(() => {
+    if(!state.user){
+      dispatch({type: 'CHECK_CACHE'});
+    }
+  }, []);
 
   const search = () => {
     const API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
@@ -52,7 +57,7 @@ export default function Navbar(props) {
     </div>
       {state.user?
           <div className={styles.iconWrapper}>
-          <Link to="/login">
+          <Link to="/profile">
             <FaRegUser color="white" className={styles.faIcon} />
           </Link>
         </div>
