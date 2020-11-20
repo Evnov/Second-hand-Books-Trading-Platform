@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import { withRouter } from 'react-router';
 import Home from "./Pages/Home";
@@ -14,9 +14,26 @@ import Message from "./Pages/Message";
 import BookDetail from "./Pages/BookDetail";
 // import Profile from "./Pages/Profile"
 
+export const AuthContext = React.createContext();
+
+const iniState = { user: null };
+
+function reducer(state, action) {
+  switch(action.type){
+    case 'LOGIN':
+      return { user: action.data };
+    case 'LOGOUT':
+      return { user: null };
+    default:
+      return iniState;
+  }
+}
+
 function App() {
+  const [state, dispatch] = useReducer(reducer, iniState);
   return (
     <div className="App">
+      <AuthContext.Provider value={{ state, dispatch }}>
       <Router basename={process.env.PUBLIC_URL}>
         <Navbar />
         <Switch>
@@ -33,6 +50,7 @@ function App() {
         </Switch>
         <Footer />
       </Router>
+      </AuthContext.Provider>
     </div>
   );
 }

@@ -22,7 +22,7 @@ export default function Message() {
         <h2>
           Please{" "}
           <Link to="/login" className={styles.link}>
-            log in
+            Sign in
           </Link>{" "}
           to get your message.
         </h2>

@@ -130,7 +130,7 @@ export default function Signup() {
         />
         <input type="submit" value="Submit" data-test="submit" />
         <Link to="/login">
-          <p className={styles.link}>Already have an account? Log in</p>
+          <p className={styles.link}>Already have an account? Sign in</p>
         </Link>
       </form>
     </div>

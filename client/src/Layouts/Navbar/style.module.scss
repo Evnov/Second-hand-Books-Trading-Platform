@@ -35,6 +35,16 @@
             opacity: 1;
         }
     }
+    .signin{
+        float: right;
+        margin: 16px 16px 0 0;
+        color: white;
+        line-height: 20pt;
+        user-select: none;
+        &:hover{
+            cursor: pointer;
+        }
+    }
     .faIcon{
         width: 25px;
         height: 25px;

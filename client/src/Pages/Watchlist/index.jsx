@@ -32,7 +32,7 @@ export default function WatchList() {
           <h2>
             Please{" "}
             <Link to="/login" className={styles.link}>
-              log in
+              Sign in
             </Link>
             .
           </h2>

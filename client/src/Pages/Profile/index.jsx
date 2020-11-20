@@ -32,7 +32,7 @@ export default function Profile(props) {
             <label htmlFor="email">Email</label>
             <input
               name="email"
-              id="emial"
+              id="email"
               type="email"
               required
               disabled

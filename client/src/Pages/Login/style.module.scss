@@ -60,9 +60,11 @@
     text-align: center;
     color: $uciBlue;
     font-size: 15px;
+    user-select: none;
   }
   .link:hover {
     text-decoration: underline;
+    cursor: pointer;
   }
   .greet {
     display: inline;
