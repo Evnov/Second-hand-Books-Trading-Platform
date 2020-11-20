@@ -130,4 +130,14 @@ public class UserController {
         }
         return iUserService.getInformation(currentUser.getId());
     }
+
+    @RequestMapping(value = "watch_list.do",method = RequestMethod.POST )
+    @ResponseBody
+    public ServerResponse<User> watch_list(HttpSession session){
+        User currentUser = (User)session.getAttribute(Const.CURRENT_USER);
+        if(currentUser == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"Not login, need login status=10");
+        }
+        return iUserService.getWatchList(currentUser.getId());
+    }
 }

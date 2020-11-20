@@ -11,8 +11,6 @@ import com.bookmall.pojo.User;
  */
 public interface IUserService {
 
-    String hello();
-
     ServerResponse<User> login(String username, String password);
 
     ServerResponse<String> register(User user);
@@ -30,4 +28,6 @@ public interface IUserService {
     ServerResponse<User> updateInformation(User user);
 
     ServerResponse<User> getInformation(Integer userId);
+
+    ServerResponse<User> getWatchList(Integer userId);
 }

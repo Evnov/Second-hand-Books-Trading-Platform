@@ -9,6 +9,7 @@ import com.bookmall.service.IUserService;
 import com.bookmall.util.MD5Util;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -20,15 +21,12 @@ import java.util.UUID;
  * @date 11/6/20
  */
 @Service("iUserService")
+@Component
 public class UserServiceImpl implements IUserService {
 
     // Service层调dao层
     @Autowired
     private UserMapper userMapper;
-
-    public String hello(){
-        return "hello! test!";
-    }
 
     @Override
     public ServerResponse<User> login(String username, String password) {
@@ -38,8 +36,8 @@ public class UserServiceImpl implements IUserService {
         }
 
         //todo MD5
-        String md5Password = MD5Util.MD5EncodeUtf8(password);
-        User user = userMapper.selectLogin(username, md5Password);
+        //String md5Password = MD5Util.MD5EncodeUtf8(password);
+        User user = userMapper.selectLogin(username, password);
         if (user == null){
             return ServerResponse.createByErrorMessage("Wrong Password!");
         }
@@ -80,7 +78,8 @@ public class UserServiceImpl implements IUserService {
         user.setRole(Const.Role.ROLE_CUSTOMER);
 
         //MD5加密
-        user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
+        //user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
+        user.setPassword(user.getPassword());
         int resultCount = userMapper.insert(user);
         if(resultCount == 0) {
             return ServerResponse.createByErrorMessage("Register fail!");
@@ -113,9 +112,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     public ServerResponse<String> forgetResetPassword(String username, String passwordNew, String forgetToken){
-        if(org.apache.commons.lang3.StringUtils.isNotBlank(forgetToken)){
-            return ServerResponse.createByErrorMessage("Wrong token, need correct token!");
-        }
+//        if(org.apache.commons.lang3.StringUtils.isNotBlank(forgetToken)){
+//            return ServerResponse.createByErrorMessage("Wrong token, need correct token!");
+//        }
         ServerResponse validResponse = this.checkValid(username,Const.USERNAME);
         if(validResponse.isSuccess()){
             //用户不存在
@@ -127,8 +126,8 @@ public class UserServiceImpl implements IUserService {
         }
 
         if(org.apache.commons.lang3.StringUtils.equals(forgetToken,token)){
-            String md5Password  = MD5Util.MD5EncodeUtf8(passwordNew);
-            int rowCount = userMapper.updatePasswordByUsername(username,md5Password);
+            //String md5Password  = MD5Util.MD5EncodeUtf8(passwordNew);
+            int rowCount = userMapper.updatePasswordByUsername(username,passwordNew);
 
             if(rowCount > 0){
                 return ServerResponse.createBySuccessMessage("Password changed successfully!");
@@ -140,12 +139,14 @@ public class UserServiceImpl implements IUserService {
     }
 
     public ServerResponse<String> resetPassword(String passwordOld,String passwordNew,User user){
-        int resultCount = userMapper.checkPassword(MD5Util.MD5EncodeUtf8(passwordOld),user.getId());
+        //int resultCount = userMapper.checkPassword(MD5Util.MD5EncodeUtf8(passwordOld),user.getId());
+        int resultCount = userMapper.checkPassword(passwordOld,user.getId());
         if(resultCount == 0){
             return ServerResponse.createByErrorMessage("Wrong old password!");
         }
 
-        user.setPassword(MD5Util.MD5EncodeUtf8(passwordNew));
+        //user.setPassword(MD5Util.MD5EncodeUtf8(passwordNew));
+        user.setPassword(passwordNew);
         int updateCount = userMapper.updateByPrimaryKeySelective(user);
         if(updateCount > 0){
             return ServerResponse.createBySuccessMessage("Password changed successfully!");
@@ -184,4 +185,11 @@ public class UserServiceImpl implements IUserService {
 
     }
 
+    public ServerResponse<User> getWatchList(Integer userId){
+        User user = userMapper.selectByPrimaryKey(userId);
+        if(user == null){
+            return ServerResponse.createByErrorMessage("Can't find user!");
+        }
+
+    }
 }
