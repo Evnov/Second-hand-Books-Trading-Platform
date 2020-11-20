@@ -196,16 +196,18 @@ export default function Login() {
             required
             onChange={(e) => setPassword(e.target.value)}
           />
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            name="confirmPassword"
-            id="confirmPassword"
-            type="password"
-            minLength="6"
-            maxLength="20"
-            required
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
+          {onlogin?'':<div>
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              name="confirmPassword"
+              id="confirmPassword"
+              type="password"
+              minLength="6"
+              maxLength="20"
+              required
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>}
           <input type="submit" value="Sign in" data-test="submit" />
           {onlogin?
           <p className={styles.link} onClick={()=>setOnlogin(!onlogin)}>Create an account</p>:
