@@ -16,111 +16,131 @@ export default function Login() {
     firstname: "",
     lastname: "",
     phone: "",
-    email:""
+    email: "",
   });
-  const {state, dispatch} = useContext(AuthContext);
+  const { state, dispatch } = useContext(AuthContext);
   const user = state.user;
   const history = useHistory();
   console.log(user);
   useEffect(() => {
-    if(!user){
-      dispatch({type: 'CHECK_CACHE'});
+    if (!user) {
+      dispatch({ type: "CHECK_CACHE" });
     }
-    if(!user){
+    if (!user) {
       history.push("/");
-    }else{
+    } else {
       setUser({
-        firstname: user.firstname, 
-        lastname: user.lastname, 
-        email: user.email, 
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
         phone: user.phone,
       });
     }
   }, []);
 
-
   const handleLogout = () => {
-    dispatch({type:'LOGOUT'});
-  }; 
-
+    dispatch({ type: "LOGOUT" });
+  };
 
   if (onFetching) {
-    return <Loading onLoading={onFetching} />;
+    return (
+      <div className={styles.accountPage}>
+        <Loading onLoading={onFetching} />
+      </div>
+    );
   } else {
-      return (
-        <div className={styles.accountPage}>
-          <AccountNavbar index={index} />
-          <div className={styles.content}>
-            {index === 0 && 
-              <div>
-                <form>
-                  <input type="submit" className={styles.whitebtn} value="Log out" data-test="submit" onClick={handleLogout} />
-                  <label htmlFor="email">Email</label>
-                  <input
-                    name="email"
-                    id="email"
-                    type="email"
-                    required
-                    disabled
-                    value={userinfo.email}
-                  />
-                  <label htmlFor="firstName">FirstName</label>
-                  <input
-                    name="firstName"
-                    id="firstName"
-                    type="text"
-                    value={userinfo.firstname}
-                    required
-                    onChange={(e) => setUser({ firstName: e.target.value })}
-                  />
-                  <label htmlFor="lastName">LastName</label>
-                  <input
-                    name="lastName"
-                    id="lastName"
-                    type="text"
-                    value={userinfo.lastname}
-                    required
-                    onChange={(e) => setUser({ lastName: e.target.value })}
-                  />
-                  <label htmlFor="phone">Phone number</label>
-                  <input
-                    name="phone"
-                    id="phone"
-                    type="text"
-                    value={userinfo.phone}
-                    required
-                    onChange={(e) => setUser({ phone: e.target.value })}
-                  />
-                  <input type="submit" value="Update profile" data-test="submit" />
-                  <label htmlFor="password">
-                    Password{" "}
-                    <span className={styles.note}>(at least 6 characters)</span>
-                  </label>
-                  <input
-                    name="password"
-                    id="password"
-                    type="password"
-                    minLength="6"
-                    maxLength="20"
-                    required
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <label htmlFor="confirmPassword">Confirm Password</label>
-                  <input
-                    name="confirmPassword"
-                    id="confirmPassword"
-                    type="password"
-                    minLength="6"
-                    maxLength="20"
-                    required
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                  <input type="submit" value="Change password" data-test="submit" />
-                </form>
-              </div>}
-          </div>
+    return (
+      <div className={styles.accountPage}>
+        <AccountNavbar index={index} />
+        <div className={styles.content}>
+          {index === 0 && (
+            <div>
+              <form>
+                <input
+                  type="submit"
+                  className={styles.whitebtn}
+                  value="Log out"
+                  data-test="submit"
+                  onClick={handleLogout}
+                />
+              </form>
+              <form>
+                <label htmlFor="email">Email</label>
+                <input
+                  name="email"
+                  id="email"
+                  type="email"
+                  required
+                  disabled
+                  value={userinfo.email}
+                />
+                <label htmlFor="firstName">FirstName</label>
+                <input
+                  name="firstName"
+                  id="firstName"
+                  type="text"
+                  value={userinfo.firstname}
+                  required
+                  onChange={(e) => setUser({ firstName: e.target.value })}
+                />
+                <label htmlFor="lastName">LastName</label>
+                <input
+                  name="lastName"
+                  id="lastName"
+                  type="text"
+                  value={userinfo.lastname}
+                  required
+                  onChange={(e) => setUser({ lastName: e.target.value })}
+                />
+                <label htmlFor="phone">Phone number</label>
+                <input
+                  name="phone"
+                  id="phone"
+                  type="text"
+                  value={userinfo.phone}
+                  required
+                  onChange={(e) => setUser({ phone: e.target.value })}
+                />
+                <input
+                  type="submit"
+                  value="Update profile"
+                  data-test="submit"
+                />
+              </form>
+              <form>
+                <label htmlFor="password">
+                  Password{" "}
+                  <span className={styles.note}>(at least 6 characters)</span>
+                </label>
+                <input
+                  name="password"
+                  id="password"
+                  type="password"
+                  minLength="6"
+                  maxLength="20"
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <label htmlFor="confirmPassword">Confirm Password</label>
+                <input
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  type="password"
+                  minLength="6"
+                  maxLength="20"
+                  required
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <input
+                  type="submit"
+                  value="Change password"
+                  data-test="submit"
+                />
+              </form>
+            </div>
+          )}
         </div>
-      );
-
+      </div>
+    );
   }
 }

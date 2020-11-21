@@ -16,7 +16,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [onFetching, setOnFetching] = useState(false);
-  const {state, dispatch} = useContext(AuthContext);
+  const { state, dispatch } = useContext(AuthContext);
   const history = useHistory();
 
   function emailValidator() {
@@ -56,7 +56,7 @@ export default function Login() {
         if (statusCode === 200) {
           let userinfo = JSON.parse(data.body);
           console.log("Success:", userinfo);
-          dispatch({type: 'LOGIN', data: userinfo});
+          dispatch({ type: "LOGIN", data: userinfo });
           history.push("/");
         } else {
           throw new Error(statusCode);
@@ -65,7 +65,6 @@ export default function Login() {
       .catch((error) => {
         console.error("Error:", error);
       });
-
 
     // const response = await axios.post(
     //   "https://cgf4kyi62h.execute-api.us-west-2.amazonaws.com/test/user",
@@ -122,9 +121,12 @@ export default function Login() {
   }
 
   if (onFetching) {
-    return <Loading onLoading={onFetching} />;
-  } 
-  else {
+    return (
+      <div className={styles.loginPage}>
+        <Loading onLoading={onFetching} />;
+      </div>
+    );
+  } else {
     // if (state.user) {
     //   return (
     //     <div className={styles.loginPage}>
@@ -142,10 +144,10 @@ export default function Login() {
 
     return (
       <div className={styles.loginPage}>
-        <form onSubmit={onlogin?handleLogin:handleSignup}>
-          {onlogin?<h1>SIGN IN</h1>:<h1>SIGN UP</h1>}
+        <form onSubmit={onlogin ? handleLogin : handleSignup}>
+          {onlogin ? <h1>SIGN IN</h1> : <h1>SIGN UP</h1>}
           <label htmlFor="email">
-            Email address <span className={styles.note}>  ( @uci.edu )</span>
+            Email address <span className={styles.note}> ( @uci.edu )</span>
           </label>
           <input
             name="email"
@@ -154,33 +156,42 @@ export default function Login() {
             required
             onChange={(e) => setEmail(e.target.value)}
           />
-          {!onlogin&&<div>
-          <label htmlFor="firstName">FirstName</label>
-            <input
-              name="firstName"
-              id="firstName"
-              type="text"
-              required
-              onChange={(e) => setUser({ firstName: e.target.value })}
-            />
-            <label htmlFor="lastName">LastName</label>
-            <input
-              name="lastName"
-              id="lastName"
-              type="text"
-              required
-              onChange={(e) => setUser({ lastName: e.target.value })}
-            />
-            <label htmlFor="phone">Phone number</label>
-            <input
-              name="phone"
-              id="phone"
-              type="text"
-              required
-              onChange={(e) => setUser({ phone: e.target.value })}
-            />
-          </div>}
-          <label htmlFor="password">Password {onlogin?'':<span className={styles.note}> ( at least 6 characters )</span>}</label>
+          {!onlogin && (
+            <div>
+              <label htmlFor="firstName">FirstName</label>
+              <input
+                name="firstName"
+                id="firstName"
+                type="text"
+                required
+                onChange={(e) => setUser({ firstName: e.target.value })}
+              />
+              <label htmlFor="lastName">LastName</label>
+              <input
+                name="lastName"
+                id="lastName"
+                type="text"
+                required
+                onChange={(e) => setUser({ lastName: e.target.value })}
+              />
+              <label htmlFor="phone">Phone number</label>
+              <input
+                name="phone"
+                id="phone"
+                type="text"
+                required
+                onChange={(e) => setUser({ phone: e.target.value })}
+              />
+            </div>
+          )}
+          <label htmlFor="password">
+            Password{" "}
+            {onlogin ? (
+              ""
+            ) : (
+              <span className={styles.note}> ( at least 6 characters )</span>
+            )}
+          </label>
           <input
             name="password"
             id="password"
@@ -188,22 +199,30 @@ export default function Login() {
             required
             onChange={(e) => setPassword(e.target.value)}
           />
-          {!onlogin&&<div>
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              name="confirmPassword"
-              id="confirmPassword"
-              type="password"
-              minLength="6"
-              maxLength="20"
-              required
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </div>}
+          {!onlogin && (
+            <div>
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <input
+                name="confirmPassword"
+                id="confirmPassword"
+                type="password"
+                minLength="6"
+                maxLength="20"
+                required
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+          )}
           <input type="submit" value="Sign in" data-test="submit" />
-          {onlogin?
-          <p className={styles.link} onClick={()=>setOnlogin(!onlogin)}>Create an account</p>:
-          <p className={styles.link} onClick={()=>setOnlogin(!onlogin)}>Already have an account? Sign in</p>}
+          {onlogin ? (
+            <p className={styles.link} onClick={() => setOnlogin(!onlogin)}>
+              Create an account
+            </p>
+          ) : (
+            <p className={styles.link} onClick={() => setOnlogin(!onlogin)}>
+              Already have an account? Sign in
+            </p>
+          )}
         </form>
       </div>
     );
