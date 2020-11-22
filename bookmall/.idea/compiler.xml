@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="bookmall" options="-extdirs $PROJECT_DIR$/src/main/webapp/WEB-INF/lib" />
+      <module name="bookmall" options="-extdirs C:\Users\mingy\Desktop\second\bookmall/src/main/webapp/WEB-INF/lib" />
     </option>
   </component>
 </project>
