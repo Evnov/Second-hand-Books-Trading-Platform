@@ -4,7 +4,6 @@ import com.bookmall.dao.ProductMapper;
 import com.bookmall.pojo.Product;
 import com.bookmall.dao.BooklistMapper;
 import com.bookmall.pojo.Booklist;
-import com.bookmall.service.BookService;
 import com.bookmall.service.BooklistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
