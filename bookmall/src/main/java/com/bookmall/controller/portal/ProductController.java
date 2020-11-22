@@ -5,7 +5,7 @@ import com.bookmall.common.ResponseCode;
 import com.bookmall.common.ServerResponse;
 import com.bookmall.pojo.Product;
 import com.bookmall.service.IUserService;
-import com.bookmall.service.BookService;
+import com.bookmall.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,16 +15,16 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/book/")
+@RequestMapping("/product/")
 public class ProductController {
 
     @Autowired
-    private BookService bookService;
+    private IBookService ibookService;
 
     @RequestMapping(value = "searchByTitle.do", method = RequestMethod.POST)
     @ResponseBody
     public List<Product> searchByTitle(String title, HttpSession session) {
-        List<Product> products = bookService.searchByTitle(title);
+        List<Product> products = ibookService.searchByTitle(title);
         session.setAttribute(Const.CURRENT_USER, products);
         return products;
     }
@@ -32,7 +32,7 @@ public class ProductController {
     @RequestMapping(value = "updateBook.do", method = RequestMethod.POST)
     @ResponseBody
     public int updateBook(Product book, boolean flag, HttpSession session) {
-        int res = bookService.updateBook(book, flag);
+        int res = ibookService.updateBook(book, flag);
         session.setAttribute(Const.CURRENT_USER, res);
         return res;
     }

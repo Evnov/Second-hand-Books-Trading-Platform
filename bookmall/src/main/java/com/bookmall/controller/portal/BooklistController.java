@@ -2,7 +2,6 @@ package com.bookmall.controller.portal;
 
 import com.bookmall.common.Const;
 import com.bookmall.pojo.Product;
-import com.bookmall.service.BookService;
 import com.bookmall.pojo.Booklist;
 import com.bookmall.service.BooklistService;
 import org.springframework.beans.factory.annotation.Autowired;

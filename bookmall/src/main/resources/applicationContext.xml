@@ -14,8 +14,8 @@
     <bean id="userServiceImpl" class="com.bookmall.service.impl.UserServiceImpl">
     </bean>
 
-    <bean id="bookServiceImpl" class="com.bookmall.service.impl.BookServiceImpl">
-    </bean>
+<!--    <bean id="bookServiceImpl" class="com.bookmall.service.impl.BookServiceImpl">-->
+<!--    </bean>-->
 
     <!--<context:annotation-config/>-->
     <aop:aspectj-autoproxy/>
