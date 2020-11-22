@@ -143,6 +143,7 @@ CREATE TABLE `mmall_user` (
   UNIQUE KEY `user_name_unique` (`username`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
+
 -- ----------------------------
 --  Records of `mmall_user`
 -- ----------------------------
@@ -155,3 +156,59 @@ INSERT INTO `mmall_user` VALUES
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+
+-- ----------------------------
+--  Table structure for `mmall_watchlist`
+-- ----------------------------
+DROP TABLE IF EXISTS `mmall_watchlist`;
+CREATE TABLE `mmall_watchlist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+
+
+-- ----------------------------
+--  Records of `mmall_watchlist`
+-- ----------------------------
+BEGIN;
+INSERT INTO `mmall_watchlist` VALUES 
+('1', '1', '21'), 
+('2', '1', '22'), 
+('3', '13', '23'), 
+('4', '13', '24'), 
+('5', '17', '26'), 
+('6', '21', '29');
+COMMIT;
+
+
+-- ----------------------------
+--  Table structure for `mmall_booklist`
+-- ----------------------------
+DROP TABLE IF EXISTS `mmall_booklist`;
+CREATE TABLE `mmall_booklist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `mmall_booklist`
+-- ----------------------------
+BEGIN;
+INSERT INTO `mmall_booklist` VALUES 
+('1', '13', '21'), 
+('2', '13', '22'), 
+('3', '1', '23'), 
+('4', '1', '24'), 
+('5', '1', '25'),
+('6', '17', '26'), 
+('7', '1', '27'),
+('8', '1', '28'),
+('9', '21', '29'),
+('10', '17', '30');
+COMMIT;
+

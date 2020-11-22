@@ -74,45 +74,52 @@ public class BookServiceImpl implements IBookService {
         return ServerResponse.createByErrorMessage("Cannot update book sale status!");
     }
 
-    public String searchByTitle(String title) {
+    @Override
+    public int updateBook(Product book, boolean flag) {
+        if (flag == false) book.setStatus(2);
+        return productMapper.updateByPrimaryKey(book);
+    }
+
+    @Override
+    public List<Product> searchByTitle(String title) {
         List<Product> products = productMapper.selectByTitle(title);
-        return JSON.toJSONString(products);
+        return products;
     }
 
     @Override
-    public String selectBySubtitle(String subtitle) {
+    public List<Product> searchBySubtitle(String subtitle) {
         List<Product> products = productMapper.selectBySubtitle(subtitle);
-        return JSON.toJSONString(products);
+        return products;
     }
 
     @Override
-    public String selectByDesc(String desc) {
+    public List<Product> searchByDesc(String desc) {
         List<Product> products = productMapper.selectByDesc(desc);
-        return JSON.toJSONString(products);
+        return products;
     }
 
     @Override
-    public String selectByPrice(double low, double high) {
+    public List<Product> searchByPrice(double low, double high) {
         List<Product> products = productMapper.selectByPrice(low, high);
-        return JSON.toJSONString(products);
+        return products;
     }
 
     @Override
-    public String selectByStatus(Integer status) {
+    public List<Product> searchByStatus(Integer status) {
         List<Product> products = productMapper.selectByStatus(status);
-        return JSON.toJSONString(products);
+        return products;
     }
 
     @Override
-    public String selectByBookCondition(double book_condition) {
+    public List<Product> searchByBookCondition(double book_condition) {
         List<Product> products = productMapper.selectByBookCondition(book_condition);
-        return JSON.toJSONString(products);
+        return products;
     }
 
     @Override
-    public String selectByAttributes(String title, String subtitle, double low, double high, Integer status,
+    public List<Product> searchByAttributes(String title, String subtitle, double low, double high, Integer status,
                                      double book_condition) {
         List<Product> products = productMapper.selectByAttributes(title, subtitle, low, high, status, book_condition);
-        return JSON.toJSONString(products);
+        return products;
     }
 }

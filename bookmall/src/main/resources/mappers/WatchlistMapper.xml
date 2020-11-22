@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bookmall.dao.WatchlistMapper" >
+  <resultMap id="BaseResultMap" type="com.bookmall.pojo.Watchlist" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="book_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <resultMap id="BookResultMap" type="com.bookmall.pojo.Product" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="category_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="subtitle" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="book_image" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="descr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="stock" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="book_condition" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, book_id
+  </sql>
+  <select id="selectByUserId" resultMap="BookResultMap" parameterType="java.lang.Integer" >
+    select 
+      p.id,
+      p.category_id,
+      p.title,
+      p.subtitle,
+      p.book_image,
+      p.descr,
+      p.price,
+      p.stock,
+      p.status,
+      p.create_time,
+      p.update_time,
+      p.book_condition
+    from
+      mmall_watchlist b
+    left join
+      mmall_product p
+    on b.book_id = p.id
+    where user_id = #{user_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from mmall_watchlist
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mmall_watchlist
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByUserBook">
+    delete from mmall_watchlist
+    where user_id = #{arg0,jdbcType=INTEGER} and book_id = #{arg1,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bookmall.pojo.Watchlist" >
+    insert into mmall_watchlist (id, user_id, book_id)
+    values (#{id,jdbcType=INTEGER}, #{user_id,jdbcType=INTEGER}, #{book_id,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertWithoutPrimary">
+    insert into mmall_watchlist (user_id, book_id)
+    values (#{arg0,jdbcType=INTEGER}, #{arg1,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.bookmall.pojo.Watchlist" >
+    update mmall_watchlist
+    set id = #{id,jdbcType=INTEGER},
+        user_id = #{user_id,jdbcType=INTEGER},
+        book_id = #{book_id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

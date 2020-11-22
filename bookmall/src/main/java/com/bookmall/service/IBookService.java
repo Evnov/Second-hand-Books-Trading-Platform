@@ -2,6 +2,7 @@ package com.bookmall.service;
 
 import com.bookmall.common.ServerResponse;
 import com.bookmall.pojo.Product;
+import com.bookmall.common.ServerResponse;
 
 import java.util.List;
 
@@ -19,18 +20,20 @@ public interface IBookService {
 
     ServerResponse<String> setSaleStatus(Integer productId, Integer status);
 
-    String searchByTitle(String title);
+    int updateBook(Product book, boolean flag);
 
-    String selectBySubtitle(String subtitle);
+    List<Product> searchByTitle(String title);
 
-    String selectByDesc(String desc);
+    List<Product> searchBySubtitle(String subtitle);
 
-    String selectByPrice(double low, double high);
+    List<Product> searchByDesc(String desc);
 
-    String selectByStatus(Integer status);
+    List<Product> searchByPrice(double low, double high);
 
-    String selectByBookCondition(double book_condition);
+    List<Product> searchByStatus(Integer status);
 
-    String selectByAttributes(String title, String subtitle, double low, double high, Integer status,
+    List<Product> searchByBookCondition(double book_condition);
+
+    List<Product> searchByAttributes(String title, String subtitle, double low, double high, Integer status,
                               double book_condition);
 }
