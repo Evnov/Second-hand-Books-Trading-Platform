@@ -6,4 +6,6 @@ target
 .settings
 src/main/webapp/META-INF
 .idea
+lib
+out
 *.iml
