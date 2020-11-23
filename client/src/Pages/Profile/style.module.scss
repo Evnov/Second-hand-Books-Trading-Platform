@@ -1,0 +1,100 @@
+@import "../../Assets/default.scss";
+.accountPage{
+    margin: 10px 10% 0 10%;
+    padding: 40px 0;
+    width: 70vw;
+    min-width: 600px;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    .content{
+        .whitebtn{
+            background-color: white;
+            color: $uciBlue;
+            margin-top: 10px;
+            &:hover{
+                background-color: #f9f9f9;
+            }
+        }
+    }
+    form {
+        margin: auto;
+        padding: 20px 10px;
+        // border: solid 2px #dfdfdf;
+        border-radius: 10px;
+        min-height: 50px;
+        // width: 500px;
+        h1 {
+          text-align: center;
+        }
+      }
+      label {
+        display: block;
+        font-size: 18px;
+        margin: 15px 50px 5px;
+        font-weight: bold;
+        .note {
+          display: inline-block;
+          font-size: 15px;
+          color: #636363;
+        }
+      }
+      input[type="text"],
+      input[type="password"],
+      input[type="email"] {
+        margin: 0px 50px;
+        padding: 5px 4px;
+        box-sizing: border-box;
+        border: solid 2px #dfdfdf;
+        border-radius: 5px;
+        font-size: 15px;
+        font-family: monospace;
+        width: 400px;
+        height: 40px;
+        display: block;
+      }
+      input[type="submit"] {
+        width: 400px;
+        background-color: $uciBlue;
+        color: white;
+        padding: 10px 10px;
+        margin: 40px 50px 0px;
+        border: 1px solid $uciBlue;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: "Montserrat", sans-serif;
+      }
+      input[type="submit"]:hover {
+        background-color: #014e7e;
+        border: 1px solid #014e7e;
+      }
+      .link {
+        margin: 10px 50px;
+        text-align: center;
+        color: $uciBlue;
+        font-size: 15px;
+        user-select: none;
+      }
+      .link:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      .greet {
+        display: inline;
+      }
+      .logoutBtn {
+        float: right;
+        margin: 0 10px;
+        width: 100px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid $uciBlue;
+        background-color: #fafafa;
+        background-color: none;
+        color: $uciBlue;
+        font-size: 18px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+}
