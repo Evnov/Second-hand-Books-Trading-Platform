@@ -15,6 +15,7 @@ export default function Login() {
   const [userinfo, setUser] = useState({
     firstname: "",
     lastname: "",
+    username: "",
     phone: "",
     email: "",
   });
@@ -32,6 +33,7 @@ export default function Login() {
       setUser({
         firstname: user.firstname,
         lastname: user.lastname,
+        username: user.username,
         email: user.email,
         phone: user.phone,
       });
@@ -74,8 +76,8 @@ export default function Login() {
                   disabled
                   value={userinfo.email}
                 />
-                <label htmlFor="firstName">FirstName</label>
-                <input
+                {/*<label htmlFor="firstName">FirstName</label>
+                 <input
                   name="firstName"
                   id="firstName"
                   type="text"
@@ -91,6 +93,15 @@ export default function Login() {
                   value={userinfo.lastname}
                   required
                   onChange={(e) => setUser({ lastName: e.target.value })}
+                /> */}
+                <label htmlFor="userName">UserName</label>
+                <input
+                  name="userName"
+                  id="userName"
+                  type="text"
+                  value={userinfo.username}
+                  required
+                  onChange={(e) => setUser({ username: e.target.value })}
                 />
                 <label htmlFor="phone">Phone number</label>
                 <input

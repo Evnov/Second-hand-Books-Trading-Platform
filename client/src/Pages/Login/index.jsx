@@ -3,6 +3,7 @@ import styles from "./style.module.scss";
 import { useHistory } from "react-router-dom";
 import Loading from "../../Component/onLoading";
 import { AuthContext } from "../../App";
+import querystring from "querystring";
 // import axios from "axios";
 
 export default function Login() {
@@ -38,29 +39,31 @@ export default function Login() {
     }
   }
 
+  //https://cgf4kyi62h.execute-api.us-west-2.amazonaws.com/test/user
   const handleLogin = async (e) => {
     e.preventDefault();
     const user = { email, password };
     setOnFetching(true);
-    fetch("https://cgf4kyi62h.execute-api.us-west-2.amazonaws.com/test/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
+    fetch(
+      "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/user/login.do",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          // "Content-Type": "application/json"
+        },
+        body: querystring.stringify(user),
+        // body: JSON.stringify(user)
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         setOnFetching(false);
-        let statusCode = data.statusCode;
-        if (statusCode === 200) {
-          let userinfo = JSON.parse(data.body);
-          console.log("Success:", userinfo);
-          dispatch({ type: "LOGIN", data: userinfo });
-          history.push("/");
-        } else {
-          throw new Error(statusCode);
-        }
+        console.log(data);
+        let userinfo = data.data;
+        console.log("Success:", userinfo);
+        dispatch({ type: "LOGIN", data: userinfo });
+        history.push("/");
       })
       .catch((error) => {
         console.error("Error:", error);
