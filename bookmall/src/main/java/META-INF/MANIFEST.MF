@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Main-Class: 
+Class-Path: guava-20.0.jar joda-time-2.3.jar aopalliance-1.0.jar jackson
+ -mapper-asl-1.9.12.jar commons-dbcp-1.4.jar commons-lang3-3.5.jar sprin
+ g-oxm-4.0.0.RELEASE.jar hamcrest-core-1.3.jar jedis-2.9.0.jar spring-tx
+ -4.0.0.RELEASE.jar spring-context-4.0.0.RELEASE.jar mybatis-paginator-1
+ .2.17.jar logback-core-1.1.2.jar spring-web-4.0.0.RELEASE.jar commons-p
+ ool2-2.4.2.jar mybatis-3.4.1.jar mybatis-spring-1.3.0.jar mysql-connect
+ or-java-5.1.6.jar spring-core-4.0.0.RELEASE.jar commons-io-2.0.1.jar sl
+ f4j-api-1.7.6.jar aspectjweaver-1.7.3.jar junit-4.12.jar tomcat-servlet
+ -api-7.0.64.jar jsqlparser-0.9.4.jar jackson-core-asl-1.9.12.jar common
+ s-collections-3.2.1.jar spring-webmvc-5.2.3.RELEASE.jar spring-web-5.2.
+ 3.RELEASE.jar spring-beans-4.0.0.RELEASE.jar aspectjrt-1.6.11.jar sprin
+ g-aop-4.0.0.RELEASE.jar hashids-1.0.1.jar logback-classic-1.1.2.jar spr
+ ing-jdbc-4.0.0.RELEASE.jar spring-webmvc-4.0.0.RELEASE.jar commons-logg
+ ing-1.1.1.jar jstl-1.2.jar spring-expression-4.0.0.RELEASE.jar pagehelp
+ er-4.1.0.jar commons-pool-1.5.4.jar spring-test-4.0.0.RELEASE.jar
+

@@ -1,6 +1,7 @@
 package com.bookmall.dao;
 
 import com.bookmall.pojo.Cart;
+import org.springframework.stereotype.Component;
 
 /**
  * @author ella
@@ -8,6 +9,7 @@ import com.bookmall.pojo.Cart;
  * @description: TODO
  * @date 11/5/20
  */
+@Component
 public interface CartMapper {
     int deleteByPrimaryKey(Integer id);
 

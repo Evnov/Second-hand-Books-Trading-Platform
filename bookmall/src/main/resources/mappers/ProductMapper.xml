@@ -14,17 +14,63 @@
       <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="book_condition" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     id, category_id, title, subtitle, book_image, descr, price, stock, status, create_time, 
-    update_time
+    update_time, book_condition
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from mmall_product
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByTitle" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from mmall_product
+    where MATCH (title) AGAINST (#{title,jdbcType=VARCHAR} IN BOOLEAN MODE)
+  </select>
+  <select id="selectBySubtitle" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from mmall_product
+    where MATCH (subtitle) AGAINST (#{subtitle,jdbcType=VARCHAR} IN BOOLEAN MODE)
+  </select>
+  <select id="selectByDesc" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from mmall_product
+    where MATCH (descr) AGAINST (#{descr,jdbcType=VARCHAR} IN BOOLEAN MODE)
+  </select>
+  <select id="selectByPrice" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from mmall_product
+    where price >= #{arg0,jdbcType=NUMERIC} and price &lt; #{arg1,jdbcType=NUMERIC}
+  </select>
+  <select id="selectByStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from mmall_product
+    where status = #{status,jdbcType=INTEGER}
+  </select>
+  <select id="selectByBookCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from mmall_product
+    where book_condition = #{book_condition,jdbcType=NUMERIC}
+  </select>
+  <select id="selectByAttributes" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from mmall_product
+    where MATCH (title) AGAINST (#{arg0,jdbcType=VARCHAR} IN BOOLEAN MODE) and
+    MATCH (subtitle) AGAINST (#{arg1,jdbcType=VARCHAR} IN BOOLEAN MODE) and
+    price >= #{arg2,jdbcType=NUMERIC} and price &lt; #{arg3,jdbcType=NUMERIC} and
+    status = #{arg4,jdbcType=INTEGER} and book_condition = #{arg5,jdbcType=NUMERIC}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from mmall_product
@@ -163,4 +209,12 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getAllBooks" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List"/>
+    from mmall_product
+    ORDER BY id asc
+  </select>
+
 </mapper>

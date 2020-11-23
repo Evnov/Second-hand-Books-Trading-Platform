@@ -1,6 +1,11 @@
 package com.bookmall.dao;
 
 import com.bookmall.pojo.Product;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+import java.util.List;
 
 /**
  * @author ella
@@ -8,6 +13,8 @@ import com.bookmall.pojo.Product;
  * @description: TODO
  * @date 11/5/20
  */
+
+@Component
 public interface ProductMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -17,7 +24,24 @@ public interface ProductMapper {
 
     Product selectByPrimaryKey(Integer id);
 
+    List<Product> selectByTitle(String title);
+
+    List<Product> selectBySubtitle(String subtitle);
+
+    List<Product> selectByDesc(String desc);
+
+    List<Product> selectByPrice(double low, double high);
+
+    List<Product> selectByStatus(Integer status);
+
+    List<Product> selectByBookCondition(double book_condition);
+
+    List<Product> selectByAttributes(String title, String subtitle, double low, double high, Integer status,
+                                     double book_condition);
+
     int updateByPrimaryKeySelective(Product record);
 
     int updateByPrimaryKey(Product record);
+
+    List<Product> getAllBooks();
 }

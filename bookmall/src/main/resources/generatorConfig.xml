@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
+
     <properties resource="datasource.properties"></properties>
 
     <classPathEntry location="${db.driverLocation}"/>
