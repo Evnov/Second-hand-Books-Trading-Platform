@@ -1,75 +1,71 @@
 import React, { Component } from "react";
-import Slider from 'infinite-react-carousel';
+import { Link } from "react-router-dom";
 import styles from "./style.module.scss";
 import b1 from '../../Assets/images/banner1.jpg';
+import books from "../../Component/MockBookList";
 import b2 from '../../Assets/images/banner2.jpg';
 import b3 from '../../Assets/images/banner3.jpg';
-import {FaChevronRight} from 'react-icons/fa';
+import { BiAtom, BiBookBookmark, BiPen, BiCog, BiPalette, BiWorld } from "react-icons/bi";
 
 export default class Home extends Component {
   render() {
-    const catalog = [
-      "Business",
-      "Communication & Journalism",
-      "Computer Science",
-      "Education",
-      "Engineering",
-      "Humanities",
-      "Law",
-      "Medicine",
-      "Science",
-      "Social",
+    const catalog = [{name:"Business", icon:(<BiPen className={styles.cardicon}/>)},
+    {name:"Art", icon:(<BiPalette className={styles.cardicon}/>)},
+    {name:"Engineering", icon:(<BiCog className={styles.cardicon}/>)},
+    {name:"Social", icon:(<BiWorld className={styles.cardicon}/>)},
+    {name:"Law", icon:(<BiBookBookmark className={styles.cardicon}/>)},
+    {name:"Science", icon:(<BiAtom className={styles.cardicon}/>)},
     ];
-    const fakebooks = [
-      {title: 'Algorithms to Live By', price:'9.99'}, 
-      {title: 'Cracking the Coding Interview', price:'9.99'}, 
-      {title: 'Kubeflow for Machine Learning', price:'9.99'}, 
-      {title: 'Artificial Intelligence in Finance', price:'9.99'},
-      {title: 'Hands-On Machine Learning with C++', price:'9.99'}];
+    let salebooks = books.filter(item => {
+      return item.for === "sale";
+    });
+    let rentalbooks = books.filter(item => {
+      return item.for === "rent";
+    })
 
     return (
       <div className={styles.home}>
         <div className={styles.carousel}>
-        {/* <Slider arrows={false} autoplay={true}> */}
-            <img className={styles.banner} src={b1} />
-            {/* <img className={styles.banner} src={b2} />
-            <img className={styles.banner} src={b3} /> */}
-        {/* </Slider> */}
+          <img className={styles.banner} src={b1} />
+          {/* <img className={styles.banner} src={b2} />
+          <img className={styles.banner} src={b3} />  */}
         </div>
 
         <div className={styles.homeModule}>
           <div className={styles.moduleTitle}>Books on sale</div>
-          {/* <Slider slidesPerRow={4} prevArrow={<div/>} nextArrow={<FaChevronRight color='#666'/>}>
-            {fakebooks.map((book, index)=>
+          <div className={styles.booklist}>
+            {salebooks.map((book, index)=>
               <div className={styles.book} key={index}>
-                <div className={styles.fakeCover} />
+                <img className={styles.fakeCover} src={book.image} />
                   <div className={styles.title}>{book.title}</div>
                   <div className={styles.price}>${book.price}</div>
               </div>
             )}
-          </Slider> */}
-          <div className={styles.viewAll}>View All</div>
+          </div>
+          <Link to='/sale'><div className={styles.viewAll}>View All</div></Link>
         </div>
 
         <div className={styles.homeModule}>
           <div className={styles.moduleTitle}>Books rentals</div>
-          {/* <Slider slidesPerRow={4} prevArrow={<div/>} nextArrow={<FaChevronRight color='#666'/>}>
-            {fakebooks.map((book, index)=>
+          <div className={styles.booklist}>
+            {rentalbooks.map((book, index)=>
               <div className={styles.book} key={index}>
-                <div className={styles.fakeCover} />
+                <img className={styles.fakeCover} src={book.image} />
                   <div className={styles.title}>{book.title}</div>
                   <div className={styles.price}>${book.price}</div>
               </div>
             )}
-          </Slider> */}
-          <div className={styles.viewAll}>View All</div>
+            </div>
+            <Link to='/rental'><div className={styles.viewAll}>View All</div></Link>
         </div>
 
         <div className={styles.homeModule}>
           <div className={styles.moduleTitle}>Catalog</div>
           <div className={styles.cardList}>
-            {catalog.map((name) => (
-              <div className={styles.card} key={name}>{name}</div>
+            {catalog.map((cata) => (
+              <div className={styles.card} key={cata.name}>
+                {cata.icon}
+                {cata.name}</div>
             ))}
           </div>
         </div>
