@@ -9,11 +9,8 @@ import querystring from "querystring";
 export default function Login() {
   const [onlogin, setOnlogin] = useState(true);
   const [email, setEmail] = useState("");
-  const [userinfo, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-  });
+  const [username, setUsername] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [onFetching, setOnFetching] = useState(false);
@@ -31,7 +28,7 @@ export default function Login() {
   }
 
   function passwordValidator() {
-    if (password.length > 6 && password === confirmPassword) {
+    if (password.length >= 6 && password === confirmPassword) {
       return true;
     } else {
       alert("please check your password!");
@@ -68,53 +65,28 @@ export default function Login() {
       .catch((error) => {
         console.error("Error:", error);
       });
-
-    // const response = await axios.post(
-    //   "https://cgf4kyi62h.execute-api.us-west-2.amazonaws.com/test/user",
-    //   user
-    // );
-    // if (response.data.statusCode === 200) {
-    //   setUser(JSON.parse(response.data.body));
-    //   console.log(JSON.parse(response.data.body));
-    //   localStorage.setItem(
-    //     "user",
-    //     JSON.stringify(JSON.parse(response.data.body))
-    //   );
-    //   history.push("/");
-    // } else {
-    //   alert("wrong email address or password");
-    // }
-
-    // if (email.length > 0 && password.length > 0) {
-    //   alert("Sign In Successfully!");
-    //
-    // }
   };
 
   function handleSignup() {
     if (emailValidator() && passwordValidator()) {
-      userinfo.email = email;
-      userinfo.password = password;
+      let user = { email, password, username, phone };
+      console.log(querystring.stringify(user));
       fetch(
-        "https://cgf4kyi62h.execute-api.us-west-2.amazonaws.com/test/user",
+        "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/user/register.do",
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
           },
-          body: JSON.stringify(userinfo),
+          body: querystring.stringify(user),
         }
       )
         .then((response) => response.json())
         .then((data) => {
-          let statusCode = data.statusCode;
-          if (statusCode === 200) {
-            let response = JSON.parse(data.body);
-            console.log("Success:", response);
-            history.push("/login");
-          } else {
-            throw new Error(statusCode);
-          }
+          console.log(data);
+          let response = data.msg;
+          console.log(response);
+          history.push("/login");
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -157,11 +129,13 @@ export default function Login() {
             id="email"
             type="email"
             required
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           />
           {!onlogin && (
             <div>
-              <label htmlFor="firstName">FirstName</label>
+              {/* <label htmlFor="firstName">FirstName</label>
               <input
                 name="firstName"
                 id="firstName"
@@ -176,6 +150,14 @@ export default function Login() {
                 type="text"
                 required
                 onChange={(e) => setUser({ lastName: e.target.value })}
+              /> */}
+              <label htmlFor="username">UserName</label>
+              <input
+                name="username"
+                id="username"
+                type="text"
+                required
+                onChange={(e) => setUsername(e.target.value)}
               />
               <label htmlFor="phone">Phone number</label>
               <input
@@ -183,7 +165,7 @@ export default function Login() {
                 id="phone"
                 type="text"
                 required
-                onChange={(e) => setUser({ phone: e.target.value })}
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
           )}
@@ -200,7 +182,9 @@ export default function Login() {
             id="password"
             type="password"
             required
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           />
           {!onlogin && (
             <div>
