@@ -87,7 +87,8 @@ export default function Login() {
           console.log(data);
           let response = data.msg;
           console.log(response);
-          history.push("/login");
+          dispatch({ type: "LOGIN", data: {email,username, phone} });
+          history.push("/");
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -201,7 +202,7 @@ export default function Login() {
               />
             </div>
           )}
-          <input type="submit" value="Sign in" data-test="submit" />
+          <input type="submit" value={onlogin ?"Sign in":"Sign up"} data-test="submit" />
           {onlogin ? (
             <p className={styles.link} onClick={() => setOnlogin(!onlogin)}>
               Create an account
