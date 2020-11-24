@@ -1,0 +1,23 @@
+@import "../../Assets/default.scss";
+
+.watchlistPage {
+  margin: 10px 10% 0 10%;
+  padding: 40px 0;
+  min-height: 100vh;
+  display: flex;
+  h1,
+  h2 {
+    text-align: center;
+  }
+  .navbar {
+    flex: 0;
+    flex-basis: 20rem;
+  }
+  .right {
+    flex: 1;
+  }
+  .link {
+    text-decoration: underline;
+    color: $uciBlue;
+  }
+}

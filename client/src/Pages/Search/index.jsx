@@ -16,9 +16,9 @@ class SearchResult extends Component {
             </h3>
             <div className={styles.books}>
               {items.map((item) => {
-                let itemInfo = item.volumeInfo;
-                itemInfo.started = false;
-                return <BookList item={itemInfo} />;
+                // let itemInfo = item.volumeInfo;
+                // itemInfo.started = false;
+                return <BookList item={item} />;
               })}
             </div>
           </div>

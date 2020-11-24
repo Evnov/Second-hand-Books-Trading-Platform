@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import BookList from "../../Layouts/BookList";
-import books from "../../Component/MockBookList";
 import { Link } from "react-router-dom";
 import AccountNavbar from "../../Layouts/AccountNavbar";
 import querystring from "querystring";
 
-export default function WatchList() {
+export default function BookShelf() {
   const [user, setUser] = useState();
-  const [watchlist, setWatchlist] = useState();
+  const [booklist, setBooklist] = useState();
 
-  // let startBooks = books.filter((item) => {
-  //   return item.started === true;
-  // });
   const loggedInUser = localStorage.getItem("user");
 
   useEffect(() => {
@@ -25,9 +21,9 @@ export default function WatchList() {
 
   useEffect(() => {
     if (user) {
-      console.log("user id", user.id);
+      console.log(user.id);
       fetch(
-        "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/watchlist/getAllBooks.do",
+        "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/booklist/getAllBooks.do",
         {
           method: "POST",
           headers: {
@@ -38,8 +34,7 @@ export default function WatchList() {
       )
         .then((response) => response.json())
         .then((data) => {
-          setWatchlist(data);
-          console.log("watchlist", watchlist);
+          setBooklist(data);
         })
         .catch((err) => {
           console.log("Error", err);
@@ -65,16 +60,16 @@ export default function WatchList() {
       </div>
     );
   }
-  if (watchlist) {
+  if (booklist) {
     return (
       <div className={styles.watchlistPage}>
         <div className={styles.navbar}>
           <AccountNavbar />
         </div>
         <div className={styles.right}>
-          <h1>WatchList</h1>
+          <h1>BookShelf</h1>
           <div className={styles.list}>
-            {watchlist.map((item, index) => {
+            {booklist.map((item, index) => {
               return <BookList item={item} key={index} />;
             })}
           </div>
@@ -88,7 +83,7 @@ export default function WatchList() {
         <AccountNavbar />
       </div>
       <div className={styles.right}>
-        <h1>WatchList</h1>
+        <h1>BookShelf</h1>
       </div>
     </div>
   );

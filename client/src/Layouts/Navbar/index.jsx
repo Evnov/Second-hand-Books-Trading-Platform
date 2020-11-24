@@ -35,14 +35,17 @@ export default function Navbar(props) {
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
-        let { items } = json === null ? [] : json;
-        console.log(json);
-        setItems(items);
+        let item = json === null ? [] : json;
+        console.log("item", item);
+        return item
+        // console.log(items.length);
+        // setItems(item);
+        // console.log("items", items);
       })
-      .then(() => {
+      .then((item) => {
         history.push({
           pathname: "/search/" + query,
-          items: items,
+          items: item,
           query: query,
         });
         document.getElementById("input").value = "";

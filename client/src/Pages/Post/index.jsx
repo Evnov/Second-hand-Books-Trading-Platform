@@ -25,7 +25,7 @@ export default function Post() {
 
   useEffect(() => {
     if (loggedInUser) {
-      console.log(JSON.parse(loggedInUser));
+      // console.log(JSON.parse(loggedInUser));
       const foundUser = JSON.parse(loggedInUser);
       setUser(foundUser);
     }

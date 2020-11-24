@@ -21,20 +21,20 @@ function AccountNavbar() {
           Watchlist
         </div>
       </Link>
-      <Link>
+      <Link to="/bookshelf">
         <div
           className={styles.menuitem + ` ${index === 2 ? styles.selected : ""}`}
         >
           Bookshelf
         </div>
       </Link>
-      <Link to="/post">
+      {/* <Link to="/post">
         <div
           className={styles.menuitem + ` ${index === 3 ? styles.selected : ""}`}
         >
           Post
         </div>
-      </Link>
+      </Link> */}
     </div>
   );
 }

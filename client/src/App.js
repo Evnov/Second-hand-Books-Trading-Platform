@@ -9,6 +9,7 @@ import Login from "./Pages/Login";
 import Sale from "./Pages/Sale";
 import Rental from "./Pages/Rental";
 import Watchlist from "./Pages/Watchlist";
+import BookShelf from "./Pages/Bookshelf";
 import Post from "./Pages/Post";
 import BookDetail from "./Pages/BookDetail";
 import Profile from "./Pages/Profile";
@@ -49,6 +50,7 @@ function App() {
             <Route path="/sale" exact component={Sale} />
             <Route path="/rental" exact component={Rental} />
             <Route path="/watchlist" exact component={Watchlist} />
+            <Route path="/bookshelf" exact component={BookShelf} />
             <Route path="/post" exact component={Post} />
             <Route path="/bookdetail/:bookID" exact component={BookDetail} />
             <Route path="/profile" exact component={Profile} />

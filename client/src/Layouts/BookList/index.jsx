@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
+import cat from "../../Component/Category";
+import randomImg from "../../Component/randomImg";
+import condition from "../../Component/bookCondition"
 
 export default function BookList(props) {
-  const [inWatchList, setInWatchList] = useState(props.item.started);
-  const [user, setUser] = useState()
+  // const [inWatchList, setInWatchList] = useState(props.item.started);
+  const [inWatchList, setInWatchList] = useState(false);
+  const [user, setUser] = useState();
 
   const loggedInUser = localStorage.getItem("user");
   useEffect(() => {
@@ -23,7 +27,8 @@ export default function BookList(props) {
       <Link to={"/bookdetail/" + props.item.id}>
         <div className={styles.bookImg}>
           <img
-            src={props.item.image}
+            // src={props.item.bookImage}
+            src={randomImg[Math.floor(Math.random() * 6)]}
             alt={props.item.title}
             className={styles.bookcover}
           />
@@ -32,20 +37,20 @@ export default function BookList(props) {
       <div className={styles.bookInfo}>
         <header className={styles.bookTitle}>{props.item.title}</header>
         <section className={styles.bookAuthor}>
-          {props.item.authors === undefined ? "" : props.item.authors[0]}
+          {props.item.subtitle === undefined ? "" : props.item.subtitle}
         </section>
         <section className={styles.bookPrice}>${props.item.price}</section>
         {/* <section className={styles.bookSection}>
           Published: {props.item.publishedDate}
         </section> */}
         <section className={styles.bookSection}>
-          Department: {props.item.department}
+        Category: {cat[props.item.categoryId]}
         </section>
-        <section className={styles.bookSection}>
+        {/* <section className={styles.bookSection}>
           Course: 260P Application of Algorithm{" "}
-        </section>
+        </section> */}
         <section className={styles.bookSection}>
-          Condition: {props.item.condition}
+          Condition: {condition[props.item.bookCondition]}
         </section>
       </div>
 
