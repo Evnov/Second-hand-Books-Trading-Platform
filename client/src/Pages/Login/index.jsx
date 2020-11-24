@@ -67,7 +67,8 @@ export default function Login() {
       });
   };
 
-  function handleSignup() {
+  function handleSignup(e) {
+    e.preventDefault();
     if (emailValidator() && passwordValidator()) {
       let user = { email, password, username, phone };
       console.log(querystring.stringify(user));
