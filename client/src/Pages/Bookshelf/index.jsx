@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
-import BookList from "../../Layouts/BookList";
+import BookList from "../../Layouts/BookShelf";
 import { Link } from "react-router-dom";
 import AccountNavbar from "../../Layouts/AccountNavbar";
 import querystring from "querystring";
@@ -8,6 +8,7 @@ import querystring from "querystring";
 export default function BookShelf() {
   const [user, setUser] = useState();
   const [booklist, setBooklist] = useState();
+  const [display, setDisplay] = useState("Books On Sale");
 
   const loggedInUser = localStorage.getItem("user");
 
@@ -68,11 +69,39 @@ export default function BookShelf() {
         </div>
         <div className={styles.right}>
           <h1>BookShelf</h1>
-          <div className={styles.list}>
-            {booklist.map((item, index) => {
-              return <BookList item={item} key={index} />;
-            })}
+          <div className={styles.bar}>
+            <form>
+              <select
+                onChange={(e) => {
+                  if (e.target.value === "0") {
+                    setDisplay("Books On Sale");
+                  } else {
+                    setDisplay("Books In Rental");
+                  }
+                }}
+              >
+                <option value="0">Books On Sale</option>
+                <option value="1">Books In Rental</option>
+              </select>
+            </form>
           </div>
+          {display === "Books On Sale" ? (
+            <div className={styles.list}>
+              {booklist
+                .filter((item) => item.status == 1)
+                .map((item, index) => {
+                  return <BookList item={item} key={index} />;
+                })}
+            </div>
+          ) : (
+            <div className={styles.list}>
+              {booklist
+                .filter((item) => item.status == 0)
+                .map((item, index) => {
+                  return <BookList item={item} key={index} />;
+                })}
+            </div>
+          )}
         </div>
       </div>
     );

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import AccountNavbar from "../../Layouts/AccountNavbar";
 import { Button, Dialog, DialogActions, DialogTitle } from "@material-ui/core";
 import ConditionGuide from "./conditionGuide";
+import cat from "../../Component/Category";
 
 export default function Post() {
   const [user, setUser] = useState();
@@ -12,15 +13,16 @@ export default function Post() {
   const [opendialog, setOpenDialog] = useState(false);
   const [bookInfo, setBookInfo] = useState({
     title: "",
-    authors: "",
-    category: "",
-    publishedDate: "",
-    condition: "",
+    subtitle: "",
+    categoryId: "",
+    // publishedDate: "",
+    bookCondition: "",
     price: "",
-    description: "",
-    for: "sale",
-    starttime: "",
-    endtime: "",
+    descr: "",
+    status: "sale",
+    images: "",
+    // starttime: "",
+    // endtime: "",
   });
 
   useEffect(() => {
@@ -44,20 +46,20 @@ export default function Post() {
       </div>
     );
   }
-  const catalog = [
-    "",
-    "Business",
-    "Communication & Journalism",
-    "Computer Science",
-    "Education",
-    "Engineering",
-    "Humanities",
-    "Law",
-    "Medicine",
-    "Science",
-    "Social",
-    "Other",
-  ];
+  // const catalog = [
+  //   "",
+  //   "Business",
+  //   "Communication & Journalism",
+  //   "Computer Science",
+  //   "Education",
+  //   "Engineering",
+  //   "Humanities",
+  //   "Law",
+  //   "Medicine",
+  //   "Science",
+  //   "Social",
+  //   "Other",
+  // ];
   const condition = [
     "As New",
     "Fine",
@@ -74,8 +76,10 @@ export default function Post() {
   function closeDialog() {
     setOpenDialog(false);
   }
-  function handleSubmit() {
+  function handleSubmit(e) {
     //post bookInfo
+    e.preventDefault();
+    console.log(bookInfo);
   }
   return (
     <div className={styles.messagePage}>
@@ -89,12 +93,13 @@ export default function Post() {
           <select
             onChange={(e) => {
               setPurpose(e.target.value);
-              setBookInfo({ for: e.target.value });
+              setBookInfo({ ...bookInfo, status: e.target.value });
             }}
             required
           >
-            <option value="sale"> Sale</option>
-            <option value="rent"> Rent</option>
+            <option value=""></option>
+            <option value="1"> Sale</option>
+            <option value="0"> Rent</option>
           </select>
           <label htmlFor="booktitle">Name of Book*</label>
           <input
@@ -103,7 +108,7 @@ export default function Post() {
             name="booktitle"
             required
             onChange={(e) => {
-              setBookInfo({ title: e.target.value });
+              setBookInfo({ ...bookInfo, title: e.target.value });
             }}
           />
           <label htmlFor="authors">Authors of Book*</label>
@@ -113,21 +118,26 @@ export default function Post() {
             name="authors"
             required
             onChange={(e) => {
-              setBookInfo({ authors: e.target.value });
+              setBookInfo({ ...bookInfo, subtitle: e.target.value });
             }}
           />
           <label htmlFor="catetory">Category*</label>
           <select
             required
             onChange={(e) => {
-              setBookInfo({ category: e.target.value });
+              setBookInfo({ ...bookInfo, categoryId: e.target.value });
             }}
           >
-            {catalog.map((cat) => {
-              return <option value={cat}>{cat}</option>;
+            <option value=""></option>
+            {Object.keys(cat).map((catId) => {
+              return (
+                <option value={catId} key={catId}>
+                  {cat[catId]}
+                </option>
+              );
             })}
           </select>
-          <label htmlFor="publishdate">Published Date of Book</label>
+          {/* <label htmlFor="publishdate">Published Date of Book</label>
           <input
             type="date"
             id="publishdate"
@@ -135,16 +145,21 @@ export default function Post() {
             onChange={(e) => {
               setBookInfo({ publishedDate: e.target.value });
             }}
-          />
-          <label htmlFor="booktitle">Condition*</label>
+          /> */}
+          <label htmlFor="condition">Condition*</label>
           <select
             required
             onChange={(e) => {
-              setBookInfo({ condition: e.target.value });
+              setBookInfo({ ...bookInfo, bookCondition: e.target.value });
             }}
           >
+            <option value=""></option>
             {condition.map((cond) => {
-              return <option value={cond}>{cond}</option>;
+              return (
+                <option value={cond} key={cond}>
+                  {cond}
+                </option>
+              );
             })}
           </select>
           <button className={styles.conditionBtn} onClick={openDialog}>
@@ -159,7 +174,7 @@ export default function Post() {
               </Button>
             </DialogActions>
           </Dialog>
-          {purpose === "rent" ? (
+          {/* {purpose === "rent" ? (
             <div>
               <label htmlFor="availabletime">Available Time*</label>
               <p>from</p>
@@ -185,7 +200,7 @@ export default function Post() {
             </div>
           ) : (
             <></>
-          )}
+          )} */}
           <label htmlFor="price">Price*</label>
           <input
             type="number"
@@ -197,18 +212,27 @@ export default function Post() {
             step="0.1"
             required
             onChange={(e) => {
-              setBookInfo({ price: e.target.value });
+              setBookInfo({ ...bookInfo, price: e.target.value });
             }}
           />
           <label htmlFor="images">Upload Images</label>
-          <input type="file" />
+          {/* <input type="file" /> */}
+          <input
+            type="text"
+            id="images"
+            name="images"
+            required
+            onChange={(e) => {
+              setBookInfo({ ...bookInfo, images: e.target.value });
+            }}
+          />
           <label htmlFor="description">Description</label>
           <textarea
             type="text"
             id="description"
             name="description"
             onChange={(e) => {
-              setBookInfo({ description: e.target.value });
+              setBookInfo({ ...bookInfo, descr: e.target.value });
             }}
           />
           <input type="submit" value="Post" data-test="submit" />

@@ -7,7 +7,7 @@ import condition from "../../Component/bookCondition"
 
 export default function BookList(props) {
   // const [inWatchList, setInWatchList] = useState(props.item.started);
-  const [inWatchList, setInWatchList] = useState(false);
+  const [inWatchList, setInWatchList] = useState(props.started);
   const [user, setUser] = useState();
 
   const loggedInUser = localStorage.getItem("user");
@@ -57,7 +57,7 @@ export default function BookList(props) {
       <div className={styles.bookBtn}>
         {/* <button className={styles.btn}>Add to Cart</button> */}
         {inWatchList ? (
-          <button className={styles.btn} onClick={handleClick}>
+          <button className={styles.removebtn} onClick={handleClick}>
             Remove from WatchList
           </button>
         ) : (

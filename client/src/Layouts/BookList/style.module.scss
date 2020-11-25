@@ -18,9 +18,9 @@
     margin: auto 20px;
     background-size: 100% 100%;
     border-radius: 5px;
-    .bookcover{
-        width: 100%;
-        height: 100%;
+    .bookcover {
+      width: 100%;
+      height: 100%;
     }
   }
   .bookInfo {
@@ -68,6 +68,23 @@
       background-color: $uciBlue;
       color: white;
       cursor: pointer;
+    }
+    .removebtn {
+      color: #e07a5f;
+      border: 3px solid #e07a5f;
+      display: block;
+      margin: 10px 0;
+      width: 250px;
+      height: 40px;
+      border-radius: 10px;
+      background-color: white;
+      font-family: "Montserrat", sans-serif;
+      font-size: 16px;
+      &:hover {
+        background-color: #e07a5f;
+        color: white;
+        cursor: pointer;
+      }
     }
   }
 }

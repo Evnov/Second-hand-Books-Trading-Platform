@@ -15,9 +15,34 @@
   }
   .right {
     flex: 1;
+    
+  }
+  .list{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 2rem;
+    width: 80%;
+    margin: 20px auto 0;
   }
   .link {
     text-decoration: underline;
     color: $uciBlue;
+  }
+  .bar {
+    margin: auto;
+    width: 80%;
+    // background-color: white;
+    border-radius: 5px;
+  }
+  select {
+    margin: 5px 5px;
+    padding: 5px 4px;
+    box-sizing: border-box;
+    border: solid 2px #dfdfdf;
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: monospace;
+    width: 30%;
+    height: 30px;
   }
 }

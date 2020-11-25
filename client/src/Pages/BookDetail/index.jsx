@@ -69,13 +69,17 @@ export default function BookDetail() {
             Published: {book.publishedDate}
           </section> */}
             <section className={styles.bookSection}>
-              Category: {cat[book.categoryId]}
+              <strong>Category: </strong>
+              {cat[book.categoryId]}
             </section>
             {/* <section className={styles.bookSection}>
             Course: 260P Application of Algorithm{" "}
           </section> */}
             <section className={styles.bookSection}>
-              Condition: {condition[book.bookCondition]}
+              <strong>Condition:</strong> {condition[book.bookCondition]}
+            </section>
+            <section className={styles.bookSection}>
+              <strong>Description:</strong> {book.descr}
             </section>
           </div>
         </div>

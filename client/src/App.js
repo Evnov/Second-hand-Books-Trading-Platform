@@ -55,7 +55,7 @@ function App() {
             <Route path="/bookdetail/:bookID" exact component={BookDetail} />
             <Route path="/profile" exact component={Profile} />
           </Switch>
-          <Footer />
+          {/* <Footer /> */}
         </Router>
       </AuthContext.Provider>
     </div>

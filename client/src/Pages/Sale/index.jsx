@@ -8,6 +8,16 @@ export default function Sale() {
   const [display, setDisplay] = useState("list");
   // const [books, setBooks] = useState([]);
   const [saleBooks, setSaleBooks] = useState();
+  const [user, setUser] = useState();
+  const loggedInUser = localStorage.getItem("user");
+
+  useEffect(() => {
+    if (loggedInUser) {
+      // console.log(JSON.parse(loggedInUser));
+      const foundUser = JSON.parse(loggedInUser);
+      setUser(foundUser);
+    }
+  }, []);
 
   useEffect(() => {
     fetch(
@@ -30,7 +40,7 @@ export default function Sale() {
       .catch((err) => {
         console.log("Error", err);
       });
-  }, []);
+  }, [user]);
 
   if (saleBooks) {
     return (
