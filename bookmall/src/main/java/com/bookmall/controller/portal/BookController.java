@@ -80,10 +80,10 @@ public class BookController {
     @RequestMapping(value = "upload_book.do")
     @ResponseBody
     public ServerResponse upload_book(HttpSession session, Product product) {
-        User user = (User)session.getAttribute(Const.CURRENT_USER);
-        if(user == null){
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"User didn't login, please login first!");
-        }
+//        User user = (User)session.getAttribute(Const.CURRENT_USER);
+//        if(user == null){
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"User didn't login, please login first!");
+//        }
         return ibookService.addOrUpdateBook(product);
 
     }
@@ -91,10 +91,10 @@ public class BookController {
     @RequestMapping(value = "set_sale_status.do")
     @ResponseBody
     public ServerResponse setSaleStatus(HttpSession session, Integer productId, Integer status) {
-        User user = (User)session.getAttribute(Const.CURRENT_USER);
-        if(user == null){
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"User didn't login, please login first!");
-        }
+//        User user = (User)session.getAttribute(Const.CURRENT_USER);
+//        if(user == null){
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"User didn't login, please login first!");
+//        }
         return ibookService.setSaleStatus(productId, status);
 
     }
