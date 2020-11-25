@@ -21,7 +21,21 @@
       <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="book_condition" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="book_condition" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="UserResultMap" type="com.bookmall.pojo.User" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="username" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="question" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="answer" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="role" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
@@ -47,6 +61,25 @@
       mmall_product p
     on b.book_id = p.id
     where user_id = #{user_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByBookId" resultMap="UserResultMap" parameterType="java.lang.Integer" >
+    select
+      u.id,
+      u.username,
+      u.password,
+      u.email,
+      u.phone,
+      u.question,
+      u.answer,
+      u.role,
+      u.create_time,
+      u.update_time
+    from
+      mmall_booklist b
+    left join
+      mmall_user u
+    on b.user_id = u.id
+    where book_id = #{book_id,jdbcType=INTEGER}
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select

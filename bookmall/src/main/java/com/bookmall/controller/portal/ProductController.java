@@ -6,11 +6,13 @@ import com.bookmall.common.ServerResponse;
 import com.bookmall.pojo.Product;
 import com.bookmall.service.IUserService;
 import com.bookmall.service.IBookService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 
@@ -29,12 +31,61 @@ public class ProductController {
         return products;
     }
 
-    @RequestMapping(value = "updateBook.do", method = RequestMethod.POST)
+    @RequestMapping(value = "searchBySubtitle.do", method = RequestMethod.POST)
     @ResponseBody
-    public int updateBook(Product book, boolean flag, HttpSession session) {
-        int res = ibookService.updateBook(book, flag);
-        session.setAttribute(Const.CURRENT_USER, res);
-        return res;
+    public List<Product> searchBySubtitle(String subtitle, HttpSession session) {
+        List<Product> products = ibookService.searchBySubtitle(subtitle);
+        session.setAttribute(Const.CURRENT_USER, products);
+        return products;
     }
+
+    @RequestMapping(value = "searchByDesc.do", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Product> searchByDesc(String desc, HttpSession session) {
+        List<Product> products = ibookService.searchByDesc(desc);
+        session.setAttribute(Const.CURRENT_USER, products);
+        return products;
+    }
+
+    @RequestMapping(value = "searchByPrice.do", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Product> searchByPrice(double low, double high, HttpSession session) {
+        List<Product> products = ibookService.searchByPrice(low, high);
+        session.setAttribute(Const.CURRENT_USER, products);
+        return products;
+    }
+
+    @RequestMapping(value = "searchByStatus.do", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Product> searchByStatus(Integer status, HttpSession session) {
+        List<Product> products = ibookService.searchByStatus(status);
+        session.setAttribute(Const.CURRENT_USER, products);
+        return products;
+    }
+
+    @RequestMapping(value = "searchByBookCondition.do", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Product> searchByBookCondition(String book_condition, HttpSession session) {
+        List<Product> products = ibookService.searchByBookCondition(book_condition);
+        session.setAttribute(Const.CURRENT_USER, products);
+        return products;
+    }
+
+    @RequestMapping(value = "searchByAttributes.do", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Product> searchByAttributes(String title, String subtitle, double low, double high, Integer status,
+                                            String book_condition, HttpSession session) {
+        List<Product> products = ibookService.searchByAttributes(title, subtitle, low, high, status, book_condition);
+        session.setAttribute(Const.CURRENT_USER, products);
+        return products;
+    }
+
+//    @RequestMapping(value = "updateBook.do", method = RequestMethod.POST)
+//    @ResponseBody
+//    public int updateBook(@RequestBody JSONObject jsonObject, HttpSession session) {
+//        int res = ibookService.updateBook(book, flag);
+//        session.setAttribute(Const.CURRENT_USER, res);
+//        return res;
+//    }
 }
 

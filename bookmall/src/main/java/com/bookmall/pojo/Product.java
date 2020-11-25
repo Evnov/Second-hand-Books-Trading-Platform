@@ -32,9 +32,9 @@ public class Product {
 
     private Date updateTime;
 
-    private BigDecimal book_condition;
+    private String book_condition;
 
-    public Product(Integer id, Integer categoryId, String title, String subtitle, String bookImage, String descr, BigDecimal price, Integer stock, Integer status, Date createTime, Date updateTime, BigDecimal book_condition) {
+    public Product(Integer id, Integer categoryId, String title, String subtitle, String bookImage, String descr, BigDecimal price, Integer stock, Integer status, Date createTime, Date updateTime, String book_condition) {
         this.id = id;
         this.categoryId = categoryId;
         this.title = title;
@@ -141,11 +141,11 @@ public class Product {
         this.updateTime = updateTime;
     }
 
-    public BigDecimal getBookCondition() {
+    public String getBookCondition() {
         return book_condition;
     }
 
-    public void setBookCondition(BigDecimal book_condition) {
+    public void setBookCondition(String book_condition) {
         this.book_condition = book_condition;
     }
 

@@ -32,8 +32,8 @@ public interface IBookService {
 
     List<Product> searchByStatus(Integer status);
 
-    List<Product> searchByBookCondition(double book_condition);
+    List<Product> searchByBookCondition(String book_condition);
 
     List<Product> searchByAttributes(String title, String subtitle, double low, double high, Integer status,
-                              double book_condition);
+                                     String book_condition);
 }

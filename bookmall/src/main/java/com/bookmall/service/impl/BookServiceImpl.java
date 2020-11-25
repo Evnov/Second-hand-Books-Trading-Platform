@@ -77,7 +77,7 @@ public class BookServiceImpl implements IBookService {
     @Override
     public int updateBook(Product book, boolean flag) {
         if (flag == false) book.setStatus(2);
-        return productMapper.updateByPrimaryKey(book);
+        return productMapper.updateByPrimaryKeySelective(book);
     }
 
     @Override
@@ -111,14 +111,14 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public List<Product> searchByBookCondition(double book_condition) {
+    public List<Product> searchByBookCondition(String book_condition) {
         List<Product> products = productMapper.selectByBookCondition(book_condition);
         return products;
     }
 
     @Override
     public List<Product> searchByAttributes(String title, String subtitle, double low, double high, Integer status,
-                                     double book_condition) {
+                                            String book_condition) {
         List<Product> products = productMapper.selectByAttributes(title, subtitle, low, high, status, book_condition);
         return products;
     }
