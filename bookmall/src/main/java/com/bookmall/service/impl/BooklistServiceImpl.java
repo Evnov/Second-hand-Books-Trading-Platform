@@ -2,6 +2,7 @@ package com.bookmall.service.impl;
 
 import com.bookmall.dao.ProductMapper;
 import com.bookmall.pojo.Product;
+import com.bookmall.pojo.User;
 import com.bookmall.dao.BooklistMapper;
 import com.bookmall.pojo.Booklist;
 import com.bookmall.service.BooklistService;
@@ -24,5 +25,10 @@ public class BooklistServiceImpl implements BooklistService {
         return products;
     }
 
+    @Override
+    public List<User> getUser(int bookId) {
+        List<User> users = BooklistMapper.selectByBookId(bookId);
+        return users;
+    }
 
 }
