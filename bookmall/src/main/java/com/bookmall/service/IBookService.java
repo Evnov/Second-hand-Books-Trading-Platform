@@ -20,7 +20,11 @@ public interface IBookService {
 
     ServerResponse<String> setSaleStatus(Integer productId, Integer status);
 
-    int updateBook(Product book, boolean flag);
+    int updateBook(Product book);
+
+    int insertSelective(Product record);
+
+    Product getBookById(int book_id);
 
     List<Product> searchByTitle(String title);
 

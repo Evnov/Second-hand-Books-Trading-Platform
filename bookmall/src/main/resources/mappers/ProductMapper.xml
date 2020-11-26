@@ -80,7 +80,7 @@
     insert into mmall_product (id, category_id, title, 
       subtitle, book_image, descr, 
       price, stock, status, 
-      create_time, update_time)
+      create_time, update_time, book_condition)
     values (#{id,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
       #{subtitle,jdbcType=VARCHAR}, #{bookImage,jdbcType=VARCHAR}, #{descr,jdbcType=VARCHAR}, 
       #{price,jdbcType=DECIMAL}, #{stock,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
@@ -121,6 +121,9 @@
       </if>
       <if test="updateTime != null" >
         update_time,
+      </if>
+      <if test="book_condition != null" >
+        book_condition,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -196,7 +199,7 @@
         update_time = now(),
       </if>
       <if test="book_condition != null" >
-        book_condition = #{book_condition,jdbcType=VARCHAR},
+        book_condition = #{book_condition,jdbcType=VARCHAR}
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
