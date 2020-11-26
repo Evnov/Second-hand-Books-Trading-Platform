@@ -80,12 +80,29 @@ public class ProductController {
         return products;
     }
 
-//    @RequestMapping(value = "updateBook.do", method = RequestMethod.POST)
-//    @ResponseBody
-//    public int updateBook(@RequestBody JSONObject jsonObject, HttpSession session) {
-//        int res = ibookService.updateBook(book, flag);
-//        session.setAttribute(Const.CURRENT_USER, res);
-//        return res;
-//    }
+    @RequestMapping(value = "getBookById.do", method = RequestMethod.POST)
+    @ResponseBody
+    public Product getBookById(int book_id, HttpSession session) {
+        Product product = ibookService.getBookById(book_id);
+        session.setAttribute(Const.CURRENT_USER, product);
+        return product;
+    }
+
+    @RequestMapping(value = "updateBook.do", method = RequestMethod.POST)
+    @ResponseBody
+    public int updateBook(Product book, HttpSession session) {
+        // post a new book
+        int res;
+        if (book.getId() == null) {
+            res = ibookService.insertSelective(book);
+        }
+        // update a existing book
+        else {
+            res = ibookService.updateBook(book);
+        }
+        session.setAttribute(Const.CURRENT_USER, res);
+
+        return res;
+    }
 }
 

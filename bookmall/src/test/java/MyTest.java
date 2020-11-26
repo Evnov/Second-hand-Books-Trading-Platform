@@ -15,6 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import java.math.BigDecimal;
 import java.util.List;
 import com.alibaba.fastjson.JSON;
 
@@ -49,4 +50,20 @@ public class MyTest {
         ServerResponse<List<Product>> test2 = bookService.getAllBooks();
         System.out.println(test2);
     }
+
+//    @Autowired
+//    private BookServiceImpl bookServiceImpl;
+//    @Test
+//    public void test1() {
+//        Product book = new Product();
+//        book.setCategoryId(123);
+//        book.setTitle("A");
+//        book.setSubtitle("B");
+//        book.setPrice(new BigDecimal("23"));
+//        book.setStock(2);
+//        book.setBookCondition("Poor");
+//
+//        System.err.println(book.getId() == null);
+//
+//    }
 }
