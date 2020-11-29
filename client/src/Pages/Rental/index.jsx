@@ -55,22 +55,10 @@ export default function Rental() {
             </select>
           </form>
         </div>
-        {display === "list" ? (
-          <div className={styles.list}>
-            {rentalBooks.map((item, index) => {
-              // let { id, title, authors, publishedDate, started, price } = item;
-              return <BookList item={item} key={index} />;
-            })}
-          </div>
-        ) : (
-          <div className={styles.container}>
-            {rentalBooks.map((item, index) => {
-              // let { id, title, authors, publishedDate } = item;
-              return <BookGallery item={item} key={index} />;
-            })}
-          </div>
-        )}
-        <div className={styles.gap}></div>
+        {display === "list" ? 
+          <BookList items={rentalBooks}/>
+        : 
+          <BookGallery items={rentalBooks} />}
       </div>
     );
   }

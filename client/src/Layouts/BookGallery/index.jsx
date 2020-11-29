@@ -10,46 +10,40 @@ export default function BookGallery(props) {
   // const [inWatchList, setInWatchList] = useState(props.item.started);
   const [inWatchList, setInWatchList] = useState(false);
   let star_class = inWatchList ? "orange" : "";
+  const {items} = props;
 
   function handleClick() {
     setInWatchList(!inWatchList);
   }
   return (
-    <div className={styles.bookDiv} key={props.item.id}>
-      <div className={styles.bookInfo}>
-        <Link to={"/bookdetail/" + props.item.id}>
-          <div className={styles.bookHeader}>
-            <header className={styles.bookTitle}>{props.item.title}</header>
-            <section className={styles.bookAuthor}>
-              {props.item.subtitle === undefined ? "" : props.item.subtitle}
-            </section>
-          </div>
-          <div className={styles.bookImg}>
+    <div className={styles.container}>
+      {items.map((item, index)=>(
+        <Link to={"/bookdetail/" + item.id}>
+      <div className={styles.bookDiv} key={item.id}>
+          
             <img
               // src={props.item.image}
               src={randomImg[Math.floor(Math.random() * 6)]}
-              alt={props.item.title}
+              alt={item.title}
               className={styles.bookcover}
             />
-          </div>
-          <section className={styles.bookPrice}>${props.item.price}</section>
-          <section className={styles.bookSection}>
-            Category: {cat[props.item.categoryId]}
-          </section>
-          <section className={styles.bookSection}>
-            Condition: {condition[props.item.bookCondition]}
-          </section>
-        </Link>
-        <FaRegStar
-          fill={star_class}
-          className={styles.started}
-          onClick={handleClick}
-        />
-      </div>
-      {/* <div className={styles.bookBtn}>
-        <button className={styles.btn}>Add to Cart</button>
-        <button className={styles.btn}>Add to WatchList</button>
-      </div> */}
+            <section className={styles.bookPrice}>${item.price}</section>
+            <div className={styles.bookHeader}>
+              <header className={styles.bookTitle}>{item.title}</header>
+              <section className={styles.bookAuthor}>
+                {item.subtitle === undefined ? "" : item.subtitle}
+              </section>
+            </div>
+            
+            <section className={styles.bookSection}>
+              Category: {cat[item.categoryId]}
+            </section>
+            <section className={styles.bookSection}>
+              Condition: {condition[item.bookCondition]}
+            </section>
+        </div>
+      </Link>
+      ))}
     </div>
   );
 }

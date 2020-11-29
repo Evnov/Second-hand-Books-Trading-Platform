@@ -3,19 +3,18 @@
 .bookDiv {
   display: flex;
   width: 80%;
-  height: 250px;
+  height: 220px;
   background-color: white;
-  box-shadow: 5px 5px 6px #ddd;
-  border-radius: 10px;
-  color: black;
-  margin: 20px auto;
-  padding: 20px;
-  text-align: left;
+  border-bottom: 1px solid #eee;
+  // box-shadow: 5px 5px 6px #ddd;
+  // border-radius: 10px;
+  color: #0F1111;
+  margin: 0 auto;
   padding: 10px;
   .bookImg {
     width: 150px;
     height: 200px;
-    margin: auto 20px;
+    margin: 20px;
     background-size: 100% 100%;
     border-radius: 5px;
     .bookcover {
@@ -25,17 +24,20 @@
   }
   .bookInfo {
     flex-grow: 1;
-    margin: 15px;
+    margin: 25px 20px;
     position: relative;
+    font-family: Arial, Helvetica, sans-serif;
     .bookTitle {
-      font-size: 22px;
-      font-weight: bold;
-      margin: 10px 0;
+      font-size: 20px;
+      line-height: 22px;
+      &:hover{
+        color:#e07a5f;
+      }
     }
     .bookAuthor {
       font-size: 15px;
       margin: 10px 0;
-      font-weight: bolder;
+      // font-weight: bolder;
     }
     .bookSection {
       font-size: 15px;
@@ -44,29 +46,29 @@
     .bookPrice {
       font-size: 22px;
       width: 250px;
-      font-weight: bold;
+      // font-weight: bold;
       color: rgb(219, 39, 39);
       margin: 10px 0;
     }
   }
   .bookBtn {
     padding: 20px;
-    align-self: flex-end;
+    // align-self: flex-end;
     .btn {
       display: block;
       margin: 10px 0;
       width: 250px;
       height: 40px;
       border-radius: 10px;
-      border: 3px solid $uciBlue;
-      background-color: white;
-      color: $uciBlue;
+      border: 2px solid $uciBlue;
+      background-color: $uciBlue;
+      color: white;
       font-family: "Montserrat", sans-serif;
       font-size: 16px;
     }
     .btn:hover {
-      background-color: $uciBlue;
-      color: white;
+      background-color: white;
+      color: $uciBlue;
       cursor: pointer;
     }
     .removebtn {

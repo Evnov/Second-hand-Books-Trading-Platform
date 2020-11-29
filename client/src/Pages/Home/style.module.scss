@@ -77,6 +77,7 @@
     // justify-content: start;
     width: 20%;
     min-height: 200px;
+    font-family: Arial, Helvetica, sans-serif;
     .fakeCover{
         width: 100px;
         height: 120px;
@@ -90,7 +91,8 @@
         margin-bottom: 5px;
     }
     .price{
-        font-weight: bold;
+        // font-weight: bold;
+        color: rgb(219, 39, 39);
     }
     &:hover{
         cursor: pointer;

@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import cat from "../../Component/Category";
 import randomImg from "../../Component/randomImg";
 import condition from "../../Component/bookCondition";
+import Rating from "../../Layouts/Rating";
 // import books from "../../Component/MockBookList";
 
 export default function BookDetail() {
@@ -11,6 +12,7 @@ export default function BookDetail() {
   const [user, setUser] = useState();
   const [inWatchList, setInWatchList] = useState(false);
   const [book, setBook] = useState();
+  const [idx, setIdx] = useState(0);
 
   // const book = books.filter((item) => item.id == bookID)[0];
   // console.log(book);
@@ -48,14 +50,13 @@ export default function BookDetail() {
   function handleClick() {
     setInWatchList(!inWatchList);
   }
+  function toggle(){
+    setIdx(!idx+0);
+  }
   if (book) {
     return (
       <div className={styles.bookdetailPage}>
         <div className={styles.left}>
-          <header className={styles.bookTitle}>{book.title}</header>
-          <section className={styles.bookAuthor}>
-            {book.subtitle === undefined ? "" : book.subtitle}
-          </section>
           <div className={styles.bookImg}>
             <img
               src={randomImg[Math.floor(Math.random() * 6)]}
@@ -63,6 +64,12 @@ export default function BookDetail() {
               className={styles.bookcover}
             />
           </div>
+        </div>
+        <div className={styles.right}>
+          <header className={styles.bookTitle}>{book.title}</header>
+          <section className={styles.bookAuthor}>
+            {book.subtitle === undefined ? "" : book.subtitle}
+          </section>
           <div className={styles.bookInfo}>
             <section className={styles.bookPrice}>${book.price}</section>
             {/* <section className={styles.bookSection}>
@@ -78,12 +85,8 @@ export default function BookDetail() {
             <section className={styles.bookSection}>
               <strong>Condition:</strong> {condition[book.bookCondition]}
             </section>
-            <section className={styles.bookSection}>
-              <strong>Description:</strong> {book.descr}
-            </section>
+
           </div>
-        </div>
-        <div className={styles.right}>
           {user === undefined ? (
             <div className={styles.contact}>
               <Link to="/login" className={styles.link}>
@@ -111,6 +114,16 @@ export default function BookDetail() {
               </div>
             </div>
           )}
+        </div>
+        <div className={styles.tabs}>
+          <div className={idx===0&&styles.active} onClick={toggle}>Description</div>
+          <div className={idx===1&&styles.active} onClick={toggle}>About seller / lender</div>
+        </div>
+        <div className={styles.tabContent}>
+          {idx==0&&<section className={styles.bookSection}>
+             {book.descr}
+          </section>}
+          {idx==1&&<Rating />}
         </div>
       </div>
     );

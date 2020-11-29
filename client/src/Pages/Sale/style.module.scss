@@ -7,7 +7,7 @@
   }
   .bar {
     margin: auto;
-    width: 80%;
+    width: 100%;
     // background-color: white;
     border-radius: 5px;
   }
@@ -21,29 +21,16 @@
     margin: 5px 5px;
     font-weight: bolder;
   }
-  select {
+  .select {
     margin: 5px 5px;
     padding: 5px 4px;
     box-sizing: border-box;
     border: solid 2px #dfdfdf;
     border-radius: 5px;
     font-size: 15px;
-    font-family: monospace;
-    width: 10%;
+    font-family: "Montserrat", sans-serif;
+    width: 120px;
     height: 30px;
     // display: block;
   }
-}
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 2rem;
-  width: 80%;
-  margin: 20px auto 0;
-}
-.list {
-  margin: 0 auto;
-}
-.gap {
-  height: 200px;
 }
