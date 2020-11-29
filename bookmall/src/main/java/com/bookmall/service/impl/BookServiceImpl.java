@@ -3,6 +3,7 @@ package com.bookmall.service.impl;
 import com.bookmall.common.ResponseCode;
 import com.bookmall.common.ServerResponse;
 import com.bookmall.dao.ProductMapper;
+import com.bookmall.dao.BooklistMapper;
 import com.bookmall.dao.UserMapper;
 import com.bookmall.pojo.Product;
 import com.bookmall.pojo.User;
@@ -26,6 +27,9 @@ import java.util.List;
 public class BookServiceImpl implements IBookService {
     @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private BooklistMapper booklistMapper;
 
     public ServerResponse<List<Product>> getAllBooks(){
         List<Product> product = productMapper.getAllBooks();
@@ -129,7 +133,12 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public int insertSelective(Product record) {
-        return productMapper.insertSelective(record);
+    public int insertSelective(int user_id, Product record) {
+        int res = productMapper.insertSelective(record);
+        if (res == 0) return 0;
+        int book_id = productMapper.getLastId();
+        res = booklistMapper.insertWithoutPrimary(user_id, book_id);
+
+        return res;
     }
 }

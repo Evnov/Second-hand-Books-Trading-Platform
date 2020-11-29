@@ -9,13 +9,12 @@ import com.bookmall.service.IBookService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import javax.servlet.http.HttpSession;
 
+@CrossOrigin()
 @Controller
 @RequestMapping("/product/")
 public class ProductController {
@@ -90,11 +89,11 @@ public class ProductController {
 
     @RequestMapping(value = "updateBook.do", method = RequestMethod.POST)
     @ResponseBody
-    public int updateBook(Product book, HttpSession session) {
+    public int updateBook(Product book, int user_id, HttpSession session) {
         // post a new book
         int res;
         if (book.getId() == null) {
-            res = ibookService.insertSelective(book);
+            res = ibookService.insertSelective(user_id, book);
         }
         // update a existing book
         else {

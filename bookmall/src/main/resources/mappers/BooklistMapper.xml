@@ -93,13 +93,17 @@
   </delete>
   <insert id="insert" parameterType="com.bookmall.pojo.Booklist" >
     insert into mmall_booklist (id, user_id, book_id)
-    values (#{id,jdbcType=INTEGER}, #{user_id,jdbcType=INTEGER}, #{book_id,jdbcType=INTEGER})
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertWithoutPrimary">
+    insert into mmall_booklist (user_id, book_id)
+    values (#{arg0,jdbcType=INTEGER}, #{arg1,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.bookmall.pojo.Booklist" >
     update mmall_booklist
     set id = #{id,jdbcType=INTEGER},
-        user_id = #{user_id,jdbcType=INTEGER},
-        book_id = #{book_id,jdbcType=INTEGER}
+        user_id = #{userId,jdbcType=INTEGER},
+        book_id = #{bookId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

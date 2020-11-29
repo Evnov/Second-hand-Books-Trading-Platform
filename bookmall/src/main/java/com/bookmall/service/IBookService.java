@@ -22,7 +22,7 @@ public interface IBookService {
 
     int updateBook(Product book);
 
-    int insertSelective(Product record);
+    int insertSelective(int user_id, Product record);
 
     Product getBookById(int book_id);
 

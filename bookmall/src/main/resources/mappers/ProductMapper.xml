@@ -21,6 +21,10 @@
     id, category_id, title, subtitle, book_image, descr, price, stock, status, create_time, 
     update_time, book_condition
   </sql>
+  <select id="getLastId" resultType="integer">
+    select
+    LAST_INSERT_ID();
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -49,7 +53,7 @@
     select
     <include refid="Base_Column_List" />
     from mmall_product
-    where price >= #{arg0,jdbcType=NUMERIC} and price &lt; #{arg1,jdbcType=NUMERIC}
+    where price >= #{arg0,jdbcType=NUMERIC} and price &lt;= #{arg1,jdbcType=NUMERIC}
   </select>
   <select id="selectByStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
@@ -69,7 +73,7 @@
     from mmall_product
     where MATCH (title) AGAINST (#{arg0,jdbcType=VARCHAR} IN BOOLEAN MODE) and
     MATCH (subtitle) AGAINST (#{arg1,jdbcType=VARCHAR} IN BOOLEAN MODE) and
-    price >= #{arg2,jdbcType=NUMERIC} and price &lt; #{arg3,jdbcType=NUMERIC} and
+    price >= #{arg2,jdbcType=NUMERIC} and price &lt;= #{arg3,jdbcType=NUMERIC} and
     status = #{arg4,jdbcType=INTEGER} and book_condition = #{arg5,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

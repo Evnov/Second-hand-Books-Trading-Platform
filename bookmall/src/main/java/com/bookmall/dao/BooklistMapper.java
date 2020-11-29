@@ -13,6 +13,8 @@ public interface BooklistMapper {
 
     int insert(Booklist record);
 
+    int insertWithoutPrimary(int user_id, int book_id);
+
     Booklist selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKey(Booklist record);
