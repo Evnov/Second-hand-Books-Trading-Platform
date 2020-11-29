@@ -9,7 +9,6 @@ import querystring from "querystring";
 import WatchList from "../../Pages/Watchlist";
 
 export default function BookGallery(props) {
-  // const [inWatchList, setInWatchList] = useState(props.item.started);
   const [inWatchList, setInWatchList] = useState(props.started);
   let star_class = inWatchList ? "orange" : "";
   const [user, setUser] = useState();

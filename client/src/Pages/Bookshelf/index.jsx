@@ -75,13 +75,16 @@ export default function BookShelf() {
                 onChange={(e) => {
                   if (e.target.value === "0") {
                     setDisplay("Books On Sale");
-                  } else {
+                  } else if (e.target.value === "1") {
                     setDisplay("Books In Rental");
+                  } else {
+                    setDisplay("Books Off Shelf");
                   }
                 }}
               >
                 <option value="0">Books On Sale</option>
                 <option value="1">Books In Rental</option>
+                <option value="2">Books Off Shelf</option>
               </select>
             </form>
           </div>
@@ -93,10 +96,18 @@ export default function BookShelf() {
                   return <BookList item={item} key={index} />;
                 })}
             </div>
-          ) : (
+          ) : display === "Books In Rental" ? (
             <div className={styles.list}>
               {booklist
                 .filter((item) => item.status == 0)
+                .map((item, index) => {
+                  return <BookList item={item} key={index} />;
+                })}
+            </div>
+          ) : (
+            <div className={styles.list}>
+              {booklist
+                .filter((item) => item.status == 2)
                 .map((item, index) => {
                   return <BookList item={item} key={index} />;
                 })}

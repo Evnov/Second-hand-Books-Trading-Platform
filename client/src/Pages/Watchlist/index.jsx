@@ -74,9 +74,13 @@ export default function WatchList() {
         <div className={styles.right}>
           <h1>WatchList</h1>
           <div className={styles.list}>
-            {watchlist.map((item, index) => {
-              return <BookList started="true" item={item} key={index} />;
-            })}
+            {watchlist
+              .filter((item) => {
+                return item.status !== 2;
+              })
+              .map((item, index) => {
+                return <BookList started="true" item={item} key={index} />;
+              })}
           </div>
         </div>
       </div>
