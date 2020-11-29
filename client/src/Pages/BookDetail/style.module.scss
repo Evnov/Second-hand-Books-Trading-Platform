@@ -40,7 +40,7 @@
       // vertical-align: middle;
       font-size: 15px;
       header {
-        font-size: 18px;
+        font-size: 20px;
         font-weight: bolder;
       }
       .link {
@@ -86,6 +86,23 @@
         color: white;
         font-family: "Montserrat", sans-serif;
         font-size: 16px;
+      }
+      .removebtn {
+        display: block;
+        margin: 10px 0;
+        width: 250px;
+        height: 40px;
+        border-radius: 10px;
+        border: 3px solid #e07a5f;
+        background-color: white;
+        color: #e07a5f;
+        font-family: "Montserrat", sans-serif;
+        font-size: 16px;
+        &:hover {
+          background-color: #e07a5f;
+          color: white;
+          cursor: pointer;
+        }
       }
       .btn:hover {
         background-color: white;

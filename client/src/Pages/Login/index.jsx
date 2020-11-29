@@ -47,10 +47,8 @@ export default function Login() {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          // "Content-Type": "application/json"
         },
         body: querystring.stringify(user),
-        // body: JSON.stringify(user)
       }
     )
       .then((response) => response.json())
@@ -87,7 +85,7 @@ export default function Login() {
           console.log(data);
           let response = data.msg;
           console.log(response);
-          dispatch({ type: "LOGIN", data: {email,username, phone} });
+          dispatch({ type: "LOGIN", data: response });
           history.push("/");
         })
         .catch((error) => {

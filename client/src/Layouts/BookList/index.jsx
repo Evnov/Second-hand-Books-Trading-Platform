@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
+import star from "../../Assets/images/star.png";
+import star2 from "../../Assets/images/star_2.png";
 import cat from "../../Component/Category";
 import randomImg from "../../Component/randomImg";
-import condition from "../../Component/bookCondition"
+import condition from "../../Component/bookCondition";
+import querystring from "querystring";
+
 
 export default function BookList(props) {
   // const [inWatchList, setInWatchList] = useState(props.item.started);
@@ -18,11 +22,12 @@ export default function BookList(props) {
       setUser(foundUser);
     }
   }, [loggedInUser]);
-  const {items} = props;
 
-  function handleClick() {
-    setInWatchList(!inWatchList);
-  }
+  const {items, watchList} = props;
+  const stars = items.map((item)=>item.id).filter(id => watchList.includes(id));
+  console.log(watchList);
+  console.log(stars);
+
   return (
     <div className={styles.container}>
       {items.map((item, index)=>(
@@ -50,9 +55,54 @@ export default function BookList(props) {
           <section className={styles.bookSection}>
             Condition: {condition[item.bookCondition]}
           </section>
+          {user&&<WatchStar 
+            watched={stars.indexOf(item.id)>-1} 
+            userid={user.id}
+            id={item.id}
+          />}
         </div>
       </div>
       ))}
     </div>
+  );
+}
+
+export function WatchStar(props) {
+  const {watched, userid, id} = props;
+  const [iswatched, setwatched] = useState(watched);
+  React.useEffect(() => {
+    setwatched(props.watched);
+}, [props.watched]);
+  function handleClick() {
+    if (id) {
+      fetch(
+        "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/watchlist/updateBook.do",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: querystring.stringify({
+            user_id: userid,
+            book_id: id,
+            flag: !iswatched,
+          }),
+        }
+      )
+      .then(() => {
+        setwatched(!iswatched);
+      })
+        .catch((err) => {
+          console.log("Error", err);
+        });
+    }
+  }
+  return(
+    <img
+      src={iswatched?star2 : star}
+      className={styles.started}
+      onClick={handleClick}
+      alt='watchlist'
+    />
   );
 }

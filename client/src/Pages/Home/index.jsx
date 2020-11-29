@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import styles from "./style.module.scss";
 import b1 from '../../Assets/images/banner1.jpg';
 import books from "../../Component/MockBookList";
-import b2 from '../../Assets/images/banner2.jpg';
-import b3 from '../../Assets/images/banner3.jpg';
+// import b2 from '../../Assets/images/banner2.jpg';
+// import b3 from '../../Assets/images/banner3.jpg';
 import { BiAtom, BiBookBookmark, BiPen, BiCog, BiPalette, BiWorld } from "react-icons/bi";
 
 export default class Home extends Component {

@@ -5,6 +5,7 @@ import cat from "../../Component/Category";
 import randomImg from "../../Component/randomImg";
 import condition from "../../Component/bookCondition";
 import Rating from "../../Layouts/Rating";
+import querystring from "querystring";
 // import books from "../../Component/MockBookList";
 
 export default function BookDetail() {
@@ -13,6 +14,8 @@ export default function BookDetail() {
   const [inWatchList, setInWatchList] = useState(false);
   const [book, setBook] = useState();
   const [idx, setIdx] = useState(0);
+  const [saler, setSaler] = useState({ username: "", email: "", phone: "" });
+  // const [update, setUpdate] = useState(false);
 
   // const book = books.filter((item) => item.id == bookID)[0];
   // console.log(book);
@@ -32,23 +35,110 @@ export default function BookDetail() {
     )
       .then((response) => response.json())
       .then((data) => {
-        // setBooks(data.data);
-        console.log(data.data);
-        // console.log("books", books);
+        // console.log(data.data);
         let filterbook = data.data.filter((item) => {
-          return item.id == bookID;
+          return item.id === bookID;
         });
-        console.log(filterbook);
+        // console.log(filterbook);
         setBook(filterbook[0]);
-        console.log(book);
+        // console.log(book);
       })
       .catch((err) => {
         console.log("Error", err);
       });
   }, []);
 
+  useEffect(() => {
+    const bodyObj = { book_id: bookID };
+    if (bookID) {
+      fetch(
+        "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/booklist/getUser.do",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: querystring.stringify(bodyObj),
+        }
+      )
+        .then((response) => {
+          // console.log(response.json());
+          return response.json();
+        })
+        .then((data) => {
+          // console.log("saler", data[0].email);
+          setSaler({
+            username: data[0].username,
+            email: data[0].email,
+            phone: data[0].phone,
+          });
+          // console.log(saler);
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      const bodyuser = { user_id: user.id };
+      console.log("user", querystring.stringify(bodyuser));
+      fetch(
+        "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/watchlist/getAllBooks.do",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: querystring.stringify({ user_id: user.id }),
+        }
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          // console.log("watchlist:", data);
+          const ids = [];
+          data.forEach((item) => {
+            ids.push(item.id);
+            if (item.id === bookID) {
+              setInWatchList(true);
+            }
+          });
+          // setWatchListID(ids);
+          // console.log("watchids", watchlistID);
+          console.log("inwatch", inWatchList);
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
+    }
+  }, [user]);
+
   function handleClick() {
-    setInWatchList(!inWatchList);
+    if (user && bookID) {
+      fetch(
+        "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/watchlist/updateBook.do",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: querystring.stringify({
+            user_id: user.id,
+            book_id: bookID,
+            flag: !inWatchList,
+          }),
+        }
+      )
+        .then(() => {
+          setInWatchList(!inWatchList);
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
+    }
   }
   function toggle(){
     setIdx(!idx+0);
@@ -97,13 +187,26 @@ export default function BookDetail() {
           ) : (
             <div>
               <div className={styles.contact}>
+                {/* <button onClick={handleSalerInfo}>
+                  click to get user's info
+                </button> */}
                 <header>saler contact info: </header>
-                <p>email:xxxx@uci.edu</p>
-                <p>phone: 999-999-9999</p>
+                <p>
+                  <strong>username: </strong>
+                  {saler.username}
+                </p>
+                <p>
+                  <strong>email: </strong>
+                  {saler.email}
+                </p>
+                <p>
+                  <strong>phone: </strong>
+                  {saler.phone}
+                </p>
               </div>
               <div className={styles.bookBtn}>
                 {inWatchList ? (
-                  <button className={styles.btn} onClick={handleClick}>
+                  <button className={styles.removebtn} onClick={handleClick}>
                     Remove from WatchList
                   </button>
                 ) : (
@@ -120,10 +223,10 @@ export default function BookDetail() {
           <div className={idx===1&&styles.active} onClick={toggle}>About seller / lender</div>
         </div>
         <div className={styles.tabContent}>
-          {idx==0&&<section className={styles.bookSection}>
+          {idx===0&&<section className={styles.bookSection}>
              {book.descr}
           </section>}
-          {idx==1&&<Rating />}
+          {idx===1&&<Rating />}
         </div>
       </div>
     );

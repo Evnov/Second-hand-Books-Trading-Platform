@@ -73,7 +73,7 @@ export default function WatchList() {
         </div>
         <div className={styles.right}>
           <h1>WatchList</h1>
-          <BookList started="true" items={watchlist} />
+          <BookList items={watchlist.filter((item)=>item.status!==2)} watchList={watchlist.map((item)=>item.id)} />
         </div>
       </div>
     );

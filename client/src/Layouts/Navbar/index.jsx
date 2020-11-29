@@ -1,16 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styles from "./style.module.scss";
-import { FaRegStar, FaRegUser, FaRegBell } from "react-icons/fa";
+import { FaRegStar, FaRegUser } from "react-icons/fa";
 import { FiSearch, FiPlusCircle } from "react-icons/fi";
-import Loading from "../../Component/onLoading";
+// import Loading from "../../Component/onLoading";
 import { AuthContext } from "../../App";
 import querystring from "querystring";
 // https://react-icons.github.io/react-icons/icons?name=fa
 
 export default function Navbar(props) {
   const [query, setQuery] = useState();
-  const [items, setItems] = useState();
+  // const [items, setItems] = useState();
   const history = useHistory();
   const { state, dispatch } = useContext(AuthContext);
   console.log(state.user);

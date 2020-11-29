@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import { withRouter } from 'react-router';
 import Home from "./Pages/Home";
 import Navbar from "./Layouts/Navbar";
-import Footer from "./Layouts/Footer";
+// import Footer from "./Layouts/Footer";
 import SearchResult from "./Pages/Search";
 import Login from "./Pages/Login";
 import Sale from "./Pages/Sale";
