@@ -47,10 +47,8 @@ export default function Login() {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          // "Content-Type": "application/json"
         },
         body: querystring.stringify(user),
-        // body: JSON.stringify(user)
       }
     )
       .then((response) => response.json())

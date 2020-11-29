@@ -1,16 +1,46 @@
 import React, { useState } from "react";
 import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
-import { FaRegStar } from "react-icons/fa";
+// import { FaRegStar } from "react-icons/fa";
 import cat from "../../Component/Category";
 import randomImg from "../../Component/randomImg";
 import condition from "../../Component/bookCondition";
+import querystring from "querystring";
 
 export default function BookShelf(props) {
   // const [inWatchList, setInWatchList] = useState(props.item.started);
 
-  function handleClick() {
-    
+  function handleUpdate() {}
+
+  function handleOffshelf() {
+    // e.preventDefault();
+    const data = {
+      productId: props.item.id,
+      status: 2,
+    };
+    fetch(
+      "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/book/set_sale_status.do",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          // "Content-Type": "application/json"
+        },
+        body: querystring.stringify(data),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status == 0) {
+          console.log(data.msg);
+        } else {
+          alert(data.msg);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err);
+      });
   }
   return (
     <div className={styles.bookDiv} key={props.item.id}>
@@ -40,8 +70,12 @@ export default function BookShelf(props) {
         </Link>
       </div>
       <div className={styles.bookBtn}>
-        <button className={styles.btn}>Update Info</button>
-        <button className={styles.btn}>Off Shelf</button>
+        <button className={styles.btn} onClick={handleUpdate}>
+          Update Info
+        </button>
+        <button className={styles.btn} onClick={handleOffshelf}>
+          Off Shelf
+        </button>
       </div>
     </div>
   );

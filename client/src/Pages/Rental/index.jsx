@@ -3,13 +3,22 @@ import styles from "./style.module.scss";
 import BookGallery from "../../Layouts/BookGallery";
 import BookList from "../../Layouts/BookList";
 // import books from "../../Component/MockBookList";
+import querystring from "querystring";
 
 export default function Rental() {
   const [display, setDisplay] = useState("list");
   const [rentalBooks, setRentalBooks] = useState();
-  // let rentalBooks = books.filter((item) => {
-  //   return item.for === "rent";
-  // });
+  const [user, setUser] = useState();
+  const loggedInUser = localStorage.getItem("user");
+  const [watchList, setWatchList] = useState();
+
+  useEffect(() => {
+    if (loggedInUser) {
+      // console.log(JSON.parse(loggedInUser));
+      const foundUser = JSON.parse(loggedInUser);
+      setUser(foundUser);
+    }
+  }, []);
 
   useEffect(() => {
     fetch(
@@ -34,10 +43,43 @@ export default function Rental() {
       });
   }, []);
 
-  if (rentalBooks) {
+  useEffect(() => {
+    if (user) {
+      const bodyuser = { user_id: user.id };
+      console.log("user", querystring.stringify(bodyuser));
+      fetch(
+        "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/watchlist/getAllBooks.do",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: querystring.stringify({ user_id: user.id }),
+        }
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          // console.log("watchlist:", data);
+          const ids = [];
+          data.forEach((item) => {
+            ids.push(item.id);
+          });
+          setWatchList(ids);
+          console.log("ids", ids);
+          console.log("watchlist", watchList);
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
+    }
+  }, [useState, rentalBooks]);
+
+  if (rentalBooks && watchList) {
     return (
       <div className={styles.rentalPage}>
-        <h1>Books Rentals</h1>
+        <h1>Books In Rental</h1>
         <div className={styles.bar}>
           <form>
             <label>Display as </label>
@@ -58,15 +100,29 @@ export default function Rental() {
         {display === "list" ? (
           <div className={styles.list}>
             {rentalBooks.map((item, index) => {
-              // let { id, title, authors, publishedDate, started, price } = item;
-              return <BookList item={item} key={index} />;
+              let flag = false;
+              // if (watchList) {
+              watchList.forEach((id) => {
+                if (item.id == id) {
+                  flag = true;
+                  console.log(item.id + "is in!" + flag);
+                }
+              });
+              return <BookList item={item} key={index} started={flag} />;
             })}
           </div>
         ) : (
           <div className={styles.container}>
             {rentalBooks.map((item, index) => {
-              // let { id, title, authors, publishedDate } = item;
-              return <BookGallery item={item} key={index} />;
+              let flag = false;
+              // if (watchList) {
+              watchList.forEach((id) => {
+                if (item.id == id) {
+                  flag = true;
+                  // console.log(item.id + "is in!" + flag);
+                }
+              });
+              return <BookGallery item={item} key={index} started={flag} />;
             })}
           </div>
         )}

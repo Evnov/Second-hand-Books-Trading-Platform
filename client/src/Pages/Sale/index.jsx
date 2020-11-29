@@ -3,13 +3,16 @@ import styles from "./style.module.scss";
 import BookGallery from "../../Layouts/BookGallery";
 import BookList from "../../Layouts/BookList";
 // import books from "../../Component/MockBookList";
+import querystring from "querystring";
+// import { start } from "repl";
 
 export default function Sale() {
   const [display, setDisplay] = useState("list");
-  // const [books, setBooks] = useState([]);
+  // const [books, setBooks] = useState();
   const [saleBooks, setSaleBooks] = useState();
   const [user, setUser] = useState();
   const loggedInUser = localStorage.getItem("user");
+  const [watchList, setWatchList] = useState();
 
   useEffect(() => {
     if (loggedInUser) {
@@ -29,20 +32,53 @@ export default function Sale() {
       .then((response) => response.json())
       .then((data) => {
         // setBooks(data.data);
-        console.log(data.data);
+        // console.log(data.data);
         // console.log("books", books);
         let sale = data.data.filter((item) => {
           return item.status === 1;
         });
         setSaleBooks(sale);
-        console.log(saleBooks)
+        console.log("sale", saleBooks);
       })
       .catch((err) => {
         console.log("Error", err);
       });
-  }, [user]);
+  }, []);
 
-  if (saleBooks) {
+  useEffect(() => {
+    if (user) {
+      const bodyuser = { user_id: user.id };
+      console.log("user", querystring.stringify(bodyuser));
+      fetch(
+        "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/watchlist/getAllBooks.do",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: querystring.stringify({ user_id: user.id }),
+        }
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          // console.log("watchlist:", data);
+          const ids = [];
+          data.forEach((item) => {
+            ids.push(item.id);
+          });
+          setWatchList(ids);
+          console.log("ids", ids);
+          console.log("watchlist", watchList);
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
+    }
+  }, [useState, saleBooks]);
+
+  if (saleBooks && watchList) {
     return (
       <div className={styles.salePage}>
         <h1>Books On Sale</h1>
@@ -66,15 +102,31 @@ export default function Sale() {
         {display === "list" ? (
           <div className={styles.list}>
             {saleBooks.map((item, index) => {
-              // let { id, title, authors, publishedDate, started, price } = item;
-              return <BookList item={item} key={index} />;
+              let flag = false;
+              // if (watchList) {
+              watchList.forEach((id) => {
+                if (item.id == id) {
+                  flag = true;
+                  console.log(item.id + "is in!" + flag);
+                }
+              });
+              // }
+              console.log(item.id + ":" + flag);
+              return <BookList item={item} key={index} started={flag} />;
             })}
           </div>
         ) : (
           <div className={styles.container}>
             {saleBooks.map((item, index) => {
-              // let { id, title, authors, publishedDate } = item;
-              return <BookGallery item={item} key={index} />;
+              let flag = false;
+              // if (watchList) {
+              watchList.forEach((id) => {
+                if (item.id == id) {
+                  flag = true;
+                  console.log(item.id + "is in!" + flag);
+                }
+              });
+              return <BookGallery item={item} key={index} started={flag} />;
             })}
           </div>
         )}

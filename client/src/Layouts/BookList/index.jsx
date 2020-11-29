@@ -3,7 +3,8 @@ import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
 import cat from "../../Component/Category";
 import randomImg from "../../Component/randomImg";
-import condition from "../../Component/bookCondition"
+import condition from "../../Component/bookCondition";
+import querystring from "querystring";
 
 export default function BookList(props) {
   // const [inWatchList, setInWatchList] = useState(props.item.started);
@@ -20,8 +21,30 @@ export default function BookList(props) {
   }, [loggedInUser]);
 
   function handleClick() {
-    setInWatchList(!inWatchList);
+    if (user && props.item.id) {
+      fetch(
+        "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/watchlist/updateBook.do",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: querystring.stringify({
+            user_id: user.id,
+            book_id: props.item.id,
+            flag: !inWatchList,
+          }),
+        }
+      )
+        .then(() => {
+          setInWatchList(!inWatchList);
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
+    }
   }
+
   return (
     <div className={styles.bookDiv} key={props.item.id}>
       <Link to={"/bookdetail/" + props.item.id}>
@@ -44,7 +67,7 @@ export default function BookList(props) {
           Published: {props.item.publishedDate}
         </section> */}
         <section className={styles.bookSection}>
-        Category: {cat[props.item.categoryId]}
+          Category: {cat[props.item.categoryId]}
         </section>
         {/* <section className={styles.bookSection}>
           Course: 260P Application of Algorithm{" "}
