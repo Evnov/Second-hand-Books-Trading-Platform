@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bookmall.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.bookmall.pojo.Order" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="seller_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="buyer_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="product_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="finish_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, seller_id, buyer_id, product_id, create_time, finish_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from mmall_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mmall_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bookmall.pojo.Order" >
+    insert into mmall_order (id, seller_id, buyer_id, product_id, create_time, finish_time)
+    values (#{id,jdbcType=INTEGER}, #{sellerId,jdbcType=INTEGER}, #{buyerId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER},
+            now(), now())
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.bookmall.pojo.Order" >
+    update mmall_order
+    set id = #{id,jdbcType=INTEGER},
+        seller_id = #{sellerId,jdbcType=INTEGER},
+        buyer_id = #{buyerId,jdbcType=INTEGER},
+        product_id = #{productId,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=INTEGER},
+        update_time = now()
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -90,11 +90,11 @@ public class ProductController {
 
     @RequestMapping(value = "updateBook.do", method = RequestMethod.POST)
     @ResponseBody
-    public int updateBook(Product book, HttpSession session) {
+    public int updateBook(Product book, int user_id, HttpSession session) {
         // post a new book
         int res;
         if (book.getId() == null) {
-            res = ibookService.insertSelective(book);
+            res = ibookService.insertSelective(user_id, book);
         }
         // update a existing book
         else {

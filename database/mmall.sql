@@ -84,7 +84,7 @@ CREATE TABLE `mmall_product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
-  `subtitle` varchar(100) DEFAULT NULL COMMENT 'author',
+  `subtitle` varchar(100) NOT NULL COMMENT 'author',
   `book_image` varchar(500) DEFAULT NULL,
   `descr` text,
   `price` decimal(20,2) NOT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE `mmall_product` (
   `book_condition` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   FULLTEXT (`title`, `subtitle`, `descr`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 
 -- ----------------------------
@@ -212,3 +212,52 @@ INSERT INTO `mmall_booklist` VALUES
 ('10', '17', '30');
 COMMIT;
 
+
+-- ----------------------------
+--  Table structure for `mmall_order`
+-- ----------------------------
+DROP TABLE IF EXISTS `mmall_order`;
+CREATE TABLE `mmall_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `seller_id` int(11) NOT NULL,
+  `buyer_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `finish_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `mmall_order`
+-- ----------------------------
+BEGIN;
+INSERT INTO `mmall_order` VALUES 
+('1', '1', '13', '23', '2020-10-20 16:56:45', '2020-10-21 16:56:45'), 
+('2', '13', '17', '26', '2020-11-20 16:56:45', '2020-11-21 16:56:45'), 
+('3', '1', '21', '25', '2020-11-23 16:56:45', '2020-11-24 16:56:45');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `mmall_rating`
+-- ----------------------------
+DROP TABLE IF EXISTS `mmall_rating`;
+CREATE TABLE `mmall_rating` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `reviewee_id` int(11) NOT NULL,
+  `reviewer_id` int(11) NOT NULL,
+  `score` int(11) DEFAULT NULL,
+  `review` varchar(200) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `mmall_rating`
+-- ----------------------------
+BEGIN;
+INSERT INTO `mmall_rating` VALUES 
+('1', '1', '1', '13', '4', 'pretty good!', '2020-10-22 16:56:45'), 
+('2', '1', '13', '1', '5', 'Nice deal!', '2020-11-22 16:56:45'), 
+('3', '2', '13', '17', '1', 'What a lier! The book is a damn trash!', '2020-11-24 16:56:45');
+COMMIT;

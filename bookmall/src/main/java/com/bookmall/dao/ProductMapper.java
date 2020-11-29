@@ -22,6 +22,8 @@ public interface ProductMapper {
 
     int insertSelective(Product record);
 
+    int getLastId();
+
     Product selectByPrimaryKey(Integer id);
 
     List<Product> selectByTitle(String title);
