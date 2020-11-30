@@ -11,7 +11,7 @@ import querystring from "querystring";
 
 export default function BookList(props) {
   // const [inWatchList, setInWatchList] = useState(props.item.started);
-  const [inWatchList, setInWatchList] = useState(props.started);
+  // const [inWatchList, setInWatchList] = useState(props.started);
   const [user, setUser] = useState();
 
   const loggedInUser = localStorage.getItem("user");
@@ -23,9 +23,10 @@ export default function BookList(props) {
     }
   }, [loggedInUser]);
 
-  const {items, watchList} = props;
+  let {items, watchList} = props;
+  watchList = watchList||[];
   const stars = items.map((item)=>item.id).filter(id => watchList.includes(id));
-  console.log(watchList);
+  console.log(items);
   console.log(stars);
 
   return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
-import BookList from "../../Layouts/BookShelf";
+import BookList from "../../Layouts/BookList";
 import { Link } from "react-router-dom";
 import AccountNavbar from "../../Layouts/AccountNavbar";
 import querystring from "querystring";
@@ -35,6 +35,7 @@ export default function BookShelf() {
       )
         .then((response) => response.json())
         .then((data) => {
+          console.log(data);
           setBooklist(data);
         })
         .catch((err) => {
@@ -88,31 +89,11 @@ export default function BookShelf() {
               </select>
             </form>
           </div>
-          {display === "Books On Sale" ? (
-            <div className={styles.list}>
-              {booklist
-                .filter((item) => item.status == 1)
-                .map((item, index) => {
-                  return <BookList item={item} key={index} />;
-                })}
-            </div>
-          ) : display === "Books In Rental" ? (
-            <div className={styles.list}>
-              {booklist
-                .filter((item) => item.status == 0)
-                .map((item, index) => {
-                  return <BookList item={item} key={index} />;
-                })}
-            </div>
-          ) : (
-            <div className={styles.list}>
-              {booklist
-                .filter((item) => item.status == 2)
-                .map((item, index) => {
-                  return <BookList item={item} key={index} />;
-                })}
-            </div>
-          )}
+          {display === "Books On Sale" ? 
+          <BookList items={booklist.filter((item) => item.status == 1)} />
+           : display === "Books In Rental" ? 
+          <BookList items={booklist.filter((item) => item.status == 0)}/>
+          : <BookList items={booklist.filter((item) => item.status == 2)} />}
         </div>
       </div>
     );
