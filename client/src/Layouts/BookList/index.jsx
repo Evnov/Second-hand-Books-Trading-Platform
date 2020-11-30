@@ -54,7 +54,7 @@ export default function BookList(props) {
           Category: {cat[item.categoryId]}
           </section>
           <section className={styles.bookSection}>
-            Condition: {condition[item.bookCondition]}
+            Condition: {item.bookCondition}
           </section>
           {user&&<WatchStar 
             watched={stars.indexOf(item.id)>-1} 

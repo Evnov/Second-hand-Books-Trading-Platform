@@ -3,10 +3,9 @@ import styles from "./style.module.scss";
 import { useParams, Link } from "react-router-dom";
 import cat from "../../Component/Category";
 import randomImg from "../../Component/randomImg";
-import condition from "../../Component/bookCondition";
+// import condition from "../../Component/bookCondition";
 import Rating from "../../Layouts/Rating";
 import querystring from "querystring";
-// import books from "../../Component/MockBookList";
 
 export default function BookDetail() {
   const { bookID } = useParams();
@@ -15,10 +14,6 @@ export default function BookDetail() {
   const [book, setBook] = useState();
   const [idx, setIdx] = useState(0);
   const [saler, setSaler] = useState({ username: "", email: "", phone: "" });
-  // const [update, setUpdate] = useState(false);
-
-  // const book = books.filter((item) => item.id == bookID)[0];
-  // console.log(book);
 
   const loggedInUser = localStorage.getItem("user");
   useEffect(() => {
@@ -37,7 +32,7 @@ export default function BookDetail() {
       .then((data) => {
         // console.log(data.data);
         let filterbook = data.data.filter((item) => {
-          return item.id === bookID;
+          return item.id == bookID;
         });
         // console.log(filterbook);
         setBook(filterbook[0]);
@@ -162,9 +157,6 @@ export default function BookDetail() {
           </section>
           <div className={styles.bookInfo}>
             <section className={styles.bookPrice}>${book.price}</section>
-            {/* <section className={styles.bookSection}>
-            Published: {book.publishedDate}
-          </section> */}
             <section className={styles.bookSection}>
               <strong>Category: </strong>
               {cat[book.categoryId]}
@@ -173,7 +165,7 @@ export default function BookDetail() {
             Course: 260P Application of Algorithm{" "}
           </section> */}
             <section className={styles.bookSection}>
-              <strong>Condition:</strong> {condition[book.bookCondition]}
+              <strong>Condition:</strong> {book.bookCondition}
             </section>
 
           </div>

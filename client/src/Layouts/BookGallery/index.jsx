@@ -52,7 +52,7 @@ export default function BookGallery(props) {
               Category: {cat[item.categoryId]}
             </section>
             <section className={styles.bookSection}>
-              Condition: {condition[item.bookCondition]}
+              Condition: {item.bookCondition}
             </section>
         </div>
       ))}
