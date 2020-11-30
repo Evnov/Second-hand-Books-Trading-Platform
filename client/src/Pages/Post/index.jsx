@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import AccountNavbar from "../../Layouts/AccountNavbar";
 import { Button, Dialog, DialogActions, DialogTitle } from "@material-ui/core";
 import ConditionGuide from "./conditionGuide";
 import cat from "../../Component/Category";
+import querystring from "querystring";
 
 export default function Post() {
   const [user, setUser] = useState();
@@ -15,21 +17,22 @@ export default function Post() {
     title: "",
     subtitle: "",
     categoryId: "",
-    // publishedDate: "",
     bookCondition: "",
     price: "",
     descr: "",
     status: "sale",
-    images: "",
-    // starttime: "",
-    // endtime: "",
+    bookImage: "",
+    user_id: "",
+    stock: "1",
   });
+  const history = useHistory();
 
   useEffect(() => {
     if (loggedInUser) {
       // console.log(JSON.parse(loggedInUser));
       const foundUser = JSON.parse(loggedInUser);
       setUser(foundUser);
+      setBookInfo({ ...bookInfo, user_id: foundUser.id });
     }
   }, [loggedInUser]); //only when loggedInUser changes useEffect will be triggered
 
@@ -46,20 +49,7 @@ export default function Post() {
       </div>
     );
   }
-  // const catalog = [
-  //   "",
-  //   "Business",
-  //   "Communication & Journalism",
-  //   "Computer Science",
-  //   "Education",
-  //   "Engineering",
-  //   "Humanities",
-  //   "Law",
-  //   "Medicine",
-  //   "Science",
-  //   "Social",
-  //   "Other",
-  // ];
+
   const condition = [
     "As New",
     "Fine",
@@ -80,6 +70,22 @@ export default function Post() {
     //post bookInfo
     e.preventDefault();
     console.log(bookInfo);
+    fetch(
+      "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/updateBook.do",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: querystring.stringify(bookInfo),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        history.push("/");
+      })
+      .catch((err) => alert("Error", err));
   }
   return (
     <div className={styles.messagePage}>
@@ -209,7 +215,7 @@ export default function Post() {
             placeholder="$"
             min="0.00"
             max="10000.00"
-            step="0.1"
+            step="0.01"
             required
             onChange={(e) => {
               setBookInfo({ ...bookInfo, price: e.target.value });

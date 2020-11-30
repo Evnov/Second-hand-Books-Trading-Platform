@@ -56,6 +56,9 @@ export default function BookList(props) {
           <section className={styles.bookSection}>
             Condition: {item.bookCondition}
           </section>
+          <section className={styles.bookSection}>
+              Status: {item.status == 0 ? "Rental" : item.status == 1 ? "Sale" : "Off Shelf"}
+          </section>
           {user&&<WatchStar 
             watched={stars.indexOf(item.id)>-1} 
             userid={user.id}

@@ -167,6 +167,9 @@ export default function BookDetail() {
             <section className={styles.bookSection}>
               <strong>Condition:</strong> {book.bookCondition}
             </section>
+            <section className={styles.bookSection}>
+              <strong>Status:</strong> {book.status == 0 ? "Rental" : book.status == 1 ? "Sale" : "Off Shelf"}
+            </section>
 
           </div>
           {user === undefined ? (
