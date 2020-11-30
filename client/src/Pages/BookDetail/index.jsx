@@ -220,7 +220,7 @@ export default function BookDetail() {
         </div>
         <div className={styles.tabs}>
           <div className={idx===0&&styles.active} onClick={toggle}>Description</div>
-          <div className={idx===1&&styles.active} onClick={toggle}>About seller / lender</div>
+          <div className={idx===1&&styles.active} onClick={toggle}>About owner</div>
         </div>
         <div className={styles.tabContent}>
           {idx===0&&<section className={styles.bookSection}>
