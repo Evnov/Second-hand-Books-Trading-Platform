@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Amplify, { Storage } from 'aws-amplify';
+import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
 // import { withRouter } from 'react-router';
 import Home from "./Pages/Home";
