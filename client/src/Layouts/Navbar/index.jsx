@@ -94,6 +94,7 @@ export default function Navbar(props) {
           id="input"
           className={styles.searchInput}
           onChange={(e) => setQuery(e.target.value)}
+          autocomplete="off"
           onKeyPress={(event) => {
             if ("Enter" === event.key) {
               search();

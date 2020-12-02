@@ -1,14 +1,51 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import randomImg from "../../Component/randomImg";
+import  { Storage } from 'aws-amplify';
 import styles from "./style.module.scss";
 import b1 from '../../Assets/images/banner1.jpg';
-import books from "../../Component/MockBookList";
+// import books from "../../Component/MockBookList";
 // import b2 from '../../Assets/images/banner2.jpg';
 // import b3 from '../../Assets/images/banner3.jpg';
 import { BiAtom, BiBookBookmark, BiPen, BiCog, BiPalette, BiWorld } from "react-icons/bi";
 
 export default class Home extends Component {
+
+  state = {
+    saleBooks:[],
+    rentBooks:[],
+    pic:''
+  }
+
+  componentDidMount(){
+    fetch(
+      "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/book/get_allBooks.do",
+      {
+        method: "GET",
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        let sale = data.data.filter((item) => item.status === 1);
+        let rent = data.data.filter((item) => item.status === 0);
+        this.setState({saleBooks:sale.slice(0,5), rentBooks: rent.slice(0,5)});
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
+  }
+
+  onChange(e){
+    const file = e.target.files[0];
+    Storage.put('example.png', file, {
+        contentType: 'image/png'
+    })
+    .then (result => console.log(result))
+    .catch(err => console.log(err));
+  }
+
   render() {
+    let {saleBooks, rentBooks, pic} = this.state;
     const catalog = [{name:"Business", icon:(<BiPen className={styles.cardicon}/>)},
     {name:"Art", icon:(<BiPalette className={styles.cardicon}/>)},
     {name:"Engineering", icon:(<BiCog className={styles.cardicon}/>)},
@@ -16,12 +53,6 @@ export default class Home extends Component {
     {name:"Law", icon:(<BiBookBookmark className={styles.cardicon}/>)},
     {name:"Science", icon:(<BiAtom className={styles.cardicon}/>)},
     ];
-    let salebooks = books.filter(item => {
-      return item.for === "sale";
-    });
-    let rentalbooks = books.filter(item => {
-      return item.for === "rent";
-    })
 
     return (
       <div className={styles.home}>
@@ -34,12 +65,13 @@ export default class Home extends Component {
         <div className={styles.homeModule}>
           <div className={styles.moduleTitle}>Books on sale</div>
           <div className={styles.booklist}>
-            {salebooks.map((book, index)=>
-              <div className={styles.book} key={index}>
-                <img className={styles.fakeCover} src={book.image} />
-                  <div className={styles.title}>{book.title}</div>
-                  <div className={styles.price}>${book.price}</div>
-              </div>
+            {saleBooks.map((book, index)=>
+                <div className={styles.book} key={index}>
+                  <Link to={"/bookdetail/" + book.id}><img className={styles.fakeCover} src={randomImg[Math.floor(Math.random() * 6)]} /></Link>
+                    <div className={styles.title}>{book.title}</div>
+                    <div className={styles.price}>${book.price}</div>
+                </div>
+              
             )}
           </div>
           <Link to='/sale'><div className={styles.viewAll}>View All</div></Link>
@@ -48,12 +80,12 @@ export default class Home extends Component {
         <div className={styles.homeModule}>
           <div className={styles.moduleTitle}>Books rentals</div>
           <div className={styles.booklist}>
-            {rentalbooks.map((book, index)=>
-              <div className={styles.book} key={index}>
-                <img className={styles.fakeCover} src={book.image} />
-                  <div className={styles.title}>{book.title}</div>
-                  <div className={styles.price}>${book.price}</div>
-              </div>
+            {rentBooks.map((book, index)=>
+                <div className={styles.book} key={index}>
+                  <Link to={"/bookdetail/" + book.id}><img className={styles.fakeCover} src={randomImg[Math.floor(Math.random() * 6)]} /></Link>
+                    <div className={styles.title}>{book.title}</div>
+                    <div className={styles.price}>${book.price}</div>
+                </div>
             )}
             </div>
             <Link to='/rental'><div className={styles.viewAll}>View All</div></Link>

@@ -1,9 +1,11 @@
 import React, { useReducer } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Amplify, { Storage } from 'aws-amplify';
+import awsconfig from './aws-exports';
 // import { withRouter } from 'react-router';
 import Home from "./Pages/Home";
 import Navbar from "./Layouts/Navbar";
-// import Footer from "./Layouts/Footer";
+import Footer from "./Layouts/Footer";
 import SearchResult from "./Pages/Search";
 import Login from "./Pages/Login";
 import Sale from "./Pages/Sale";
@@ -13,6 +15,9 @@ import BookShelf from "./Pages/Bookshelf";
 import Post from "./Pages/Post";
 import BookDetail from "./Pages/BookDetail";
 import Profile from "./Pages/Profile";
+import ScrollToTop from "./Component/scrollToTop";
+
+Amplify.configure(awsconfig);
 
 export const AuthContext = React.createContext();
 
@@ -43,6 +48,7 @@ function App() {
       <AuthContext.Provider value={{ state, dispatch }}>
         <Router basename={process.env.PUBLIC_URL}>
           <Navbar />
+          <ScrollToTop />
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/search/:query" exact component={SearchResult} />
@@ -55,7 +61,7 @@ function App() {
             <Route path="/bookdetail/:bookID" exact component={BookDetail} />
             <Route path="/profile" exact component={Profile} />
           </Switch>
-          {/* <Footer /> */}
+          <Footer />
         </Router>
       </AuthContext.Provider>
     </div>

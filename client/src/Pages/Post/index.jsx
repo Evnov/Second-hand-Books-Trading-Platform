@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import  { Storage } from 'aws-amplify';
 import AccountNavbar from "../../Layouts/AccountNavbar";
 import { Button, Dialog, DialogActions, DialogTitle } from "@material-ui/core";
 import ConditionGuide from "./conditionGuide";
@@ -13,6 +14,7 @@ export default function Post() {
   const [purpose, setPurpose] = useState("sale");
   const loggedInUser = localStorage.getItem("user");
   const [opendialog, setOpenDialog] = useState(false);
+  const [imgUploaded, setImgUploaded] = useState(false);
   const [bookInfo, setBookInfo] = useState({
     title: "",
     subtitle: "",
@@ -87,6 +89,19 @@ export default function Post() {
       })
       .catch((err) => alert("Error", err));
   }
+
+  function uploadImage(e){
+    const file = e.target.files[0];
+    Storage.put(bookInfo.title, file, {
+        contentType: 'image/png'
+    })
+    .then (result => {
+      console.log(result);
+      setImgUploaded(true);
+    })
+    .catch(err => console.log(err));
+  }
+
   return (
     <div className={styles.messagePage}>
       <div className={styles.navbar}>
@@ -113,6 +128,7 @@ export default function Post() {
             id="booktitle"
             name="booktitle"
             required
+            autocomplete="off"
             onChange={(e) => {
               setBookInfo({ ...bookInfo, title: e.target.value });
             }}
@@ -122,6 +138,7 @@ export default function Post() {
             type="text"
             id="authors"
             name="authors"
+            autocomplete="off"
             required
             onChange={(e) => {
               setBookInfo({ ...bookInfo, subtitle: e.target.value });
@@ -222,8 +239,9 @@ export default function Post() {
             }}
           />
           <label htmlFor="images">Upload Images</label>
-          {/* <input type="file" /> */}
-          <input
+          <input type="file" accept="image/*" onChange={(evt) => uploadImage(evt)}/>
+          {imgUploaded && <small>Upload successfully!</small>}
+          {/* <input
             type="text"
             id="images"
             name="images"
@@ -231,7 +249,7 @@ export default function Post() {
             onChange={(e) => {
               setBookInfo({ ...bookInfo, images: e.target.value });
             }}
-          />
+          /> */}
           <label htmlFor="description">Description</label>
           <textarea
             type="text"

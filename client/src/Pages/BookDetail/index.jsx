@@ -3,9 +3,11 @@ import styles from "./style.module.scss";
 import { useParams, Link } from "react-router-dom";
 import cat from "../../Component/Category";
 import randomImg from "../../Component/randomImg";
+import  { Storage } from 'aws-amplify';
 // import condition from "../../Component/bookCondition";
 import Rating from "../../Layouts/Rating";
 import querystring from "querystring";
+import { sectionFooterSecondaryContent } from "aws-amplify";
 
 export default function BookDetail() {
   const { bookID } = useParams();
@@ -13,6 +15,7 @@ export default function BookDetail() {
   const [inWatchList, setInWatchList] = useState(false);
   const [book, setBook] = useState();
   const [idx, setIdx] = useState(0);
+  const [src, setSrc] = useState();
   const [saler, setSaler] = useState({ username: "", email: "", phone: "" });
 
   const loggedInUser = localStorage.getItem("user");
@@ -37,7 +40,10 @@ export default function BookDetail() {
         // console.log(filterbook);
         setBook(filterbook[0]);
         // console.log(book);
+        return filterbook[0].title;
       })
+      .then((key)=>Storage.get(key))
+      .then((url)=>setSrc(url))
       .catch((err) => {
         console.log("Error", err);
       });
@@ -94,15 +100,9 @@ export default function BookDetail() {
         })
         .then((data) => {
           // console.log("watchlist:", data);
-          const ids = [];
-          data.forEach((item) => {
-            ids.push(item.id);
-            if (item.id === bookID) {
-              setInWatchList(true);
-            }
-          });
+          // const ids = [];
+          setInWatchList(data.map((item=>item.id)).includes(parseInt(bookID)));
           // setWatchListID(ids);
-          // console.log("watchids", watchlistID);
           console.log("inwatch", inWatchList);
         })
         .catch((err) => {
@@ -135,8 +135,8 @@ export default function BookDetail() {
         });
     }
   }
-  function toggle(){
-    setIdx(!idx+0);
+  function toggle(i){
+    setIdx(i);
   }
   if (book) {
     return (
@@ -144,7 +144,7 @@ export default function BookDetail() {
         <div className={styles.left}>
           <div className={styles.bookImg}>
             <img
-              src={randomImg[Math.floor(Math.random() * 6)]}
+              src={src}
               alt={book.title}
               className={styles.bookcover}
             />
@@ -214,8 +214,8 @@ export default function BookDetail() {
           )}
         </div>
         <div className={styles.tabs}>
-          <div className={idx===0&&styles.active} onClick={toggle}>Description</div>
-          <div className={idx===1&&styles.active} onClick={toggle}>About owner</div>
+          <div className={idx===0&&styles.active} onClick={()=>toggle(0)}>Description</div>
+          {/* <div className={idx===1&&styles.active} onClick={()=>toggle(1)}>About owner</div> */}
         </div>
         <div className={styles.tabContent}>
           {idx===0&&<section className={styles.bookSection}>
