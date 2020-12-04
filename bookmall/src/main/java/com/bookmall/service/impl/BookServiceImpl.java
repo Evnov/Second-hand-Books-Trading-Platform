@@ -141,4 +141,9 @@ public class BookServiceImpl implements IBookService {
 
         return res;
     }
+
+    @Override
+    public int deleteById(int book_id) {
+        return productMapper.deleteByPrimaryKey(book_id);
+    }
 }

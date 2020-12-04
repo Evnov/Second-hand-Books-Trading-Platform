@@ -13,7 +13,13 @@ public interface OrderMapper {
 
     int insert(Order record);
 
+    int insertSelective(Order record);
+
     Order selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKey(Order record);
+
+    int updateStatus(int order_id, int status);
+
+
 }
