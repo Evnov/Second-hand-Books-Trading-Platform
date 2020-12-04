@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import BookGallery from "../../Layouts/BookGallery";
 import BookList from "../../Layouts/BookList";
-// import books from "../../Component/MockBookList";
 import querystring from "querystring";
+import bookcond from "../../Component/bookCondition";
 
 export default function Rental() {
   const [display, setDisplay] = useState("list");
@@ -11,6 +11,16 @@ export default function Rental() {
   const [user, setUser] = useState();
   const loggedInUser = localStorage.getItem("user");
   const [watchList, setWatchList] = useState();
+  const [unfilterBooks, setUnfilterBooks] = useState();
+
+  const bookprice = [
+    "All prices",
+    "under $10",
+    "$10 to $20",
+    "$20 to $30",
+    "$30 to $50",
+    "> $50",
+  ];
 
   useEffect(() => {
     if (loggedInUser) {
@@ -36,6 +46,7 @@ export default function Rental() {
           return item.status == 0;
         });
         setRentalBooks(rent);
+        setUnfilterBooks(rent);
         console.log(rentalBooks);
       })
       .catch((err) => {
@@ -96,11 +107,80 @@ export default function Rental() {
               <option value="1">Gallery</option>
             </select>
           </form>
+          <form>
+            <label>Condition</label>
+            <select
+              className={styles.select}
+              onChange={(e) => {
+                if (e.target.value === "All conditions") {
+                  setRentalBooks(unfilterBooks);
+                } else {
+                  let allbooks = unfilterBooks;
+                  setRentalBooks(
+                    allbooks.filter((item) => {
+                      return item.bookCondition === e.target.value;
+                    })
+                  );
+                }
+              }}
+            >
+              {bookcond.map((cond) => {
+                return <option value={cond}>{cond}</option>;
+              })}
+            </select>
+          </form>
+          <form>
+            <label>Price</label>
+            <select
+              className={styles.select}
+              onChange={(e) => {
+                if (e.target.value === "All prices") {
+                  setRentalBooks(unfilterBooks);
+                } else {
+                  let allbooks = unfilterBooks;
+                  let targetbooks = {};
+                  switch (e.target.value) {
+                    case "under $10":
+                      targetbooks = allbooks.filter((book) => {
+                        return book.price <= 10;
+                      });
+                      break;
+                    case "$10 to $20":
+                      targetbooks = allbooks.filter((book) => {
+                        return book.price > 10 && book.price <= 20;
+                      });
+                      break;
+                    case "$20 to $30":
+                      targetbooks = allbooks.filter((book) => {
+                        return book.price > 20 && book.price <= 30;
+                      });
+                      break;
+                    case "$30 to $50":
+                      targetbooks = allbooks.filter((book) => {
+                        return book.price > 30 && book.price <= 50;
+                      });
+                      break;
+                    case "> $50":
+                      targetbooks = allbooks.filter((book) => {
+                        return book.price > 50;
+                      });
+                      break;
+                  }
+                  setRentalBooks(targetbooks);
+                }
+              }}
+            >
+              {bookprice.map((price) => {
+                return <option value={price}>{price}</option>;
+              })}
+            </select>
+          </form>
         </div>
-        {display === "list" ? 
-          <BookList items={rentalBooks} watchList={watchList||[]}/>
-        : 
-          <BookGallery items={rentalBooks} watchList={watchList||[]}/>}
+        {display === "list" ? (
+          <BookList items={rentalBooks} watchList={watchList || []} />
+        ) : (
+          <BookGallery items={rentalBooks} watchList={watchList || []} />
+        )}
       </div>
     );
   }

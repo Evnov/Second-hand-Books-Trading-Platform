@@ -1,19 +1,15 @@
 const cat = {
   100004: "Arts",
   100005: "Athletics",
-  100006: "Biological Science",
+  100006: "Science",
   100007: "Business",
-  100008: "Continuing Education",
-  100009: "Education",
-  100010: "Engineering",
-  100011: "Health",
-  100012: "Human Resources",
-  100013: "Humanities",
-  100014: "ICS",
-  100015: "Law",
-  100016: "Medicine",
-  100017: "Nursing Science",
-  100018: "Social Sciences",
+  100008: "Education",
+  100009: "Engineering",
+  100010: "Health&Medicine",
+  100011: "Humanities",
+  100012: "Law",
+  100013: "Social Sciences",
+  100014: "Others",
 };
 
 export default cat;

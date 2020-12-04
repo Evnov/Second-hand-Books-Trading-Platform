@@ -16,6 +16,7 @@ import Post from "./Pages/Post";
 import BookDetail from "./Pages/BookDetail";
 import Profile from "./Pages/Profile";
 import ScrollToTop from "./Component/scrollToTop";
+import Category from "./Pages/Category"
 
 Amplify.configure(awsconfig);
 
@@ -60,6 +61,7 @@ function App() {
             <Route path="/post/:bookID" exact component={Post} />
             <Route path="/bookdetail/:bookID" exact component={BookDetail} />
             <Route path="/profile" exact component={Profile} />
+            <Route path="/category/:categoryID" exact component={Category} />
           </Switch>
           <Footer />
         </Router>

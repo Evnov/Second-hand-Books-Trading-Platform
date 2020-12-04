@@ -2,17 +2,27 @@ import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import BookGallery from "../../Layouts/BookGallery";
 import BookList from "../../Layouts/BookList";
-// import books from "../../Component/MockBookList";
 import querystring from "querystring";
+import bookcond from "../../Component/bookCondition";
 // import { start } from "repl";
 
 export default function Sale() {
   const [display, setDisplay] = useState("list");
   // const [books, setBooks] = useState();
+  const [unfilterBooks, setUnfilterBooks] = useState();
   const [saleBooks, setSaleBooks] = useState();
   const [user, setUser] = useState();
   const loggedInUser = localStorage.getItem("user");
   const [watchList, setWatchList] = useState();
+
+  const bookprice = [
+    "All prices",
+    "under $10",
+    "$10 to $20",
+    "$20 to $30",
+    "$30 to $50",
+    "> $50",
+  ];
 
   useEffect(() => {
     if (loggedInUser) {
@@ -38,6 +48,7 @@ export default function Sale() {
           return item.status === 1;
         });
         setSaleBooks(sale);
+        setUnfilterBooks(sale);
         console.log("sale", saleBooks);
       })
       .catch((err) => {
@@ -78,36 +89,106 @@ export default function Sale() {
     }
   }, [useState, saleBooks]);
 
-    if(!saleBooks) 
-      return(
-        <div className={styles.salePage}>
-          <h1>Books On Sale</h1>
-        </div>
-      );
+  if (!saleBooks)
     return (
       <div className={styles.salePage}>
         <h1>Books On Sale</h1>
-        <div className={styles.bar}>
-          <form>
-            <label>Display as </label>
-            <select className={styles.select}
-              onChange={(e) => {
-                if (e.target.value === "0") {
-                  setDisplay("list");
-                } else {
-                  setDisplay("gallery");
-                }
-              }}
-            >
-              <option value="0">List</option>
-              <option value="1">Gallery</option>
-            </select>
-          </form>
-        </div>
-        {display === "list" ? 
-          <BookList items={saleBooks} watchList={watchList||[]}/>
-        : 
-          <BookGallery items={saleBooks} watchList={watchList||[]}/>}
       </div>
     );
+  return (
+    <div className={styles.salePage}>
+      <h1>Books On Sale</h1>
+      <div className={styles.bar}>
+        <form>
+          <label>Display as </label>
+          <select
+            className={styles.select}
+            onChange={(e) => {
+              if (e.target.value === "0") {
+                setDisplay("list");
+              } else {
+                setDisplay("gallery");
+              }
+            }}
+          >
+            <option value="0">List</option>
+            <option value="1">Gallery</option>
+          </select>
+        </form>
+        <form>
+          <label>Condition</label>
+          <select
+            className={styles.select}
+            onChange={(e) => {
+              if (e.target.value === "All conditions") {
+                setSaleBooks(unfilterBooks);
+              } else {
+                let allbooks = unfilterBooks;
+                setSaleBooks(
+                  allbooks.filter((item) => {
+                    return item.bookCondition === e.target.value;
+                  })
+                );
+              }
+            }}
+          >
+            {bookcond.map((cond) => {
+              return <option value={cond}>{cond}</option>;
+            })}
+          </select>
+        </form>
+        <form>
+          <label>Price</label>
+          <select
+            className={styles.select}
+            onChange={(e) => {
+              if (e.target.value === "All prices") {
+                setSaleBooks(unfilterBooks);
+              } else {
+                let allbooks = unfilterBooks;
+                let targetbooks = {};
+                switch (e.target.value) {
+                  case "under $10":
+                    targetbooks = allbooks.filter((book) => {
+                      return book.price <= 10;
+                    });
+                    break;
+                  case "$10 to $20":
+                    targetbooks = allbooks.filter((book) => {
+                      return book.price > 10 && book.price <= 20;
+                    });
+                    break;
+                  case "$20 to $30":
+                    targetbooks = allbooks.filter((book) => {
+                      return book.price > 20 && book.price <= 30;
+                    });
+                    break;
+                  case "$30 to $50":
+                    targetbooks = allbooks.filter((book) => {
+                      return book.price > 30 && book.price <= 50;
+                    });
+                    break;
+                  case "> $50":
+                    targetbooks = allbooks.filter((book) => {
+                      return book.price > 50;
+                    });
+                    break;
+                }
+                setSaleBooks(targetbooks);
+              }
+            }}
+          >
+            {bookprice.map((price) => {
+              return <option value={price}>{price}</option>;
+            })}
+          </select>
+        </form>
+      </div>
+      {display === "list" ? (
+        <BookList items={saleBooks} watchList={watchList || []} />
+      ) : (
+        <BookGallery items={saleBooks} watchList={watchList || []} />
+      )}
+    </div>
+  );
 }

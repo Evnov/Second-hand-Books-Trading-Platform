@@ -1,3 +1,5 @@
+@import "../../Assets/default.scss";
+
 .salePage {
   margin: 10px 10% 0 10%;
   padding: 40px 0;
@@ -6,10 +8,13 @@
     text-align: center;
   }
   .bar {
-    margin: auto;
-    width: 100%;
-    // background-color: white;
-    border-radius: 5px;
+    margin: 10px auto;
+    padding: 0 5vw;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 3px solid black;
   }
   form {
     margin: auto;
@@ -18,18 +23,18 @@
   label {
     display: inline-block;
     font-size: 15px;
-    margin: 5px 5px;
+    margin: 5px;
     font-weight: bolder;
   }
   .select {
-    margin: 5px 5px;
+    margin: 5px;
     padding: 5px 4px;
     box-sizing: border-box;
     border: solid 2px #dfdfdf;
     border-radius: 5px;
     font-size: 15px;
     font-family: "Montserrat", sans-serif;
-    width: 120px;
+    width: 150px;
     height: 30px;
     // display: block;
   }

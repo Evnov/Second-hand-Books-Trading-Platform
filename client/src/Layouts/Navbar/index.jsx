@@ -13,6 +13,11 @@ export default function Navbar(props) {
   // const [items, setItems] = useState();
   const history = useHistory();
   const { state, dispatch } = useContext(AuthContext);
+  const [selection, setSelection] = useState("Title");
+  const [selectKey, setKey] = useState("title");
+  const [API_URL, setURL] = useState(
+    "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/searchByTitle.do"
+  );
   console.log(state.user);
   useEffect(() => {
     if (!state.user) {
@@ -20,24 +25,43 @@ export default function Navbar(props) {
     }
   }, []);
 
+  const selectItems = {
+    Title: "title",
+    Subtitle: "subtitle",
+    BookCondition: "book_condition",
+  };
+
+  const handleChange = (e) => {
+    setSelection(e.target.value);
+    let key = selectItems[e.target.value];
+    setKey(key);
+    let url =
+      `http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/searchBy` +
+      e.target.value +
+      `.do`;
+    setURL(url);
+  };
+
   const search = () => {
-    const API_URL =
-      "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/searchByTitle.do";
-    let booktitle = { title: query };
+    console.log("API", API_URL);
+    let booktitle = { selectKey: query };
     console.log(querystring.stringify(booktitle));
+    let requestBody = selectKey + "=" + query;
+    console.log(requestBody);
     fetch(API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: querystring.stringify(booktitle),
+      // body: querystring.stringify(booktitle),
+      body: requestBody,
     })
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
         let item = json === null ? [] : json;
         console.log("item", item);
-        return item
+        return item;
         // console.log(items.length);
         // setItems(item);
         // console.log("items", items);
@@ -47,6 +71,7 @@ export default function Navbar(props) {
           pathname: "/search/" + query,
           items: item,
           query: query,
+          select: selection,
         });
         document.getElementById("input").value = "";
         setQuery("");
@@ -58,7 +83,7 @@ export default function Navbar(props) {
 
   return (
     <div className={styles.navbar}>
-      <div className={styles.logo}>UCI books</div>
+      <div className={styles.logo}>ZotBooks</div>
       <div className={styles.navItem}>
         <Link to="/">Home</Link>
       </div>
@@ -91,20 +116,33 @@ export default function Navbar(props) {
       </div>
       <div className={styles.searchBox}>
         <div className={styles.searchIconWrapper}>
-          <FiSearch color="white" className={styles.smfaIcon} onClick={search} />
+          <FiSearch
+            color="white"
+            className={styles.smfaIcon}
+            onClick={search}
+          />
         </div>
         <input
           id="input"
           className={styles.searchInput}
           onChange={(e) => setQuery(e.target.value)}
           autocomplete="off"
-          placeholder="Search for book title here"
+          placeholder="Search for book information here"
           onKeyPress={(event) => {
             if ("Enter" === event.key) {
               search();
             }
           }}
         />
+        <select
+          id="selection"
+          className={styles.searchSelection}
+          onChange={handleChange}
+        >
+          <option value="Title">Title</option>
+          <option value="Subtitle">Author</option>
+          <option value="BookCondition">Condition</option>
+        </select>
       </div>
     </div>
   );

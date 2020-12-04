@@ -17,7 +17,7 @@ export default function BookList(props) {
   const loggedInUser = localStorage.getItem("user");
   useEffect(() => {
     if (loggedInUser) {
-      console.log(JSON.parse(loggedInUser));
+      // console.log(JSON.parse(loggedInUser));
       const foundUser = JSON.parse(loggedInUser);
       setUser(foundUser);
     }
@@ -26,8 +26,8 @@ export default function BookList(props) {
   let {items, watchList} = props;
   watchList = watchList||[];
   const stars = items.map((item)=>item.id).filter(id => watchList.includes(id));
-  console.log(items);
-  console.log(stars);
+  // console.log(items);
+  // console.log(stars);
 
   return (
     <div className={styles.container}>
