@@ -106,7 +106,7 @@ export default function Rental() {
   }
   return (
     <div className={styles.rentalPage}>
-      <h1>Books Rentals</h1>
+      <h1>Books In Rental</h1>
     </div>
   );
 }
