@@ -24,6 +24,8 @@ public interface IBookService {
 
     int insertSelective(int user_id, Product record);
 
+    int deleteById(int book_id);
+
     Product getBookById(int book_id);
 
     List<Product> searchByTitle(String title);

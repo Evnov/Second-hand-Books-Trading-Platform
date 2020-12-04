@@ -15,13 +15,20 @@ public class Order {
 
     private Date finishTime;
 
-    public Order(Integer id, Integer sellerId, Integer buyerId, Integer productId, Date createTime, Date finishTime) {
+    private Integer category;
+
+    private Integer status;
+
+    public Order(Integer id, Integer sellerId, Integer buyerId, Integer productId, Date createTime, Date finishTime,
+                 Integer category, Integer status) {
         this.id = id;
         this.sellerId = sellerId;
         this.buyerId = buyerId;
         this.productId = productId;
         this.createTime = createTime;
         this.finishTime = finishTime;
+        this.category = category;
+        this.status = status;
     }
 
     public Order() {
@@ -74,5 +81,21 @@ public class Order {
 
     public void setFinishTime(Date finishTime) {
         this.finishTime = finishTime;
+    }
+
+    public Integer getCategory() {
+        return category;
+    }
+
+    public void setCategory(Integer category) {
+        this.category = category;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

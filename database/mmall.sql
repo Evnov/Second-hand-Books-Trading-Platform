@@ -224,6 +224,8 @@ CREATE TABLE `mmall_order` (
   `product_id` int(11) NOT NULL,
   `create_time` datetime DEFAULT NULL,
   `finish_time` datetime DEFAULT NULL,
+  `category` int(11) DEFAULT 1 COMMENT '0-rent 1-buy',
+  `status` int(11) DEFAULT 0 COMMENT '0-pending 1-completed 2-canceled',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
@@ -232,9 +234,9 @@ CREATE TABLE `mmall_order` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `mmall_order` VALUES 
-('1', '1', '13', '23', '2020-10-20 16:56:45', '2020-10-21 16:56:45'), 
-('2', '13', '17', '26', '2020-11-20 16:56:45', '2020-11-21 16:56:45'), 
-('3', '1', '21', '25', '2020-11-23 16:56:45', '2020-11-24 16:56:45');
+('1', '1', '13', '23', '2020-10-20 16:56:45', '2020-10-21 16:56:45', '1', '1'), 
+('2', '13', '17', '26', '2020-11-20 16:56:45', '2020-11-21 16:56:45', '1', '2'), 
+('3', '1', '21', '25', '2020-11-23 16:56:45', '2020-11-24 16:56:45', '1', '0');
 COMMIT;
 
 -- ----------------------------

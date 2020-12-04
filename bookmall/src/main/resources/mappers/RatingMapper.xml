@@ -21,6 +21,12 @@
     from mmall_rating
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByRevieweeId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from mmall_rating
+    where reviewee_id = #{reviewee_id,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from mmall_rating
     where id = #{id,jdbcType=INTEGER}
@@ -29,6 +35,55 @@
     insert into mmall_rating (id, order_id, reviewee_id, reviewer_id, score, review, create_time)
     values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{revieweeId,jdbcType=INTEGER}, #{reviewerId,jdbcType=INTEGER},
             #{score,jdbcType=INTEGER}, #{review,jdbcType=VARCHAR}, now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.bookmall.pojo.Rating" >
+    insert into mmall_rating
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="revieweeId != null" >
+        reviewee_id,
+      </if>
+      <if test="reviewerId != null" >
+        reviewer_id,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="review != null" >
+        review,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="revieweeId != null" >
+        #{revieweeId,jdbcType=INTEGER},
+      </if>
+      <if test="reviewerId != null" >
+        #{reviewerId,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="review != null" >
+        #{review,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+    </trim>
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.bookmall.pojo.Rating" >
     update mmall_rating

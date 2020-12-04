@@ -103,5 +103,13 @@ public class ProductController {
 
         return res;
     }
+
+    @RequestMapping(value = "deleteBookById.do", method = RequestMethod.POST)
+    @ResponseBody
+    public int deleteBookById(int book_id, HttpSession session) {
+        int res = ibookService.deleteById(book_id);
+        session.setAttribute(Const.CURRENT_USER, res);
+        return res;
+    }
 }
 
