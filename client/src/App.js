@@ -57,7 +57,7 @@ function App() {
             <Route path="/rental" exact component={Rental} />
             <Route path="/watchlist" exact component={Watchlist} />
             <Route path="/bookshelf" exact component={BookShelf} />
-            <Route path="/post" exact component={Post} />
+            <Route path="/post/:bookID" exact component={Post} />
             <Route path="/bookdetail/:bookID" exact component={BookDetail} />
             <Route path="/profile" exact component={Profile} />
           </Switch>

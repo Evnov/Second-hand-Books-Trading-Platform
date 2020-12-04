@@ -15,6 +15,7 @@ export default function Post() {
   const loggedInUser = localStorage.getItem("user");
   const [opendialog, setOpenDialog] = useState(false);
   const [imgUploaded, setImgUploaded] = useState(false);
+  const [editing, onEditing] = useState(false);
   const [bookInfo, setBookInfo] = useState({
     title: "",
     subtitle: "",
@@ -35,8 +36,32 @@ export default function Post() {
       const foundUser = JSON.parse(loggedInUser);
       setUser(foundUser);
       setBookInfo({ ...bookInfo, user_id: foundUser.id });
+      const bookid = window.location.href.split("/").pop();
+      if(bookid!=='post'){
+        onEditing(true);
+        getBookInfo(bookid);
+      }
+      
     }
   }, [loggedInUser]); //only when loggedInUser changes useEffect will be triggered
+
+  useEffect(()=>{
+    fetch(
+      "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/getBookById.do",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: querystring.stringify({book_id:window.location.href.split("/").pop()}),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setBookInfo({ ...bookInfo, ...data});
+      })
+      .catch((err) => alert("Error", err));
+  }, [onEditing])
 
   if (!user) {
     return (
@@ -46,7 +71,7 @@ export default function Post() {
           <Link to="/login" className={styles.link}>
             Sign in
           </Link>{" "}
-          to post books.
+          to {editing?"edit":"post"} books.
         </h2>
       </div>
     );
@@ -62,6 +87,25 @@ export default function Post() {
     "Binding Copy",
     "Reading Copy",
   ];
+
+  function getBookInfo(bookid){
+    fetch(
+      "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/getBookById.do",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: querystring.stringify({book_id:bookid}),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setBookInfo({ ...data});
+      })
+      .catch((err) => alert("Error", err));
+  }
+
   function openDialog() {
     setOpenDialog(true);
   }
@@ -71,7 +115,11 @@ export default function Post() {
   function handleSubmit(e) {
     //post bookInfo
     e.preventDefault();
-    console.log(bookInfo);
+    if(editing){
+      bookInfo.updateTime = Date.now();
+    }else{
+      bookInfo.createTime = Date.now();
+    }
     fetch(
       "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/updateBook.do",
       {
@@ -79,7 +127,16 @@ export default function Post() {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: querystring.stringify(bookInfo),
+        body: querystring.stringify({id:bookInfo.id, 
+          title: bookInfo.title, 
+          subtitle: bookInfo.subtitle, 
+          categoryId: bookInfo.categoryId, 
+          descr: bookInfo.descr, 
+          price: bookInfo.price, 
+          bookImage: bookInfo.bookImage, 
+          bookCondition: bookInfo.bookCondition, 
+          status: bookInfo.status,
+          user_id: user.id}),
       }
     )
       .then((res) => res.json())
@@ -92,12 +149,14 @@ export default function Post() {
 
   function uploadImage(e){
     const file = e.target.files[0];
-    Storage.put(bookInfo.title, file, {
+    const key = Date.now().toString();
+    Storage.put(key, file, {
         contentType: 'image/png'
     })
     .then (result => {
       console.log(result);
       setImgUploaded(true);
+      setBookInfo({...bookInfo, bookImage: key});
     })
     .catch(err => console.log(err));
   }
@@ -108,7 +167,7 @@ export default function Post() {
         <AccountNavbar />
       </div>
       <div className={styles.right}>
-        <h1>Post your Book</h1>
+        <h1>{editing?"Edit":"Post"} your Book</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="for">For*</label>
           <select
@@ -116,6 +175,7 @@ export default function Post() {
               setPurpose(e.target.value);
               setBookInfo({ ...bookInfo, status: e.target.value });
             }}
+            value={bookInfo.status}
             required
           >
             <option value=""></option>
@@ -129,6 +189,7 @@ export default function Post() {
             name="booktitle"
             required
             autocomplete="off"
+            value={bookInfo.title}
             onChange={(e) => {
               setBookInfo({ ...bookInfo, title: e.target.value });
             }}
@@ -139,6 +200,7 @@ export default function Post() {
             id="authors"
             name="authors"
             autocomplete="off"
+            value={bookInfo.subtitle}
             required
             onChange={(e) => {
               setBookInfo({ ...bookInfo, subtitle: e.target.value });
@@ -150,6 +212,7 @@ export default function Post() {
             onChange={(e) => {
               setBookInfo({ ...bookInfo, categoryId: e.target.value });
             }}
+            value={bookInfo.categoryId}
           >
             <option value=""></option>
             {Object.keys(cat).map((catId) => {
@@ -175,6 +238,7 @@ export default function Post() {
             onChange={(e) => {
               setBookInfo({ ...bookInfo, bookCondition: e.target.value });
             }}
+            value={bookInfo.bookCondition}
           >
             <option value=""></option>
             {condition.map((cond) => {
@@ -234,6 +298,7 @@ export default function Post() {
             max="10000.00"
             step="0.01"
             required
+            value={bookInfo.price}
             onChange={(e) => {
               setBookInfo({ ...bookInfo, price: e.target.value });
             }}
@@ -255,6 +320,8 @@ export default function Post() {
             type="text"
             id="description"
             name="description"
+            rows="3"
+            value={bookInfo.descr}
             onChange={(e) => {
               setBookInfo({ ...bookInfo, descr: e.target.value });
             }}

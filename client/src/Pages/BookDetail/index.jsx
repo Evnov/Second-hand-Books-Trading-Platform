@@ -40,7 +40,7 @@ export default function BookDetail() {
         // console.log(filterbook);
         setBook(filterbook[0]);
         // console.log(book);
-        return filterbook[0].title;
+        return filterbook[0].bookImage;
       })
       .then((key)=>Storage.get(key))
       .then((url)=>setSrc(url))
@@ -145,7 +145,7 @@ export default function BookDetail() {
           <div className={styles.bookImg}>
             <img
               src={src}
-              alt={book.title}
+              alt={book.bookImg}
               className={styles.bookcover}
             />
           </div>

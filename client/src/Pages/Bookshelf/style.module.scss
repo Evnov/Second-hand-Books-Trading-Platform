@@ -53,20 +53,17 @@
   padding-top: 60px;
   border-bottom: 2px solid #e8a290;
   >div{
-    width: 160px;
+    width: auto;
     font-size: 20px;
     line-height: 30px;
     height: 30px;
-    padding: 10px;
+    padding: 10px 20px;
     float: left;
     text-align: center;
     background-color: #eee;
     opacity: 0.8;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    &:nth-child(1){
-      width: 200px;
-    }
     &:hover{
       user-select: none;
       cursor: pointer;
@@ -135,4 +132,7 @@
       cursor: pointer;
     }
   }
+}
+.dialogtext{
+  padding-left: 25px;
 }

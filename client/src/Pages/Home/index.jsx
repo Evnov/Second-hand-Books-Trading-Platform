@@ -78,7 +78,7 @@ export default class Home extends Component {
         </div>
 
         <div className={styles.homeModule}>
-          <div className={styles.moduleTitle}>Books rentals</div>
+          <div className={styles.moduleTitle}>Book rentals</div>
           <div className={styles.booklist}>
             {rentBooks.map((book, index)=>
                 <div className={styles.book} key={index}>
@@ -92,7 +92,7 @@ export default class Home extends Component {
         </div>
 
         <div className={styles.homeModule}>
-          <div className={styles.moduleTitle}>Catalog</div>
+          <div className={styles.moduleTitle}>Categories</div>
           <div className={styles.cardList}>
             {catalog.map((cata) => (
               <div className={styles.card} key={cata.name}>

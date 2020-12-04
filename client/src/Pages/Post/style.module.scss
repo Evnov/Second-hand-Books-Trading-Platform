@@ -33,7 +33,7 @@
   }
   p {
     margin: 5px 50px;
-    font-size: 15px;
+    font-size: 18px;
   }
   label {
     display: inline-block;
@@ -56,8 +56,8 @@
     box-sizing: border-box;
     border: solid 2px #dfdfdf;
     border-radius: 5px;
-    font-size: 15px;
-    font-family: monospace;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
     width: 400px;
     height: 40px;
     display: block;
@@ -71,7 +71,7 @@
     border: 1px solid $uciBlue;
     border-radius: 5px;
     cursor: pointer;
-    font-family: "Montserrat", sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
   }
   input[type="submit"]:hover {
     background-color: #014e7e;
@@ -83,8 +83,8 @@
     box-sizing: border-box;
     border: solid 2px #dfdfdf;
     border-radius: 5px;
-    font-size: 15px;
-    font-family: monospace;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
     width: 400px;
     height: 40px;
     display: block;

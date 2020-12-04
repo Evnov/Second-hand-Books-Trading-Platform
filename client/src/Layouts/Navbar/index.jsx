@@ -90,20 +90,21 @@ export default function Navbar(props) {
         </Link>
       </div>
       <div className={styles.searchBox}>
+        <div className={styles.searchIconWrapper}>
+          <FiSearch color="white" className={styles.smfaIcon} onClick={search} />
+        </div>
         <input
           id="input"
           className={styles.searchInput}
           onChange={(e) => setQuery(e.target.value)}
           autocomplete="off"
+          placeholder="Search for book title here"
           onKeyPress={(event) => {
             if ("Enter" === event.key) {
               search();
             }
           }}
         />
-        <div className={styles.searchIconWrapper}>
-          <FiSearch color="white" className={styles.faIcon} onClick={search} />
-        </div>
       </div>
     </div>
   );
