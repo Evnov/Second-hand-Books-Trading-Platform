@@ -22,6 +22,8 @@ public interface ProductMapper {
 
     int insertSelective(Product record);
 
+    int getLastId();
+
     Product selectByPrimaryKey(Integer id);
 
     List<Product> selectByTitle(String title);
@@ -34,10 +36,10 @@ public interface ProductMapper {
 
     List<Product> selectByStatus(Integer status);
 
-    List<Product> selectByBookCondition(double book_condition);
+    List<Product> selectByBookCondition(String book_condition);
 
     List<Product> selectByAttributes(String title, String subtitle, double low, double high, Integer status,
-                                     double book_condition);
+                                     String book_condition);
 
     int updateByPrimaryKeySelective(Product record);
 

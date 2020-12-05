@@ -21,7 +21,7 @@
       <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="book_condition" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="book_condition" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
@@ -64,7 +64,7 @@
   </delete>
   <insert id="insert" parameterType="com.bookmall.pojo.Watchlist" >
     insert into mmall_watchlist (id, user_id, book_id)
-    values (#{id,jdbcType=INTEGER}, #{user_id,jdbcType=INTEGER}, #{book_id,jdbcType=INTEGER})
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER})
   </insert>
   <insert id="insertWithoutPrimary">
     insert into mmall_watchlist (user_id, book_id)
@@ -73,8 +73,8 @@
   <update id="updateByPrimaryKey" parameterType="com.bookmall.pojo.Watchlist" >
     update mmall_watchlist
     set id = #{id,jdbcType=INTEGER},
-        user_id = #{user_id,jdbcType=INTEGER},
-        book_id = #{book_id,jdbcType=INTEGER}
+        user_id = #{userId,jdbcType=INTEGER},
+        book_id = #{bookId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

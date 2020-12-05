@@ -14,13 +14,17 @@
       <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="book_condition" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="book_condition" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     id, category_id, title, subtitle, book_image, descr, price, stock, status, create_time, 
     update_time, book_condition
   </sql>
+  <select id="getLastId" resultType="integer">
+    select
+    LAST_INSERT_ID();
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -49,7 +53,7 @@
     select
     <include refid="Base_Column_List" />
     from mmall_product
-    where price >= #{arg0,jdbcType=NUMERIC} and price &lt; #{arg1,jdbcType=NUMERIC}
+    where price >= #{arg0,jdbcType=NUMERIC} and price &lt;= #{arg1,jdbcType=NUMERIC}
   </select>
   <select id="selectByStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
@@ -61,7 +65,7 @@
     select
     <include refid="Base_Column_List" />
     from mmall_product
-    where book_condition = #{book_condition,jdbcType=NUMERIC}
+    where book_condition = #{book_condition,jdbcType=VARCHAR}
   </select>
   <select id="selectByAttributes" resultMap="BaseResultMap">
     select
@@ -69,8 +73,8 @@
     from mmall_product
     where MATCH (title) AGAINST (#{arg0,jdbcType=VARCHAR} IN BOOLEAN MODE) and
     MATCH (subtitle) AGAINST (#{arg1,jdbcType=VARCHAR} IN BOOLEAN MODE) and
-    price >= #{arg2,jdbcType=NUMERIC} and price &lt; #{arg3,jdbcType=NUMERIC} and
-    status = #{arg4,jdbcType=INTEGER} and book_condition = #{arg5,jdbcType=NUMERIC}
+    price >= #{arg2,jdbcType=NUMERIC} and price &lt;= #{arg3,jdbcType=NUMERIC} and
+    status = #{arg4,jdbcType=INTEGER} and book_condition = #{arg5,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from mmall_product
@@ -80,11 +84,11 @@
     insert into mmall_product (id, category_id, title, 
       subtitle, book_image, descr, 
       price, stock, status, 
-      create_time, update_time)
+      create_time, update_time, book_condition)
     values (#{id,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
       #{subtitle,jdbcType=VARCHAR}, #{bookImage,jdbcType=VARCHAR}, #{descr,jdbcType=VARCHAR}, 
       #{price,jdbcType=DECIMAL}, #{stock,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      now(), now())
+      now(), now(), #{book_condition,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bookmall.pojo.Product" >
     insert into mmall_product
@@ -122,6 +126,9 @@
       <if test="updateTime != null" >
         update_time,
       </if>
+      <if test="book_condition != null" >
+        book_condition,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -156,6 +163,9 @@
       </if>
       <if test="updateTime != null" >
         now(),
+      </if>
+      <if test="book_condition != null" >
+        #{book_condition,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -192,6 +202,9 @@
       <if test="updateTime != null" >
         update_time = now(),
       </if>
+      <if test="book_condition != null" >
+        book_condition = #{book_condition,jdbcType=VARCHAR}
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -206,7 +219,8 @@
       stock = #{stock,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = now()
+      update_time = now(),
+      book_condition = #{book_condition,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

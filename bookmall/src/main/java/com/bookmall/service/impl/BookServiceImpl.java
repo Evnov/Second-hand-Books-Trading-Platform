@@ -3,6 +3,7 @@ package com.bookmall.service.impl;
 import com.bookmall.common.ResponseCode;
 import com.bookmall.common.ServerResponse;
 import com.bookmall.dao.ProductMapper;
+import com.bookmall.dao.BooklistMapper;
 import com.bookmall.dao.UserMapper;
 import com.bookmall.pojo.Product;
 import com.bookmall.pojo.User;
@@ -26,6 +27,9 @@ import java.util.List;
 public class BookServiceImpl implements IBookService {
     @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private BooklistMapper booklistMapper;
 
     public ServerResponse<List<Product>> getAllBooks(){
         List<Product> product = productMapper.getAllBooks();
@@ -75,9 +79,8 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public int updateBook(Product book, boolean flag) {
-        if (flag == false) book.setStatus(2);
-        return productMapper.updateByPrimaryKey(book);
+    public int updateBook(Product book) {
+        return productMapper.updateByPrimaryKeySelective(book);
     }
 
     @Override
@@ -111,15 +114,36 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public List<Product> searchByBookCondition(double book_condition) {
+    public List<Product> searchByBookCondition(String book_condition) {
         List<Product> products = productMapper.selectByBookCondition(book_condition);
         return products;
     }
 
     @Override
     public List<Product> searchByAttributes(String title, String subtitle, double low, double high, Integer status,
-                                     double book_condition) {
+                                            String book_condition) {
         List<Product> products = productMapper.selectByAttributes(title, subtitle, low, high, status, book_condition);
         return products;
+    }
+
+    @Override
+    public Product getBookById(int book_id) {
+        Product product = productMapper.selectByPrimaryKey(book_id);
+        return product;
+    }
+
+    @Override
+    public int insertSelective(int user_id, Product record) {
+        int res = productMapper.insertSelective(record);
+        if (res == 0) return 0;
+        int book_id = productMapper.getLastId();
+        res = booklistMapper.insertWithoutPrimary(user_id, book_id);
+
+        return res;
+    }
+
+    @Override
+    public int deleteById(int book_id) {
+        return productMapper.deleteByPrimaryKey(book_id);
     }
 }
