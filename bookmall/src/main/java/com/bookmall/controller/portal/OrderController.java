@@ -36,4 +36,20 @@ public class OrderController {
         session.setAttribute(Const.CURRENT_USER, res);
         return res;
     }
+
+    @RequestMapping(value = "getOrderBySeller.do", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Order> getOrderBySeller(Integer seller_id, HttpSession session) {
+        List<Order> orders = orderService.getOrderBySeller(seller_id);
+        session.setAttribute(Const.CURRENT_USER, orders);
+        return orders;
+    }
+
+    @RequestMapping(value = "getOrderByBuyer.do", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Order> getOrderByBuyer(Integer buyer_id, HttpSession session) {
+        List<Order> orders = orderService.getOrderByBuyer(buyer_id);
+        session.setAttribute(Const.CURRENT_USER, orders);
+        return orders;
+    }
 }

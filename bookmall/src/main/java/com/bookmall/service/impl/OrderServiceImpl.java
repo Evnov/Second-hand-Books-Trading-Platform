@@ -26,4 +26,14 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.updateStatus(order_id, status);
     }
 
+    @Override
+    public List<Order> getOrderBySeller(Integer seller_id) {
+        return orderMapper.selectBySeller(seller_id);
+    }
+
+    @Override
+    public List<Order> getOrderByBuyer(Integer buyer_id) {
+        return orderMapper.selectByBuyer(buyer_id);
+    }
+
 }
