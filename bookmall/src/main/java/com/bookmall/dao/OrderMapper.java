@@ -17,6 +17,10 @@ public interface OrderMapper {
 
     Order selectByPrimaryKey(Integer id);
 
+    List<Order> selectBySeller(Integer seller_id);
+
+    List<Order> selectByBuyer(Integer buyer_id);
+
     int updateByPrimaryKey(Order record);
 
     int updateStatus(int order_id, int status);

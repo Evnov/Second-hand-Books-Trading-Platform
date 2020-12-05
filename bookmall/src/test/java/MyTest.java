@@ -59,15 +59,17 @@ public class MyTest {
 
     @Test
     public void test1() {
-        Product book = new Product();
-        book.setCategoryId(12344);
-        book.setTitle("ABB");
-        book.setSubtitle("BB");
-        book.setPrice(new BigDecimal("58"));
-        book.setStock(2);
-        book.setStatus(1);
-        book.setBookCondition("Poor");
-        int res = bookServiceImpl.insertSelective(1, book);
+//        Product book = new Product();
+//        book.setCategoryId(12344);
+//        book.setTitle("ABB");
+//        book.setSubtitle("BB");
+//        book.setPrice(new BigDecimal("58"));
+//        book.setStock(2);
+//        book.setStatus(1);
+//        book.setBookCondition("Poor");
+        int res = bookServiceImpl.deleteById(30);
+        List<Product> books = productMapper.getAllBooks();
+        System.err.println(JSON.toJSONString(books));
 
 //        System.err.println(res);
 //        System.err.println(books.getTitle());
