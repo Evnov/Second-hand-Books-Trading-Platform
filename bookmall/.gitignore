@@ -9,3 +9,4 @@ src/main/webapp/META-INF
 lib
 out
 *.iml
+src/main/resources/datasource.properties
