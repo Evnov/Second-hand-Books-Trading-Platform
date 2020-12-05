@@ -29,6 +29,7 @@ export default function Navbar(props) {
     Title: "title",
     Subtitle: "subtitle",
     BookCondition: "book_condition",
+    Desc: "desc",
   };
 
   const handleChange = (e) => {
@@ -44,8 +45,8 @@ export default function Navbar(props) {
 
   const search = () => {
     console.log("API", API_URL);
-    let booktitle = { selectKey: query };
-    console.log(querystring.stringify(booktitle));
+    // let booktitle = { selectKey: query };
+    // console.log(querystring.stringify(booktitle));
     let requestBody = selectKey + "=" + query;
     console.log(requestBody);
     fetch(API_URL, {
@@ -142,6 +143,7 @@ export default function Navbar(props) {
           <option value="Title">Title</option>
           <option value="Subtitle">Author</option>
           <option value="BookCondition">Condition</option>
+          <option value="Desc">Description</option>
         </select>
       </div>
     </div>
