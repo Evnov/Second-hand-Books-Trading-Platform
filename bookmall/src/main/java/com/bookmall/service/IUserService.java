@@ -1,7 +1,10 @@
 package com.bookmall.service;
 
 import com.bookmall.common.ServerResponse;
+import com.bookmall.pojo.Product;
 import com.bookmall.pojo.User;
+
+import java.util.List;
 
 /**
  * @author ella
@@ -28,4 +31,6 @@ public interface IUserService {
     ServerResponse<User> updateInformation(User user);
 
     ServerResponse<User> getInformation(Integer userId);
+
+    List<User> getAllUsers();
 }

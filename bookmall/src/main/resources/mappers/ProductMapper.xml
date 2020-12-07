@@ -223,12 +223,15 @@
       book_condition = #{book_condition,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
+  <update id="updateStock">
+    update mmall_product
+    set stock = #{arg1,jdbcType=INTEGER}
+    where id = #{arg0,jdbcType=INTEGER}
+  </update>
   <select id="getAllBooks" resultMap="BaseResultMap" >
     SELECT
     <include refid="Base_Column_List"/>
     from mmall_product
     ORDER BY id asc
   </select>
-
 </mapper>

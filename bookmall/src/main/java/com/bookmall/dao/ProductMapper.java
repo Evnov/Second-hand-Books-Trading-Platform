@@ -45,5 +45,7 @@ public interface ProductMapper {
 
     int updateByPrimaryKey(Product record);
 
+    int updateStock(int book_id, int stock);
+
     List<Product> getAllBooks();
 }

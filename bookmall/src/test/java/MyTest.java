@@ -1,6 +1,8 @@
 import com.bookmall.common.ServerResponse;
+import com.bookmall.pojo.Order;
 import com.bookmall.pojo.Product;
 import com.bookmall.service.IBookService;
+import com.bookmall.service.OrderService;
 import com.bookmall.dao.ProductMapper;
 import com.bookmall.service.IUserService;
 import com.bookmall.service.impl.BookServiceImpl;
@@ -57,6 +59,9 @@ public class MyTest {
     @Autowired
     private ProductMapper productMapper;
 
+    @Autowired
+    private OrderService orderService;
+
     @Test
     public void test1() {
 //        Product book = new Product();
@@ -67,9 +72,15 @@ public class MyTest {
 //        book.setStock(2);
 //        book.setStatus(1);
 //        book.setBookCondition("Poor");
-        int res = bookServiceImpl.deleteById(30);
-        List<Product> books = productMapper.getAllBooks();
-        System.err.println(JSON.toJSONString(books));
+//        int res = bookServiceImpl.deleteById(30);
+//        List<Product> books = productMapper.getAllBooks();
+        Order order = new Order();
+        order.setSellerId(1);
+        order.setBuyerId(13);
+        order.setProductId(28);
+        order.setStatus(0);
+        int res = orderService.createOrder(order);
+        System.err.println(res);
 
 //        System.err.println(res);
 //        System.err.println(books.getTitle());

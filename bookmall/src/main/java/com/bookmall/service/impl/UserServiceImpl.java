@@ -4,6 +4,7 @@ import com.bookmall.common.Const;
 import com.bookmall.common.ServerResponse;
 import com.bookmall.common.TokenCache;
 import com.bookmall.dao.UserMapper;
+import com.bookmall.pojo.Product;
 import com.bookmall.pojo.User;
 import com.bookmall.service.IUserService;
 import com.bookmall.util.MD5Util;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -183,6 +185,11 @@ public class UserServiceImpl implements IUserService {
         user.setPassword(org.apache.commons.lang3.StringUtils.EMPTY);
         return ServerResponse.createBySuccess(user);
 
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userMapper.getAllUsers();
     }
 }
 
