@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author ella
@@ -133,4 +134,11 @@ public class UserController {
         return iUserService.getInformation(currentUser.getId());
     }
 
+    @RequestMapping(value = "getAllUsers.do",method = RequestMethod.POST )
+    @ResponseBody
+    public List<User> getAllUsers(HttpSession session){
+        List<User> users = iUserService.getAllUsers();
+        session.setAttribute(Const.CURRENT_USER, users);
+        return users;
+    }
 }

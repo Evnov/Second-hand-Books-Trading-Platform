@@ -159,6 +159,12 @@
     select count(1) from mmall_user
     where email = #{email}
   </select>
+  <select id="getAllUsers" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List"/>
+    from mmall_user
+    ORDER BY id asc
+  </select>
   <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
     select
     <include refid="Base_Column_List" />

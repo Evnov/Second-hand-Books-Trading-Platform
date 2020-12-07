@@ -1,9 +1,12 @@
 package com.bookmall.dao;
 
+import com.bookmall.pojo.Product;
 import com.bookmall.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @author ella
@@ -41,4 +44,6 @@ public interface UserMapper {
     int checkPassword(@Param("password")String password, @Param("userId")Integer userId);
 
     int checkEmailByUserId(@Param("email")String email, @Param("userId")Integer userId);
+
+    List<User> getAllUsers();
 }
