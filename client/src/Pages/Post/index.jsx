@@ -262,33 +262,6 @@ export default function Post() {
               </Button>
             </DialogActions>
           </Dialog>
-          {/* {purpose === "rent" ? (
-            <div>
-              <label htmlFor="availabletime">Available Time*</label>
-              <p>from</p>
-              <input
-                type="date"
-                id="starttime"
-                name="availabletime"
-                required
-                onChange={(e) => {
-                  setBookInfo({ starttime: e.target.value });
-                }}
-              />
-              <p>to</p>
-              <input
-                type="date"
-                id="endtime"
-                name="availabletime"
-                required
-                onChange={(e) => {
-                  setBookInfo({ endtime: e.target.value });
-                }}
-              />
-            </div>
-          ) : (
-            <></>
-          )} */}
           <label htmlFor="price">Price*</label>
           <input
             type="number"
@@ -311,15 +284,6 @@ export default function Post() {
             onChange={(evt) => uploadImage(evt)}
           />
           {imgUploaded && <small>Upload successfully!</small>}
-          {/* <input
-            type="text"
-            id="images"
-            name="images"
-            required
-            onChange={(e) => {
-              setBookInfo({ ...bookInfo, images: e.target.value });
-            }}
-          /> */}
           <label htmlFor="description">Description</label>
           <textarea
             type="text"

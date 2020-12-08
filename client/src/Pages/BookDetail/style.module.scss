@@ -6,10 +6,7 @@
   overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;
   min-height: 150vh;
-  // display: flex;
   .left {
-    // border: 1px solid;
-    // flex: 2 1;
     text-align: center;
     width: 450px;
     float: left;
@@ -41,7 +38,6 @@
       font-style: italic;
     }
     .bookInfo {
-      //   border: 1px solid;
       margin: 20px;
       width: 30rem;
       text-align: left;
@@ -52,19 +48,15 @@
     .bookPrice {
       font-size: 36px;
       width: 250px;
-      // font-weight: bold;
       color: rgb(219, 39, 39);
       margin: 10px 0;
     }
     .bookBtn {
       padding: 20px;
-      //   align-self: flex-end;
       .btn {
-        // display: block;
-        margin: 10px 0;
+        margin: 10px 20px 10px 0;
         width: 250px;
         height: 40px;
-        // border-radius: 10px;
         border: 2px solid #e07a5f;
         background-color: #e07a5f;
         color: white;
@@ -141,5 +133,36 @@ button:focus {outline:0;}
   .link {
     color: $uciBlue;
     text-decoration: underline;
+  }
+}
+.tabBlock{
+  padding: 20px 30px 50px 30px;
+  max-height: 300px;
+  .rw{
+    padding: 20px 0 20px 0;
+    border-bottom: 1px solid grey;
+  }
+  .reviewer{
+    float:left;
+    margin-right: 15px;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    background-color: #bbb;
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    text-align: center;
+    line-height: 47px;
+    
+  }
+  .rwcontent{
+    overflow: hidden;
+    >div{
+      margin: 10px 0;
+    }
+    >div:last-child{
+      color: #aaa;
+    }
   }
 }

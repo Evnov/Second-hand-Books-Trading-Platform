@@ -136,22 +136,6 @@ export default function Login() {
           />
           {!onlogin && (
             <div>
-              {/* <label htmlFor="firstName">FirstName</label>
-              <input
-                name="firstName"
-                id="firstName"
-                type="text"
-                required
-                onChange={(e) => setUser({ firstName: e.target.value })}
-              />
-              <label htmlFor="lastName">LastName</label>
-              <input
-                name="lastName"
-                id="lastName"
-                type="text"
-                required
-                onChange={(e) => setUser({ lastName: e.target.value })}
-              /> */}
               <label htmlFor="username">UserName</label>
               <input
                 name="username"
