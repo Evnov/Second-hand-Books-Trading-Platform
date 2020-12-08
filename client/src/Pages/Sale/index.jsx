@@ -41,11 +41,8 @@ export default function Sale() {
     )
       .then((response) => response.json())
       .then((data) => {
-        // setBooks(data.data);
-        // console.log(data.data);
-        // console.log("books", books);
         let sale = data.data.filter((item) => {
-          return item.status === 1;
+          return item.status === 1 && item.stock > 0;
         });
         setSaleBooks(sale);
         setUnfilterBooks(sale);

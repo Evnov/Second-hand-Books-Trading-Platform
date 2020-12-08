@@ -43,11 +43,10 @@ export default function Rental() {
         console.log(data.data);
         // console.log("books", books);
         let rent = data.data.filter((item) => {
-          return item.status == 0;
+          return item.status == 0 && item.stock > 0;
         });
         setRentalBooks(rent);
         setUnfilterBooks(rent);
-        console.log(rentalBooks);
       })
       .catch((err) => {
         console.log("Error", err);
@@ -78,8 +77,6 @@ export default function Rental() {
             ids.push(item.id);
           });
           setWatchList(ids);
-          console.log("ids", ids);
-          console.log("watchlist", watchList);
         })
         .catch((err) => {
           console.log("Error", err);

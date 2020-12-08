@@ -4,7 +4,7 @@ import styles from "./style.module.scss";
 
 function AccountNavbar() {
   const addr = window.location.href.split("/").pop();
-  const index = ["profile", "watchlist", ""].indexOf(addr);
+  const index = ["profile", "watchlist", "bookshelf"].indexOf(addr);
   return (
     <div className={styles.sidebar}>
       <Link to="/profile">

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import cat from "../../Component/Category";
 import randomImg from "../../Component/randomImg";
 import  { Storage } from 'aws-amplify';
 // import condition from "../../Component/bookCondition";
+import { Button, Dialog, DialogActions, DialogTitle } from "@material-ui/core";
 import Rating from "../../Layouts/Rating";
 import querystring from "querystring";
 import { sectionFooterSecondaryContent } from "aws-amplify";
@@ -16,7 +17,9 @@ export default function BookDetail() {
   const [book, setBook] = useState();
   const [idx, setIdx] = useState(0);
   const [src, setSrc] = useState();
-  const [saler, setSaler] = useState({ username: "", email: "", phone: "" });
+  const [saler, setSaler] = useState({ username: "", email: "", phone: "",userid:"" });
+  const [opendialog, setOpenDialog] = useState(false);
+  const history = useHistory();
 
   const loggedInUser = localStorage.getItem("user");
   useEffect(() => {
@@ -33,13 +36,10 @@ export default function BookDetail() {
     )
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data.data);
         let filterbook = data.data.filter((item) => {
           return item.id == bookID;
         });
-        // console.log(filterbook);
         setBook(filterbook[0]);
-        // console.log(book);
         return filterbook[0].bookImage;
       })
       .then((key)=>Storage.get(key))
@@ -72,6 +72,7 @@ export default function BookDetail() {
             username: data[0].username,
             email: data[0].email,
             phone: data[0].phone,
+            userid: data[0].id
           });
           // console.log(saler);
         })
@@ -111,6 +112,15 @@ export default function BookDetail() {
     }
   }, [user]);
 
+  function closeDialog() {
+    setOpenDialog(false);
+    history.push("/bookshelf");
+  }
+
+  function openDialog() {
+    setOpenDialog(true);
+  }
+
   function handleClick() {
     if (user && bookID) {
       fetch(
@@ -129,6 +139,33 @@ export default function BookDetail() {
       )
         .then(() => {
           setInWatchList(!inWatchList);
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
+    }
+  }
+  function handleOrder() {
+    if (user && bookID) {
+      fetch(
+        "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/order/createOrder.do",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: querystring.stringify({
+            buyerId: user.id,
+            sellerId: saler.userid,
+            productId: book.id,
+            createTime:new Date().toString(),
+            category: book.categoryId,
+            status: book.status
+          }),
+        }
+      )
+        .then(() => {
+          openDialog();
         })
         .catch((err) => {
           console.log("Error", err);
@@ -177,31 +214,13 @@ export default function BookDetail() {
               <Link to="/login" className={styles.link}>
                 Login to
               </Link>{" "}
-              get saler's contact info
+              buy
             </div>
           ) : (
             <div>
-              <div className={styles.contact}>
-                {/* <button onClick={handleSalerInfo}>
-                  click to get user's info
-                </button> */}
-                <header>saler contact info: </header>
-                <p>
-                  <strong>username: </strong>
-                  {saler.username}
-                </p>
-                <p>
-                  <strong>email: </strong>
-                  {saler.email}
-                </p>
-                <p>
-                  <strong>phone: </strong>
-                  {saler.phone}
-                </p>
-              </div>
-              <div className={styles.bookBtn}>
+              {book.stock>0&&<div className={styles.bookBtn}>
                 {inWatchList ? (
-                  <button className={styles.removebtn} onClick={handleClick}>
+                  <button className={styles.btn} onClick={handleClick}>
                     Remove from WatchList
                   </button>
                 ) : (
@@ -209,7 +228,31 @@ export default function BookDetail() {
                     Add to WatchList
                   </button>
                 )}
-              </div>
+                <button className={styles.btn} onClick={handleOrder}>
+                  Place an order
+                </button>
+              </div>}
+              <Dialog open={opendialog} onClose={closeDialog} fullWidth={true} maxWidth='xs'>
+                <DialogTitle id="dialog">{"Book owner contact info"}</DialogTitle>
+                <div className={styles.contact}>
+                  <p>
+                    <strong>username: </strong>
+                    {saler.username}
+                  </p>
+                  <p>
+                    <strong>email: </strong>
+                    {saler.email}
+                  </p>
+                  <p>
+                    <strong>phone: </strong>
+                    {saler.phone}
+                  </p>
+                  <strong>Go reach out to the owner and grab your book!</strong>
+                </div>
+                <DialogActions>
+                  <Button onClick={closeDialog} color="primary">Got it!</Button>
+                </DialogActions>
+              </Dialog>
             </div>
           )}
         </div>

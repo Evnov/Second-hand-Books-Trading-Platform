@@ -29,26 +29,6 @@
     width: calc(100% - 540px);
     float:right;
     padding-left: 60px;
-    // flex: 1 1;
-    // border: 1px solid;
-    // display: flex;
-    // flex-direction: column;
-    // align-items: flex-start;
-    // align-self: center;
-    .contact {
-      //   margin: 0 auto;
-      margin: 20px;
-      // vertical-align: middle;
-      font-size: 15px;
-      header {
-        font-size: 20px;
-        font-weight: bolder;
-      }
-      .link {
-        color: $uciBlue;
-        text-decoration: underline;
-      }
-    }
     .bookTitle {
       font-size: 22px;
       font-weight: bold;
@@ -80,7 +60,7 @@
       padding: 20px;
       //   align-self: flex-end;
       .btn {
-        display: block;
+        // display: block;
         margin: 10px 0;
         width: 250px;
         height: 40px;
@@ -91,27 +71,15 @@
         font-family: "Montserrat", sans-serif;
         font-size: 16px;
       }
-      .removebtn {
-        display: block;
-        margin: 10px 0;
-        width: 250px;
-        height: 40px;
-        border-radius: 10px;
-        border: 3px solid #e07a5f;
-        background-color: white;
-        color: #e07a5f;
-        font-family: "Montserrat", sans-serif;
-        font-size: 16px;
-        &:hover {
-          background-color: #e07a5f;
-          color: white;
-          cursor: pointer;
-        }
-      }
       .btn:hover {
         background-color: white;
         color: #e07a5f;
         cursor: pointer;
+      }
+      .btn:nth-child(1){
+        background-color: #eb9881;
+        color: white;
+        border: 3px solid #eb9881;
       }
     }
   }
@@ -162,3 +130,16 @@
   }
 }
 button:focus {outline:0;}
+
+.contact {
+  margin: 20px;
+  font-size: 15px;
+  header {
+    font-size: 20px;
+    font-weight: bolder;
+  }
+  .link {
+    color: $uciBlue;
+    text-decoration: underline;
+  }
+}
