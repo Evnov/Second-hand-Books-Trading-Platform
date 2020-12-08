@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import  { Storage } from 'aws-amplify';
+import { Storage } from "aws-amplify";
 import AccountNavbar from "../../Layouts/AccountNavbar";
 import { Button, Dialog, DialogActions, DialogTitle } from "@material-ui/core";
 import ConditionGuide from "./conditionGuide";
@@ -17,6 +17,7 @@ export default function Post() {
   const [imgUploaded, setImgUploaded] = useState(false);
   const [editing, onEditing] = useState(false);
   const [bookInfo, setBookInfo] = useState({
+    id: "",
     title: "",
     subtitle: "",
     categoryId: "",
@@ -37,31 +38,34 @@ export default function Post() {
       setUser(foundUser);
       setBookInfo({ ...bookInfo, user_id: foundUser.id });
       const bookid = window.location.href.split("/").pop();
-      if(bookid!=='post'){
+      if (bookid !== "newbook") {
         onEditing(true);
         getBookInfo(bookid);
       }
-      
     }
   }, [loggedInUser]); //only when loggedInUser changes useEffect will be triggered
 
-  useEffect(()=>{
-    fetch(
-      "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/getBookById.do",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: querystring.stringify({book_id:window.location.href.split("/").pop()}),
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setBookInfo({ ...bookInfo, ...data});
-      })
-      .catch((err) => alert("Error", err));
-  }, [onEditing])
+  // useEffect(() => {
+  //   if (onEditing) {
+  //     fetch(
+  //       "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/getBookById.do",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/x-www-form-urlencoded",
+  //         },
+  //         body: querystring.stringify({
+  //           book_id: window.location.href.split("/").pop(),
+  //         }),
+  //       }
+  //     )
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setBookInfo({ ...bookInfo, ...data });
+  //       })
+  //       .catch((err) => alert("Error", err));
+  //   }
+  // }, [onEditing]);
 
   if (!user) {
     return (
@@ -71,7 +75,7 @@ export default function Post() {
           <Link to="/login" className={styles.link}>
             Sign in
           </Link>{" "}
-          to {editing?"edit":"post"} books.
+          to {editing ? "edit" : "post"} books.
         </h2>
       </div>
     );
@@ -88,7 +92,7 @@ export default function Post() {
     "Reading Copy",
   ];
 
-  function getBookInfo(bookid){
+  function getBookInfo(bookid) {
     fetch(
       "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/getBookById.do",
       {
@@ -96,12 +100,12 @@ export default function Post() {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: querystring.stringify({book_id:bookid}),
+        body: querystring.stringify({ book_id: bookid }),
       }
     )
       .then((res) => res.json())
       .then((data) => {
-        setBookInfo({ ...data});
+        setBookInfo({ ...data });
       })
       .catch((err) => alert("Error", err));
   }
@@ -115,10 +119,25 @@ export default function Post() {
   function handleSubmit(e) {
     //post bookInfo
     e.preventDefault();
-    if(editing){
+    if (editing) {
       bookInfo.updateTime = Date.now();
-    }else{
+    } else {
       bookInfo.createTime = Date.now();
+    }
+    let req = {
+      title: bookInfo.title,
+      subtitle: bookInfo.subtitle,
+      categoryId: bookInfo.categoryId,
+      descr: bookInfo.descr,
+      price: bookInfo.price,
+      bookImage: bookInfo.bookImage,
+      bookCondition: bookInfo.bookCondition,
+      status: bookInfo.status,
+      stock: bookInfo.stock,
+      user_id: user.id,
+    };
+    if (bookInfo.id !== "") {
+      req.id = bookInfo.id;
     }
     fetch(
       "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/updateBook.do",
@@ -127,38 +146,30 @@ export default function Post() {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: querystring.stringify({id:bookInfo.id, 
-          title: bookInfo.title, 
-          subtitle: bookInfo.subtitle, 
-          categoryId: bookInfo.categoryId, 
-          descr: bookInfo.descr, 
-          price: bookInfo.price, 
-          bookImage: bookInfo.bookImage, 
-          bookCondition: bookInfo.bookCondition, 
-          status: bookInfo.status,
-          user_id: user.id}),
+        body: querystring.stringify(req),
       }
     )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        history.push("/");
+        history.push("/post/newbook");
+        alert("post success");
       })
       .catch((err) => alert("Error", err));
   }
 
-  function uploadImage(e){
+  function uploadImage(e) {
     const file = e.target.files[0];
     const key = Date.now().toString();
     Storage.put(key, file, {
-        contentType: 'image/png'
+      contentType: "image/png",
     })
-    .then (result => {
-      console.log(result);
-      setImgUploaded(true);
-      setBookInfo({...bookInfo, bookImage: key});
-    })
-    .catch(err => console.log(err));
+      .then((result) => {
+        console.log(result);
+        setImgUploaded(true);
+        setBookInfo({ ...bookInfo, bookImage: key });
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -167,7 +178,7 @@ export default function Post() {
         <AccountNavbar />
       </div>
       <div className={styles.right}>
-        <h1>{editing?"Edit":"Post"} your Book</h1>
+        <h1>{editing ? "Edit" : "Post"} your Book</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="for">For*</label>
           <select
@@ -223,15 +234,6 @@ export default function Post() {
               );
             })}
           </select>
-          {/* <label htmlFor="publishdate">Published Date of Book</label>
-          <input
-            type="date"
-            id="publishdate"
-            name="publishdate"
-            onChange={(e) => {
-              setBookInfo({ publishedDate: e.target.value });
-            }}
-          /> */}
           <label htmlFor="condition">Condition*</label>
           <select
             required
@@ -304,7 +306,11 @@ export default function Post() {
             }}
           />
           <label htmlFor="images">Upload Images</label>
-          <input type="file" accept="image/*" onChange={(evt) => uploadImage(evt)}/>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(evt) => uploadImage(evt)}
+          />
           {imgUploaded && <small>Upload successfully!</small>}
           {/* <input
             type="text"

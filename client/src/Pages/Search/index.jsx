@@ -9,6 +9,7 @@ class SearchResult extends Component {
       Title: "Book Title",
       Subtitle: "Book Author",
       BookCondition: "Book Condition",
+      Desc:"Description"
     };
     return (
       <div className={styles.search}>

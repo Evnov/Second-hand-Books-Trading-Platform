@@ -111,7 +111,7 @@ export default function Navbar(props) {
         </Link>
       </div>
       <div className={styles.iconWrapper}>
-        <Link to="/post">
+        <Link to="/post/newbook">
           <FiPlusCircle color="white" className={styles.faIcon} />
         </Link>
       </div>
