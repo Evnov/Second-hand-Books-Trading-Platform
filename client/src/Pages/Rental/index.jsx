@@ -44,7 +44,7 @@ export default function Rental() {
         // console.log("books", books);
         let rent = data.data.filter((item) => {
           return item.status == 0 && item.stock > 0;
-        });
+        }).reverse();
         setRentalBooks(rent);
         setUnfilterBooks(rent);
       })

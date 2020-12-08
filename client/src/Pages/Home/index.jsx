@@ -40,8 +40,8 @@ export default class Home extends Component {
         let sale = data.data.filter((item) => item.status === 1);
         let rent = data.data.filter((item) => item.status === 0);
         this.setState({
-          saleBooks: sale.slice(0, 5),
-          rentBooks: rent.slice(0, 5),
+          saleBooks: sale.reverse().slice(0, 5),
+          rentBooks: rent.reverse().slice(0, 5),
         });
       })
       .catch((err) => {
@@ -56,6 +56,17 @@ export default class Home extends Component {
     })
       .then((result) => console.log(result))
       .catch((err) => console.log(err));
+  }
+
+  getImageURL(image) {
+    let imageURL = "";
+    Storage.get(image)
+      .then((url) => {
+        imageURL = url;
+        console.log(imageURL)
+      })
+      .catch((err) => console.log(err));
+    return '"'+imageURL+'"';
   }
 
   render() {
@@ -132,10 +143,7 @@ export default class Home extends Component {
             {saleBooks.map((book, index) => (
               <div className={styles.book} key={index}>
                 <Link to={"/bookdetail/" + book.id}>
-                  <img
-                    className={styles.fakeCover}
-                    src={randomImg[Math.floor(Math.random() * 6)]}
-                  />
+                  <img className={styles.fakeCover} src={this.getImageURL(book.bookImage)} />
                 </Link>
                 <div className={styles.title}>{book.title}</div>
                 <div className={styles.price}>${book.price}</div>
@@ -153,10 +161,7 @@ export default class Home extends Component {
             {rentBooks.map((book, index) => (
               <div className={styles.book} key={index}>
                 <Link to={"/bookdetail/" + book.id}>
-                  <img
-                    className={styles.fakeCover}
-                    src={randomImg[Math.floor(Math.random() * 6)]}
-                  />
+                  <img className={styles.fakeCover} src={this.getImageURL(book.bookImage)} />
                 </Link>
                 <div className={styles.title}>{book.title}</div>
                 <div className={styles.price}>${book.price}</div>
@@ -172,7 +177,7 @@ export default class Home extends Component {
           <div className={styles.moduleTitle}>Categories</div>
           <div className={styles.cardList}>
             {catalog.map((cata) => (
-              <Link to={"/category/" + cata.id} >
+              <Link to={"/category/" + cata.id}>
                 <div className={styles.card} key={cata.name}>
                   {cata.icon}
                   {cata.name}

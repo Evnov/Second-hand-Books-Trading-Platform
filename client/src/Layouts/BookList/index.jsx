@@ -5,7 +5,7 @@ import star from "../../Assets/images/star.png";
 import star2 from "../../Assets/images/star_2.png";
 import cat from "../../Component/Category";
 import { Storage } from "aws-amplify";
-import randomImg from "../../Component/randomImg";
+// import randomImg from "../../Component/randomImg";
 import querystring from "querystring";
 import { resolve } from "path";
 
