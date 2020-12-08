@@ -24,6 +24,7 @@ export default function BookShelf() {
   const [tab, setTab] = useState(0);
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState({score: 0});
+  const [deleteBook, setDeleteBook] = useState();
 
   const loggedInUser = localStorage.getItem("user");
 
@@ -51,8 +52,8 @@ export default function BookShelf() {
           const u = uli.filter((ur)=>ur.id === item.sellerId)[0];
           console.log(item);
           console.log(u);
-          // item.title = b.title;
-          // item.price = b.price;
+          item.title = b.title;
+          item.price = b.price;
           item.username = u.username;
         });
         await setOrderlist(bli);
@@ -61,8 +62,8 @@ export default function BookShelf() {
           const b2 = bks.filter((bk)=>bk.id === item.productId)[0];
           if(b2) b2.sts = item.status;
           const u = uli.filter((ur)=>ur.id === item.buyerId)[0];
-          // item.title = b.title;
-          // item.price = b.price;
+          item.title = b.title;
+          item.price = b.price;
           item.username = u.username;
         });
         await setOrderlist2(sli);
@@ -142,26 +143,26 @@ export default function BookShelf() {
     return r.filter((book)=>book!==null);
   }
   
-  function deletebook(data){
-    console.log(data.id);
-    // fetch(
-    //   "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/deleteBookById.do",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/x-www-form-urlencoded",
-    //     },
-    //     body: querystring.stringify({ book_id: bookid }),
-    //   }
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     fetchBooklist(user.id);
-    //     setDeleteDialog(false);
-    //   })
-    //   .catch((err) => {
-    //     console.log("Error", err);
-    //   });
+  function deletebook(){
+    console.log("deletebook",deleteBook)
+    fetch(
+      "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/deleteBookById.do",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: querystring.stringify({ book_id: deleteBook }),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        fetchBooklist(user.id);
+        setDeleteDialog(false);
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
   }
 
   function changeStatus(sts, oid){
@@ -402,12 +403,12 @@ export default function BookShelf() {
                     <td>{bookcategory[book.sts-1]}</td>
                     <td>
                       <Link to={'/post/'+book.id}><button className={styles.tablebtn}>Edit</button></Link>
-                      <button className={styles.tablebtn} onClick={()=>toggleDialog(1, true)}>Delete</button>
+                      <button className={styles.tablebtn} onClick={()=>{console.log("bookid",book.id);setDeleteBook(book.id); toggleDialog(1, true)}}>Delete</button>
                       <Dialog open={deletedialog} onClose={()=>toggleDialog(1, false)} fullWidth={true} maxWidth='xs'>
                         <DialogTitle id="dialog">{"Warning"}</DialogTitle>
                         <div className={styles.dialogtext}>Do you really want to delete the book?</div>
                         <DialogActions>
-                          <Button onClick={()=>deletebook({id:book.id})} color="primary">
+                          <Button onClick={()=>deletebook()} color="primary">
                             Delete
                           </Button>
                           <Button onClick={()=>toggleDialog(1, false)} color="primary">

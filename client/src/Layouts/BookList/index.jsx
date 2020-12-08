@@ -23,6 +23,9 @@ export default function BookList(props) {
       const foundUser = JSON.parse(loggedInUser);
       setUser(foundUser);
     }
+  }, [loggedInUser]);
+
+  useEffect(() => {
     let newItems = items.map((item) => {
       Storage.get(item.bookImage).then((url) => {
         item.url = url;
@@ -31,7 +34,7 @@ export default function BookList(props) {
     });
     setBooks(newItems);
     console.log(books);
-  }, [loggedInUser]);
+  }, [items]);
 
   watchList = watchList || [];
   const stars = items
