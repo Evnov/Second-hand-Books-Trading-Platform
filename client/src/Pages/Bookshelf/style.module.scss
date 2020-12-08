@@ -136,3 +136,34 @@
 .dialogtext{
   padding-left: 25px;
 }
+.tabBlock{
+  padding: 20px 30px 50px 30px;
+  max-height: 300px;
+  .rw{
+    padding: 20px 0 20px 0;
+    border-bottom: 1px solid grey;
+  }
+  .reviewer{
+    float:left;
+    margin-right: 15px;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    background-color: #bbb;
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    text-align: center;
+    line-height: 47px;
+    
+  }
+  .rwcontent{
+    overflow: hidden;
+    >div{
+      margin: 10px 0;
+    }
+    >div:last-child{
+      color: #aaa;
+    }
+  }
+}
