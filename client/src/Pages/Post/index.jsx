@@ -152,8 +152,7 @@ export default function Post() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        history.push("/post/newbook");
-        alert("post success");
+        history.push("/bookshelf");
       })
       .catch((err) => alert("Error", err));
   }
