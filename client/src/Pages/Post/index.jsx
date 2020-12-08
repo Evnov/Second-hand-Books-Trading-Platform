@@ -139,6 +139,8 @@ export default function Post() {
     if (bookInfo.id !== "") {
       req.id = bookInfo.id;
     }
+    if (bookInfo.createTime) req.createTime = bookInfo.createTime;
+    if (bookInfo.updateTime) req.updateTime = bookInfo.updateTime;
     fetch(
       "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/updateBook.do",
       {
@@ -198,7 +200,7 @@ export default function Post() {
             id="booktitle"
             name="booktitle"
             required
-            autocomplete="off"
+            autoComplete="off"
             value={bookInfo.title}
             onChange={(e) => {
               setBookInfo({ ...bookInfo, title: e.target.value });
@@ -209,7 +211,7 @@ export default function Post() {
             type="text"
             id="authors"
             name="authors"
-            autocomplete="off"
+            autoComplete="off"
             value={bookInfo.subtitle}
             required
             onChange={(e) => {
