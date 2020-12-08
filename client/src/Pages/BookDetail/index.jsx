@@ -274,7 +274,7 @@ export default function BookDetail() {
               <div className={styles.rw} key={rw.createTime}>
                 <div className={styles.reviewer}>{getAlpha(rw.reviewerId)}</div>
                 <div className={styles.rwcontent}>
-                  <Rating value={rw.score} disabled />
+                  <Rating value={rw.score} readOnly />
                   <div>{rw.review}</div>
                   <div>{getTime(rw.createTime)}</div>
                 </div>

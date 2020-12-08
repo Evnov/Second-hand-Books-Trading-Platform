@@ -23,6 +23,7 @@ export default function BookShelf() {
   const [contact, setContact] = useState({username:"",email:"",phone:""});
   const [tab, setTab] = useState(0);
   const [reviews, setReviews] = useState([]);
+  const [rating, setRating] = useState({score: 0});
 
   const loggedInUser = localStorage.getItem("user");
 
@@ -190,8 +191,27 @@ export default function BookShelf() {
     setReviews(rws);
   }
 
-  function submitReview(uid, oid){
-
+  function submitReview(){
+    fetch(
+      "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/rating/addRating.do",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: querystring.stringify({ 
+          orderId: rating.orderid,
+          revieweeId: rating.reviewee, 
+          reviewerId: user.id, 
+          score: rating.score, 
+          review: rating.review, 
+          createTime: new Date().toString()
+        })
+      }
+    ).then((response) => response.json())
+    .then((data) => {
+      setReviewDialog(false);
+    });
   }
 
   function toggle(i){
@@ -210,8 +230,15 @@ export default function BookShelf() {
   function toggleDialog(idx, flag, data) {
     if(idx===1)
       setDeleteDialog(flag);
-    else if(idx===2)
+    else if(idx===2){
       setReviewDialog(flag);
+      if(data){
+        setRating({reviewee: data.uid, orderid: data.oid});
+      }
+      if(!flag){
+        setRating({score: 0});
+      }
+    }
     else{
       setContactDialog(flag);
       if(data){
@@ -273,7 +300,7 @@ export default function BookShelf() {
                     <td>${book.price}</td>
                     <td>{bookstatus[book.status-1]}</td>
                     {book.status===1&&<td><button className={styles.tablebtn} onClick={()=>changeStatus(3, book.id)}>Cancel</button></td>}
-                    {book.status===2&&<td><button className={styles.tablebtn} onClick={()=>toggleDialog(2, true)}>Review</button></td>}
+                    {book.status===2&&<td><button className={styles.tablebtn} onClick={()=>toggleDialog(2, true, {uid:book.buyerId,oid:book.id})}>Review</button></td>}
                   </tr>
                 ))}
               </table>}
@@ -298,22 +325,29 @@ export default function BookShelf() {
                       <button className={styles.tablebtn} onClick={()=>changeStatus(2, book.id)}>Done</button>
                       <button className={styles.tablebtn} onClick={()=>changeStatus(3, book.id)}>Cancel</button>
                     </td>}
-                    {book.status===2&&<td><button className={styles.tablebtn} onClick={()=>toggleDialog(2, true)}>Review</button></td>}
+                    {book.status===2&&<td><button className={styles.tablebtn} onClick={()=>toggleDialog(2, true, {uid:book.buyerId,oid:book.id})}>Review</button></td>}
                   </tr>
                 ))}
               </table>}
-              <Dialog open={reviewdialog} onClose={()=>toggleDialog(2, false)} fullWidth={true} maxWidth='md'>
+              <Dialog open={reviewdialog} onClose={()=>toggleDialog(2, false)} fullWidth={true} maxWidth='sm'>
                 <DialogTitle id="dialog">{"Submit your review"}</DialogTitle>
-{/* private Integer orderId;
-private Integer revieweeId;
-private Integer reviewerId;
-private Integer score;
-private String review;
-private Date createTime; */}
+                  <div className={styles.ratingblock}>
+                    <label htmlFor="description">Overall rating</label>
+                    <Rating value={rating.score} onChange={(e, v) => {setRating({...rating, score:v})}} />
+                    <label htmlFor="description">Add a written review</label>
+                    <textarea
+                      type="text"
+                      rows="3"
+                      value={rating.review}
+                      onChange={(e) => {
+                        setRating({ ...rating, review: e.target.value });
+                      }}
+                    />
+                  </div>
                 <DialogActions>
-                  {/* <Button onClick={()=>deletebook(book.id)} color="primary">
+                  <Button onClick={submitReview} color="primary">
                     Submit
-                  </Button> */}
+                  </Button>
                   <Button onClick={()=>toggleDialog(2, false)} color="primary">
                     Cancel
                   </Button>
@@ -340,7 +374,7 @@ private Date createTime; */}
                     <div className={styles.rw} key={rw.createTime}>
                       <div className={styles.reviewer}>{getAlpha(rw.reviewerId)}</div>
                       <div className={styles.rwcontent}>
-                        <Rating value={rw.score} disabled />
+                        <Rating value={rw.score} readOnly />
                         <div>{rw.review}</div>
                         <div>{getTime(rw.createTime)}</div>
                       </div>
