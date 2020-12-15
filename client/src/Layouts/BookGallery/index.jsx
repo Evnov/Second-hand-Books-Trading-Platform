@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import star from "../../Assets/images/star.png";
 import star2 from "../../Assets/images/star_2.png";
 import cat from "../../Component/Category";
+import { Storage } from "aws-amplify";
 import randomImg from "../../Component/randomImg";
 import condition from "../../Component/bookCondition";
 import querystring from "querystring";
@@ -12,7 +13,7 @@ import querystring from "querystring";
 
 export default function BookGallery(props) {
   const [user, setUser] = useState();
-
+  const [books, setBooks] = useState([]);
   const loggedInUser = localStorage.getItem("user");
   useEffect(() => {
     if (loggedInUser) {
@@ -25,12 +26,22 @@ export default function BookGallery(props) {
   const {items, watchList} = props;
   const stars = items.map((item)=>item.id).filter(id => watchList.includes(id));
 
+  useEffect(() => {
+    let newItems = items.map((item) => {
+      Storage.get(item.bookImage).then((url) => {
+        item.url = url;
+      });
+      return item;
+    });
+    setBooks(newItems);
+    console.log(books);
+  }, [items]);
   return (
     <div className={styles.container}>
       {items.map((item, index)=>(
         <div className={styles.bookDiv} key={item.id}>
           <img
-            src={randomImg[Math.floor(Math.random() * 6)]}
+            src={item.url}
             alt={item.title}
             className={styles.bookcover}
           />

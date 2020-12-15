@@ -134,7 +134,6 @@ export default function Post() {
     if (bookInfo.id !== "") {
       req.id = bookInfo.id;
     }
-
     fetch(
       "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/updateBook.do",
       {

@@ -24,6 +24,7 @@ export default function BookShelf() {
   const [tab, setTab] = useState(0);
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState({score: 0});
+  const [deleteBook, setDeleteBook] = useState();
 
   const loggedInUser = localStorage.getItem("user");
 
@@ -144,8 +145,8 @@ export default function BookShelf() {
     return r.filter((book)=>book!==null);
   }
   
-  function deletebook(data){
-    // console.log(data.id);
+  function deletebook(){
+    console.log("deletebook",deleteBook)
     fetch(
       "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/deleteBookById.do",
       {
@@ -153,7 +154,7 @@ export default function BookShelf() {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: querystring.stringify({ book_id: data.id }),
+        body: querystring.stringify({ book_id: deleteBook }),
       }
     )
       .then((response) => response.json())
@@ -404,12 +405,12 @@ export default function BookShelf() {
                     <td>{bookcategory[book.status]}</td>
                     <td>
                       <Link to={'/post/'+book.id}><button className={styles.tablebtn}>Edit</button></Link>
-                      <button className={styles.tablebtn} onClick={()=>toggleDialog(1, true)}>Delete</button>
+                      <button className={styles.tablebtn} onClick={()=>{console.log("bookid",book.id);setDeleteBook(book.id); toggleDialog(1, true)}}>Delete</button>
                       <Dialog open={deletedialog} onClose={()=>toggleDialog(1, false)} fullWidth={true} maxWidth='xs'>
                         <DialogTitle id="dialog">{"Warning"}</DialogTitle>
                         <div className={styles.dialogtext}>Do you really want to delete the book?</div>
                         <DialogActions>
-                          <Button onClick={()=>deletebook({id:book.id})} color="primary">
+                          <Button onClick={()=>deletebook()} color="primary">
                             Delete
                           </Button>
                           <Button onClick={()=>toggleDialog(1, false)} color="primary">

@@ -43,7 +43,7 @@ export default function Sale() {
       .then((data) => {
         let sale = data.data.filter((item) => {
           return item.status === 1 && item.stock > 0;
-        });
+        }).reverse();
         setSaleBooks(sale);
         setUnfilterBooks(sale);
         console.log("sale", saleBooks);
@@ -130,7 +130,7 @@ export default function Sale() {
             }}
           >
             {bookcond.map((cond) => {
-              return <option value={cond}>{cond}</option>;
+              return <option value={cond} key={cond}>{cond}</option>;
             })}
           </select>
         </form>
@@ -175,8 +175,8 @@ export default function Sale() {
               }
             }}
           >
-            {bookprice.map((price) => {
-              return <option value={price}>{price}</option>;
+            {bookprice.map((price, index) => {
+              return <option value={price} key={index}>{price}</option>;
             })}
           </select>
         </form>
