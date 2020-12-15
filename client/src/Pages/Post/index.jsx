@@ -119,11 +119,6 @@ export default function Post() {
   function handleSubmit(e) {
     //post bookInfo
     e.preventDefault();
-    if (editing) {
-      bookInfo.updateTime = Date.now();
-    } else {
-      bookInfo.createTime = Date.now();
-    }
     let req = {
       title: bookInfo.title,
       subtitle: bookInfo.subtitle,
@@ -139,8 +134,7 @@ export default function Post() {
     if (bookInfo.id !== "") {
       req.id = bookInfo.id;
     }
-    if (bookInfo.createTime) req.createTime = bookInfo.createTime;
-    if (bookInfo.updateTime) req.updateTime = bookInfo.updateTime;
+
     fetch(
       "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/updateBook.do",
       {

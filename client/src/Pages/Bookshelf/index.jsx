@@ -51,8 +51,8 @@ export default function BookShelf() {
           const u = uli.filter((ur)=>ur.id === item.sellerId)[0];
           console.log(item);
           console.log(u);
-          // item.title = b.title;
-          // item.price = b.price;
+          item.title = b.title;
+          item.price = b.price;
           item.username = u.username;
         });
         await setOrderlist(bli);
@@ -61,12 +61,14 @@ export default function BookShelf() {
           const b2 = bks.filter((bk)=>bk.id === item.productId)[0];
           if(b2) b2.sts = item.status;
           const u = uli.filter((ur)=>ur.id === item.buyerId)[0];
-          // item.title = b.title;
-          // item.price = b.price;
+          item.title = b.title;
+          item.price = b.price;
+          console.log(u);
+          console.log(item);
           item.username = u.username;
         });
         await setOrderlist2(sli);
-        await setBooklist(bks);
+        await setBooklist(bks.filter((b) => b.stock>0));
         console.log(bks);
         await setUserlist(uli);
         await setAllbooks(allbook.data);
@@ -143,25 +145,25 @@ export default function BookShelf() {
   }
   
   function deletebook(data){
-    console.log(data.id);
-    // fetch(
-    //   "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/deleteBookById.do",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/x-www-form-urlencoded",
-    //     },
-    //     body: querystring.stringify({ book_id: bookid }),
-    //   }
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     fetchBooklist(user.id);
-    //     setDeleteDialog(false);
-    //   })
-    //   .catch((err) => {
-    //     console.log("Error", err);
-    //   });
+    // console.log(data.id);
+    fetch(
+      "http://secbook1-env.eba-yep2vg6m.us-east-1.elasticbeanstalk.com/product/deleteBookById.do",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: querystring.stringify({ book_id: data.id }),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        fetchBooklist(user.id);
+        setDeleteDialog(false);
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
   }
 
   function changeStatus(sts, oid){
@@ -399,7 +401,7 @@ export default function BookShelf() {
                     <td className={styles.clickable}><Link to={"/bookdetail/" + book.id}>{book.title}</Link></td>
                     <td>{getTime(book.createTime)}</td>
                     <td>${book.price}</td>
-                    <td>{bookcategory[book.sts-1]}</td>
+                    <td>{bookcategory[book.status]}</td>
                     <td>
                       <Link to={'/post/'+book.id}><button className={styles.tablebtn}>Edit</button></Link>
                       <button className={styles.tablebtn} onClick={()=>toggleDialog(1, true)}>Delete</button>

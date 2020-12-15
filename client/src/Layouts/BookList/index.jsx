@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import star from "../../Assets/images/star.png";
 import star2 from "../../Assets/images/star_2.png";
 import cat from "../../Component/Category";
-import randomImg from "../../Component/randomImg";
+import { Storage } from "aws-amplify";
 import condition from "../../Component/bookCondition";
 import querystring from "querystring";
 
@@ -13,8 +13,11 @@ export default function BookList(props) {
   // const [inWatchList, setInWatchList] = useState(props.item.started);
   // const [inWatchList, setInWatchList] = useState(props.started);
   const [user, setUser] = useState();
+  const [urls, seturls] = useState([]);
 
   const loggedInUser = localStorage.getItem("user");
+  let {items, watchList} = props;
+
   useEffect(() => {
     if (loggedInUser) {
       // console.log(JSON.parse(loggedInUser));
@@ -23,7 +26,16 @@ export default function BookList(props) {
     }
   }, [loggedInUser]);
 
-  let {items, watchList} = props;
+  useEffect(() => {
+    function seturl(nam){
+      return Promise.resolve(nam).then((key)=>Storage.get(key));
+    } 
+    Promise.all(items.map((r)=>seturl(r.bookImage))).then((urls)=>{
+      seturls(urls);
+    });
+  }, [items]);
+
+
   watchList = watchList||[];
   const stars = items.map((item)=>item.id).filter(id => watchList.includes(id));
   // console.log(items);
@@ -36,7 +48,7 @@ export default function BookList(props) {
         <Link to={"/bookdetail/" + item.id}>
           <div className={styles.bookImg}>
             <img
-              src={randomImg[Math.floor(Math.random() * 6)]}
+              src={urls[index]}
               alt={item.title}
               className={styles.bookcover}
             />
